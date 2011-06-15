@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<block>
+	<name>Welch Spectrum Estimator</name>
+	<key>specest_welch</key>
+	<category>Spectrum Estimation</category>
+	<import>import specest</import>
+	<make>specest.welch($fftlen, $overlap, $malen, $fftshift)</make>
+	<!--<make>specest.welch($fftlen, $overlap, $malen, $fftshift, $wintype, $beta)</make>-->
+	<param>
+		<name>FFT Length</name>
+		<key>fftlen</key>
+		<value>1024</value>
+		<type>int</type>
+	</param>
+	<param>
+		<name>Overlap</name>
+		<key>overlap</key>
+		<value>-1</value>
+		<type>int</type>
+	</param>
+	<param>
+		<name>Moving Average Length</name>
+		<key>malen</key>
+		<value>8</value>
+		<type>int</type>
+	</param>
+	<param>
+		<name>FFT Shift</name>
+		<key>fftshift</key>
+		<type>enum</type>
+		<option>
+			<name>No shift</name>
+			<key>False</key>
+		</option>
+		<option>
+			<name>Shift DC to middle</name>
+			<key>True</key>
+		</option>
+	</param>
+	<!--FIXME: Window Type selection does not work-->
+	<!--<param>-->
+		<!--<name>Window type</name>-->
+		<!--<key>wintype</key>-->
+		<!--<type>enum</type>-->
+		<!--<option>-->
+			<!--<name>Hamming</name>-->
+			<!--<key>gr.firdes.WIN_HAMMING</key>-->
+		<!--</option>-->
+		<!--<option>-->
+			<!--<name>Hann</name>-->
+			<!--<key>gr.firdes.WIN_HANN</key>-->
+		<!--</option>-->
+		<!--<option>-->
+			<!--<name>Blackman</name>-->
+			<!--<key>gr.firdes.WIN_BLACKMAN</key>-->
+		<!--</option>-->
+		<!--<option>-->
+			<!--<name>Rectangular</name>-->
+			<!--<key>gr.firdes.WIN_RECTANGULAR</key>-->
+		<!--</option>-->
+		<!--<option>-->
+			<!--<name>Kaiser</name>-->
+			<!--<key>gr.firdes.WIN_KAISER</key>-->
+		<!--</option>-->
+		<!--<option>-->
+			<!--<name>Hamming</name>-->
+			<!--<key>gr.firdes.WIN_BLACKMAN_hARRIS</key>-->
+		<!--</option>-->
+	<!--</param>-->
+	<!--<param>-->
+		<!--<name>Beta</name>-->
+		<!--<key>beta</key>-->
+		<!--<value>6.76</value>-->
+		<!--<type>real</type>-->
+	<!--</param>-->
+
+	<sink>
+		<name>in</name>
+		<type>complex</type>
+	</sink>
+	<source>
+		<name>out</name>
+		<type>float</type>
+		<vlen>$fftlen</vlen>
+	</source>
+</block>
+

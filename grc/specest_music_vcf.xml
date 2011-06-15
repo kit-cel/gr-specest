@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<block>
+	<name>RMUSIC Frequency Estimator</name>
+	<key>specest_music</key>
+	<category>Spectrum Estimation</category>
+	<import>import specest</import>
+	<make>specest.music_vcf($n, $m, $nsamples)</make>
+	<param>
+		<name>Model parameter: number of sinusoids</name>
+		<key>n</key>
+		<value>6</value>
+		<type>int</type>
+	</param>
+	<param>
+		<name>Model parameter: considered shift for correlation</name>
+		<key>m</key>
+		<value>7</value>
+		<type>int</type>
+	</param>
+	<param>
+		<name>Parameter: considered number of samples</name>
+		<key>nsamples</key>
+		<value>512</value>
+		<type>int</type>
+	</param>
+	<sink>
+		<name>in</name>
+		<type>complex</type>
+		<vlen>$nsamples</vlen>
+	</sink>
+	<source>
+		<name>out</name>
+		<type>float</type>
+		<vlen>$n</vlen>
+	</source>
+	<doc>
+	Root MUSIC Frequency Estimator
+
+	Parameters:
+	  n: number of expected sinusoids, n&lt;m
+	  m: dimension of the correlation matrix. Governs the quality of the estimate.
+	  nsamples: considered samples per estimate
+
+	MUSIC (Multiple Signal Classification) is a subspace oriented parametric spectrum estimator.
+
+	It works primarily by correlating a series of samples in a correlation matrix, 
+	decomposing it into orthogonal eigenvectors, building a noise subspace from the
+	eigenvectors belonging to the (m-n) smallest eigenvalues, and finding the sinusoid
+	frequencies, for which the projection length into this subspace equals zero.
+
+	For this method to work, it is necessary that n&lt;m.
+
+	For another subspace oriented frequency estimator, see specest_esprit_vcf.
+	</doc>
+</block>
+

@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<block>
+	<name>ESPRIT Frequency Estimator</name>
+	<key>specest_esprit</key>
+	<category>Spectrum Estimation</category>
+	<import>import specest</import>
+	<make>specest.esprit_vcf($n, $m, $nsamples)</make>
+	<param>
+		<name>Model parameter: number of sinusoids</name>
+		<key>n</key>
+		<value>6</value>
+		<type>int</type>
+	</param>
+	<param>
+		<name>Model parameter: considered shift for correlation</name>
+		<key>m</key>
+		<value>7</value>
+		<type>int</type>
+	</param>
+	<param>
+		<name>Parameter: considered number of samples</name>
+		<key>nsamples</key>
+		<value>512</value>
+		<type>int</type>
+	</param>
+	<sink>
+		<name>in</name>
+		<type>complex</type>
+		<vlen>$nsamples</vlen>
+	</sink>
+	<source>
+		<name>out</name>
+		<type>float</type>
+		<vlen>$n</vlen>
+	</source>
+	<doc>
+	ESPRIT Frequency Estimator
+
+	Parameters:
+	  n: number of expected sinusoids, n&lt;m
+	  m: dimension of the correlation matrix. Governs the quality of the estimate.
+	  nsamples: considered samples per estimate
+	
+	ESPRIT (Estimation of Signal Parameters via Rotational Invariance Techniques)
+	is a subspace oriented parametric frequency estimator.
+
+	It works primarily by correlating a series of samples in a correlation matrix, 
+	decomposing it into orthogonal eigenvectors, finding the signal subspace from the
+	eigenvectors belonging to the m largest eigenvalues, calculating a matrix similar
+	to the rotational matrix of two sequent correlation matrices, finding the signal 
+	frequencies as eigenvalues of this matrix.
+
+	For this method to work, it is necessary that n&lt;m.
+
+	For another subspace oriented frequency estimator, see specest_music_vcf.
+	</doc>
+</block>
+

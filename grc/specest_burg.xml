@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<block>
+	<name>Burg Spectrum Estimator</name>
+	<key>specest_burg</key>
+	<category>Spectrum Estimation</category>
+	<import>import specest</import>
+	<make>specest.burg($blocklen, $fftlen, $order, $fftshift, $decimation)</make>
+	<param>
+		<name>Input block length</name>
+		<key>block</key>
+		<value>256</value>
+		<type>int</type>
+	</param>
+	<param>
+		<name>FFT Length</name>
+		<key>fftlen</key>
+		<value>1024</value>
+		<type>int</type>
+	</param>
+	<param>
+		<name>AR model order</name>
+		<key>order</key>
+		<value>5</value>
+		<type>int</type>
+	</param>
+	<param>
+		<name>Moving Average Length</name>
+		<key>malen</key>
+		<value>8</value>
+		<type>int</type>
+	</param>
+	<param>
+		<name>FFT Shift</name>
+		<key>fftshift</key>
+		<type>enum</type>
+		<option>
+			<name>No shift</name>
+			<key>False</key>
+		</option>
+		<option>
+			<name>Shift DC to middle</name>
+			<key>True</key>
+		</option>
+	</param>
+	<param>
+		<name>Decimation</name>
+		<key>decimation</key>
+		<value>1</value>
+		<type>int</type>
+	</param>
+	<sink>
+		<name>in</name>
+		<type>complex</type>
+	</sink>
+	<source>
+		<name>out</name>
+		<type>float</type>
+		<vlen>$fftlen</vlen>
+	</source>
+</block>
+

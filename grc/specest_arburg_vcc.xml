@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<block>
+	<name>Burg AR coefficient estimator</name>
+	<key>specest_arburg_vcc</key>
+	<category>Spectrum Estimation</category>
+	<import>import specest</import>
+	<make>specest.arburg_vcc($blocklen, $order, $normalise)</make>
+	<param>
+		<name>Input block length</name>
+		<key>blocklen</key>
+		<value>256</value>
+		<type>int</type>
+	</param>
+	<param>
+		<name>AR model order</name>
+		<key>order</key>
+		<value>5</value>
+		<type>int</type>
+	</param>
+	<param>
+		<name>Normalisation factor</name>
+		<key>normalise</key>
+		<value>-1</value>
+		<type>int</type>
+	</param>
+	<sink>
+		<name>in</name>
+		<type>complex</type>
+		<vlen>$blocklen</vlen>
+	</sink>
+	<source>
+		<name>out_coeff</name>
+		<type>complex</type>
+		<vlen>$order+1</vlen>
+	</source>
+	<source>
+		<name>out_var</name>
+		<type>float</type>
+		<optional>1</optional>
+	</source>
+</block>
+

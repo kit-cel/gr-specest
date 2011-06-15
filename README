@@ -1,0 +1,77 @@
+Howto build:
+~~~~~~~~~~~~
+In order to sucessfully build the gr-specest modules you will need:
+* cmake > 2.8
+* swig
+* libgnuradio-core
+* libuhd
+* gfortran (others might work as well, not tested)
+
+After checking out the code from the repository, change to the gr-specest
+directory. If you want to build with a different compiler such as clang
+you might have to do something like:
+
+export CXX=clang++
+export CC=clang
+
+before.
+
+Create a new directory e.g. 'build' to do an out of source build:
+
+mkdir build
+cd build
+cmake ../
+make
+make install
+
+For more information refer to the cmake documentation.
+
+Howto add your own blocks to the GNU Radio Spectral Estimation Toolbox:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Your C++ or Fortran code goes into lib/
+* Your Python code and your Python unittests go into python/
+* Your swig stuff goes into swig/
+
+Adding a new C++ file that does not depend on Armadillo:
+--------------------------------------------------------
+* As stated above, C++ code goes into lib/
+* Your QA code goes into qa_specest_yourblockname.{h,cc}
+  respectively qa_specesti_yourblockname.{h,cc} if it is an
+  implementation block
+* Your code for the actual block goes (usually) into
+  specest_yourblock.{h,cc}
+* To include your files in the buildsystem add them to the file
+  lib/CMakeLists.txt by editing the following variables:
+    * CXX_SRCS (Sourcecode)
+    * CXX_QA_SRCS and CXX_QA (QA source and names of tests (i.e. your class name))
+
+Adding a new C++ file that does depend on Armadillo:
+-----------------------------------------------------
+* For now, don't do it, as we're trying to get rid of the dependency sooner or later
+
+Adding a new Fortran file:
+--------------------------
+* As stated above, Fortran code goes into lib/
+* Up to now we're wrapping the fortran code into specesti_ implementation blocks
+  so we don't have unittests to directly test the fortran code
+* Your code goes into specesti_{c,z,f,d}yourblock.f90
+* To include your files in the buildsystem add them to the file
+  lib/CMakeLists.txt by editing the following variables:
+    * F_SRCS (Sourcecode)
+
+Adding a new Python file:
+--------------------------
+* As stated above, Python code goes into python/
+* If it's a QA/test file, add it to python/CMakeLists.txt
+  in the PYTHON_QA variable
+* If it's a file that contains code that needs to be installed later, add it to python/CMakeLists.txt
+  in the SPECEST_PY_SRCS variable
+
+Swig integration:
+-----------------
+This works basically the same as with the autotools based build system
+* Drop your *.i files into swig/ directory
+* include them into the specest.i as it has been with the others
+
+Enjoy, and please report any bugs or improvements to:
+moritz dot fischer at student dot kit dot edu
