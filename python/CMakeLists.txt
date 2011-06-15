@@ -60,6 +60,9 @@ ENDIF(ARMADILLO_FOUND)
 #TODO add all
 SET(SPECEST_PY_SRCS
 	__init__.py
+	spectrum_sink_gl.py
+	logpwrspectrum.py
+	specest_window.py
 	specest_mtm.py
 	specest_gendpss.py)
 

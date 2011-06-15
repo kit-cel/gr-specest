@@ -204,9 +204,12 @@ TARGET_LINK_LIBRARIES(test_runner
 # Install the stuff
 ###############################################################################
 
-IF(UNIX AND EXISTS "/usr/lib64")
-	SET(LIB_POSTFIX 64)
-ENDIF(UNIX AND EXISTS "/usr/lib64")
+#IF(UNIX AND EXISTS "/usr/lib64")
+	#SET(LIB_POSTFIX 64)
+#ENDIF(UNIX AND EXISTS "/usr/lib64")
+#IF(UNIX AND ("${CMAKE_SIZEOF_VOID_P}" EQUAL "8"))
+	#SET(LIB_POSTFIX 64)
+#ENDIF(UNIX AND ("${CMAKE_SIZEOF_VOID_P}" EQUAL "8"))
 
 INSTALL(TARGETS gnuradio-specest gnuradio-specest-static gnuradio-specest-fortran gnuradio-specest-fortran-static
 	LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib${LIB_POSTFIX}
