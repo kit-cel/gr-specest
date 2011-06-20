@@ -1,0 +1,7 @@
+*.lo
+*.so
+*.dat
+*.pyc
+build/*
+*CMakeCache.txt*
+*CMakeFiles/
