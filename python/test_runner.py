@@ -29,7 +29,10 @@ def main():
     parser.add_argument('--test', help = 'sets the filename containing the tests to run')
     args = parser.parse_args()
     python_path = {"PYTHONPATH" : args.path}
-    return subprocess.call(args=args.test, env=python_path)
+    try:
+        subprocess.check_call(args=args.test, env=python_path)
+    except subprocess.CalledProcessError, e:
+        sys.exit ("%s failed with returnvalue %i" % (e.cmd, e.returncode))
 
 if __name__ == '__main__':
     main()
