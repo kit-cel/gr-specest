@@ -7,7 +7,7 @@
 <block>
 	<name>SpecEst Pseudospectrum Sink</name>
 	<key>specest_spectrum_sink</key>
-	<category>Graphical Sinks</category>
+	<category>WX GUI Widgets</category>
 	<import>from gnuradio import window</import>
 	<import>from specest import spectrum_sink_c</import>
 	<make>#set $parent = $notebook() and 'self.%s.GetPage(%s)'%$notebook() or 'self'
