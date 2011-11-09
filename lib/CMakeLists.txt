@@ -43,6 +43,9 @@ SET(CXX_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/specest_welch.cc
 	${CMAKE_CURRENT_SOURCE_DIR}/specest_adaptiveweighting_vff.cc
 	${CMAKE_CURRENT_SOURCE_DIR}/specest_moving_average_vff.cc
+	${CMAKE_CURRENT_SOURCE_DIR}/specest_cyclo_fam.cc
+	${CMAKE_CURRENT_SOURCE_DIR}/specest_cyclo_fam_calcspectrum_vcf.cc
+	${CMAKE_CURRENT_SOURCE_DIR}/specesti_cyclo_fam_calcspectrum.cc
 	${CMAKE_CURRENT_SOURCE_DIR}/specest_stream_to_vector_overlap.cc)
 
 ###############################################################################

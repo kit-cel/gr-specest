@@ -36,6 +36,7 @@ SET(PYTHON_QA
 	specest_fmcov
 	specest_mtm
 	specest_welch
+	specest_cyclo_fam
 	specest_vectormanip)
 
 ################################################################################
