@@ -32,7 +32,7 @@ class specesti_cyclo_fam_calcspectrum
 	specesti_cyclo_fam_calcspectrum(int Np, int P, int L);
 	~specesti_cyclo_fam_calcspectrum();
 	void calc(const gr_complex *in, float *out);
-	float* get_outputs() { return d_outputs; };
+	float* get_outputs() { return &d_outputs[0]; };
 
  private:
 	int d_Np;
@@ -44,16 +44,15 @@ class specesti_cyclo_fam_calcspectrum
 	float d_scale;
 
 	gr_complex    **d_complex_demodulates;
-	float         *d_outputs;
+	std::vector<float> d_outputs;
 
-	gr_complex    *d_fft_in_buffer;
+	std::vector<gr_complex> d_fft_in_buffer;
 	fftwf_complex *d_fft_in;
 	fftwf_complex *d_fft_out;
 	fftwf_plan     d_fft_p;
 
 	void fft(int f_k, int f_l, float *out);
 	inline unsigned calc_output_index(float f_k, float f_l);
-	void calc_scaling_factor();
 };
 
 #endif /* INCLUDED_SPECESTI_CYCLO_FAM_CALCSPECTRUM_H */

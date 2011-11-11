@@ -28,39 +28,9 @@ specesti_cyclo_fam_calcspectrum::specesti_cyclo_fam_calcspectrum(int Np, int P, 
     d_Np(Np),
     d_P(P),
     d_L(L),
-    d_N(P * L)
-{
-    calc_scaling_factor();
-
-    // Prepare FFT-Buffers
-    d_fft_in_buffer = new gr_complex[P];
-    d_fft_out       = (fftwf_complex*) fftwf_malloc(sizeof(fftwf_complex) * P);
-    d_fft_in        = reinterpret_cast<fftwf_complex*>(d_fft_in_buffer);
-    d_fft_p         = fftwf_plan_dft_1d(d_P, d_fft_in, d_fft_out, FFTW_FORWARD, FFTW_ESTIMATE);
-
-    // Allocate 2-dim Array: P x Np
-    d_complex_demodulates = new gr_complex*[P];
-    for (int p = 0; p < P; p++){
-        d_complex_demodulates[p] = new gr_complex[Np];
-    }
-
-    // Allocate output buffer
-    d_outputs = new float[2 * d_N * (2*Np-1)];
-
-    for(int i = 0; i < 2*d_N*(2*Np-1); i++){
-        d_outputs[i] = 0;
-    }
-}
-
-inline unsigned
-specesti_cyclo_fam_calcspectrum::calc_output_index(float f_k, float f_l)
-{
-    float column = (f_k+f_l-2); // float only for debugging reasons, result should be integer
-    float row    = (f_k-f_l+d_Np)*d_N/d_Np;
-    return column*2*d_N+row;
-}
-
-void specesti_cyclo_fam_calcspectrum::calc_scaling_factor()
+    d_N(P * L),
+	d_outputs(2 * d_N * (2*Np-1), 0),
+	d_fft_in_buffer(P)
 {
     // Calculate scaling factor
     std::vector<float> window = gr_firdes::window(gr_firdes::WIN_HAMMING, d_Np, 0);
@@ -70,6 +40,39 @@ void specesti_cyclo_fam_calcspectrum::calc_scaling_factor()
     for (int i=0; i < sz; i++)
 		h += window[i]*window[i];
     d_scale = h*d_P;
+
+    // Prepare FFT-Buffers
+    d_fft_out       = (fftwf_complex*) fftwf_malloc(sizeof(fftwf_complex) * P);
+    d_fft_in        = reinterpret_cast<fftwf_complex*>(&d_fft_in_buffer[0]);
+    d_fft_p         = fftwf_plan_dft_1d(d_P, d_fft_in, d_fft_out, FFTW_FORWARD, FFTW_ESTIMATE);
+
+    // Allocate 2-dim Array: P x Np
+    d_complex_demodulates = new gr_complex*[P];
+    for (int p = 0; p < P; p++) {
+        d_complex_demodulates[p] = new gr_complex[Np];
+    }
+}
+
+
+specesti_cyclo_fam_calcspectrum::~specesti_cyclo_fam_calcspectrum()
+{
+    fftwf_destroy_plan(d_fft_p);
+    fftwf_free(d_fft_out);
+
+    for (int p = 0; p < d_P; p++){
+        delete[] d_complex_demodulates[p] ;
+    }
+
+    delete[] d_complex_demodulates;
+}
+
+
+inline unsigned
+specesti_cyclo_fam_calcspectrum::calc_output_index(float f_k, float f_l)
+{
+    float column = (f_k+f_l-2); // float only for debugging reasons, result should be integer
+    float row    = (f_k-f_l+d_Np)*d_N/d_Np;
+    return column*2*d_N+row;
 }
 
 
@@ -82,7 +85,7 @@ void specesti_cyclo_fam_calcspectrum::fft(int f_k, int f_l, float *out)
     }
 
     fftwf_execute(d_fft_p);
-    d_output_index = calc_output_index(f_k,f_l);
+    d_output_index = calc_output_index(f_k, f_l);
 
     // Rearange, scale, get absolute value & copy result to output stream
 
@@ -97,26 +100,12 @@ void specesti_cyclo_fam_calcspectrum::fft(int f_k, int f_l, float *out)
 }
 
 
-specesti_cyclo_fam_calcspectrum::~specesti_cyclo_fam_calcspectrum()
-{
-    fftwf_destroy_plan(d_fft_p);
-    fftwf_free(d_fft_out);
-    delete d_fft_in_buffer;
-
-    for (int p = 0; p < d_P; p++){
-        delete [] d_complex_demodulates[p] ;
-    }
-
-    delete [] d_complex_demodulates;
-    delete d_outputs;
-}
-
 void specesti_cyclo_fam_calcspectrum::calc(const gr_complex *in, float *out)
 {
-     int p=0;
-     int i=0;
+     int p = 0;
+     int i = 0;
 
-     // Copy intput stream to d_complex_demodulates and do the phase shifting
+     // Copy input stream to d_complex_demodulates and do the phase shifting
      for(int m = 0; m < d_P*d_Np; m++) {
         d_complex_demodulates[p][i].real() = in[m].real()*cos(2*M_PI*i*(p*d_L)/d_Np)+
                                              in[m].imag()*sin(2*M_PI*i*(p*d_L)/d_Np);
@@ -159,7 +148,7 @@ void specesti_cyclo_fam_calcspectrum::calc(const gr_complex *in, float *out)
 
     for (f_k = 1; f_k <= d_Np; f_k++) {
         for(f_l = 1; f_l <= d_Np; f_l++) {
-            fft(f_k,f_l,out);
+            fft(f_k, f_l, out);
         }
     }
 }
