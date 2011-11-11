@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
-/* 
+/*
  * Copyright Communications Engineering Lab, KIT
- * 
+ *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -82,29 +82,27 @@ specest_cyclo_fam_sptr specest_make_cyclo_fam (int Np, int P, int decimation_fac
 class specest_cyclo_fam : public gr_hier_block2
 {
 	friend specest_cyclo_fam_sptr specest_make_cyclo_fam (int Np, int P, int L);
-    /**
-	 * \param Np Number of input samples for the channelizer. Used for computing the complex demodulates. Frequency resolution is approx. fs/Np  
+	/**
+	 * \param Np Number of input samples for the channelizer. Used for computing the complex demodulates. Frequency resolution is approx. fs/Np
 	 * \param P Number of samples the estimate is based on. Cycle frequency resolution is approx. fs/(P*L)
 	 * \param decimation_factor Also called L. Complex demodulates overlap by (Np-L) samples.
-	 */   
-    specest_cyclo_fam (int Np, int P, int decimation_factor);
-    
-    //Blocks
-    specest_stream_to_vector_overlap_sptr        d_stream_to_vector;
-    gr_fft_vcc_sptr                              d_Np_fft;
-    specest_cyclo_fam_calcspectrum_vcf_sptr      d_calcspectrum;
-    
-  
-    unsigned int                                 d_decimation_factor;
+	 */
+	specest_cyclo_fam (int Np, int P, int decimation_factor);
+
+	//Blocks
+	specest_stream_to_vector_overlap_sptr        d_stream_to_vector;
+	gr_fft_vcc_sptr                              d_Np_fft;
+	specest_cyclo_fam_calcspectrum_vcf_sptr      d_calcspectrum;
+
+	unsigned int                                 d_decimation_factor;
 
  public:
-
 	~specest_cyclo_fam ();
 
-    const float* get_estimate(){return d_calcspectrum->get_estimate();};
-    /**
-    * Direkt access to the estimate. Note estimate is an 1-dim array of size 2N*(2Np-1). 
-    */
+	/**
+	* Direct access to the estimate. Note estimate is an 1-dim array of size 2N*(2Np-1).
+	*/
+	const float* get_estimate() { return d_calcspectrum->get_estimate(); };
 };
 
 #endif /* INCLUDED_SPECEST_CYCLO_FAM_H */
