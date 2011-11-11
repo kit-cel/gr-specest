@@ -36,37 +36,42 @@ typedef boost::shared_ptr<specest_cyclo_fam> specest_cyclo_fam_sptr;
 specest_cyclo_fam_sptr specest_make_cyclo_fam (int Np, int P, int decimation_factor);
 
 /**
- * \brief Estimates the absolute value of the spectral correlation density |Sxx^\alpha(f)| using the FAM
+ * \brief Estimates the absolute value of the spectral correlation density \f$|Sxx^\alpha(f)|\f$ using the FAM.
  *
- * Parameters all have to be powers of two:
- * Np: length of the first FFT (in literature usually denoted with N', see reference below)
- * P:  length of the second FFT
- * L:  decimation factor (must be smaller than Np/4)
+ * This first calculates
+ * \f[
+ * S_{xx}^\alpha(f) = \frac{1}{N} <X(n,f+\alpha/2) X^*(n,f-\alpha/2)>_N,
+ * \f]
+ * where < > denotes the time smoothing over a time span of \f$N=P*L\f$ samples.
  *
- * Sxx(f)^alpha=1/N <X(n,f+alpha/2)X^*(n,f-alpha/2)>_N, where < > denotes the time smoothing over a time span of N=P*L samples.
+ * \param Np length of the first FFT (in literature usually denoted with N', see reference below)
+ * \param P  length of the second FFT
+ * \param L  decimation factor (must be smaller than Np/4)
+ * Parameters all have to be powers of two.
  *
- * Function:
- * The estimator works on complex input signals. 
- * In a first step the channlizer computes de complex demodulates X(n,f) based on the number of Np samples per input.
- * In the second step the spectral correlation and time smoothing is done and the ouput is generated.
- * The spectral corrlation X(f+alpha/2)X^*(f-alpha/2) is based on time smoothing of P=N/L complex demodulates.
- * 
- * 
+ * \b Function:
+ * The estimator works on input streams of complex samples.
+ * In a first step, the channelizer computes complex demodulates \f$X(n,f)\f$
+ * based on the number of Np samples per input.
+ * In the second step, the spectral correlation and time smoothing is done and
+ * the output is generated. The spectral correlation
+ * \f$X(f+\alpha/2)X^*(f-\alpha/2)\f$ is based on time smoothing of P=N/L
+ * complex demodulates.
+ * \f$f_s\f$ is the normalised sampling rate; \f$-0.5 \leq f_s \leq 0.5\f$.
  *
- * Output:
- * |Sxx^\alpha(f)| is a 2-dimensional matrix with dimensions 2N x 2Np
- * The output matrix ist sliced in 2N vector items, where the first item contains the f-vector at the frequency f=-fs/2.
- * The last item contains the f-vector at the frequency f=fs/2. 
- * The alpha-vector starts at the frequency alpha = -fs and ends up at frequency alpha = fs(1-1/N) 
- * 
+ * \b Output:
+ * \f$|Sxx^\alpha(f)|\f$ is a 2-dimensional matrix with dimensions 2N x 2Np.
+ * The output matrix is sliced in 2N vector items, where the first item
+ * contains the f-vector at the frequency \f$f=-f_s/2\f$.
+ * The last item contains the f-vector at the frequency \f$f=f_s/2\f$.
+ * The \f$\alpha\f$-vector starts at the frequency \f$\alpha = -f_s\f$ and ends
+ * at frequency \f$\alpha = f_s(1-1/N)\f$.
  *
- * Note:
- * The first FFT uses a hamming window and the products of the time smoothing a weighted by a rectangular window.
+ * \b Note:
+ * The first FFT uses a Hamming window and the products of the time smoothing
+ * (2nd FFT) a rectangular window.
  *
- * Usage:
- * i.e. specest_make_cyclo_fam (64, 512, 4)
- *
- * References:
+ * \b References:
  * The FFT Accumulation Method (FAM) is described in
  * "Computationally Efficient Algorithms for Cyclic Spectral Analysis"
  * by Roberts, R.S.;   Brown, W.A.;   Loomis, H.H., Jr.
