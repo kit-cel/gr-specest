@@ -80,7 +80,7 @@ void specesti_cyclo_fam_calcspectrum::fft(int f_k, int f_l, float *out)
 {
     // Prepare FFT
     // Copy vector to FFT-buffer
-    for(int p = 0; p < d_P; p++){
+    for(int p = 0; p < d_P; p++) {
         d_fft_in_buffer[p] = d_complex_demodulates[p][f_k-1]*std::conj(d_complex_demodulates[p][f_l-1])/d_scale;
     }
 
@@ -90,11 +90,11 @@ void specesti_cyclo_fam_calcspectrum::fft(int f_k, int f_l, float *out)
     // Rearange, scale, get absolute value & copy result to output stream
 
     // Top of the channel support region
-    for(int i = 0; i < d_N/d_Np; i++){
+    for(int i = 0; i < d_N/d_Np; i++) {
         d_outputs[d_output_index+i] = std::sqrt(d_fft_out[i][0]*d_fft_out[i][0]+d_fft_out[i][1]*d_fft_out[i][1]);
     }
     // Bottom of the channel support region
-    for(int i =1; i <=d_N/d_Np; i++){
+    for(int i = 1; i <= d_N/d_Np; i++) {
         d_outputs[d_output_index-i] = std::sqrt(d_fft_out[d_P-i][0]*d_fft_out[d_P-i][0]+d_fft_out[d_P-i][1]*d_fft_out[d_P-i][1]);
     }
 }
@@ -121,7 +121,6 @@ void specesti_cyclo_fam_calcspectrum::calc(const gr_complex *in, float *out)
 
     // FFT-Shift
     int half = d_Np/2;
-
     for (int k = 0 ; k < d_P ; k++){
 		std::complex<float> * start_ptr = &d_complex_demodulates[k][0];
 		std::complex<float> * swap_buffer = new std::complex<float>[half];
