@@ -24,6 +24,34 @@
 #include <algorithm>
 #include <specesti_cyclo_fam_calcspectrum.h>
 
+specesti_cyclo_fam_calcspectrum::specesti_cyclo_fam_calcspectrum(int Np, int P, int L) :
+    d_Np(Np),
+    d_P(P),
+    d_L(L),
+    d_N(P * L)
+{
+    calc_scaling_factor();
+
+    // Prepare FFT-Buffers
+    d_fft_in_buffer = new gr_complex[P];
+    d_fft_out       = (fftwf_complex*) fftwf_malloc(sizeof(fftwf_complex) * P);
+    d_fft_in        = reinterpret_cast<fftwf_complex*>(d_fft_in_buffer);
+    d_fft_p         = fftwf_plan_dft_1d(d_P, d_fft_in, d_fft_out, FFTW_FORWARD, FFTW_ESTIMATE);
+
+    // Allocate 2-dim Array: P x Np
+    d_complex_demodulates = new gr_complex*[P];
+    for (int p = 0; p < P; p++){
+        d_complex_demodulates[p] = new gr_complex[Np];
+    }
+
+    // Allocate output buffer
+    d_outputs = new float[2 * d_N * (2*Np-1)];
+
+    for(int i = 0; i < 2*d_N*(2*Np-1); i++){
+        d_outputs[i] = 0;
+    }
+}
+
 inline unsigned
 specesti_cyclo_fam_calcspectrum::calc_output_index(float f_k, float f_l)
 {
@@ -65,36 +93,6 @@ void specesti_cyclo_fam_calcspectrum::fft(int f_k, int f_l, float *out)
     // Bottom of the channel support region
     for(int i =1; i <=d_N/d_Np; i++){
         d_outputs[d_output_index-i] = std::sqrt(d_fft_out[d_P-i][0]*d_fft_out[d_P-i][0]+d_fft_out[d_P-i][1]*d_fft_out[d_P-i][1]);
-    }
-}
-
-specesti_cyclo_fam_calcspectrum::specesti_cyclo_fam_calcspectrum(int Np, int P, int L)
-{
-    d_Np = Np;
-    d_P  = P;
-    d_L  = L;
-    d_N  = P * L;
-
-    calc_scaling_factor();
-
-    // Prepare FFT-Buffers
-    d_fft_in_buffer = new gr_complex[P];
-    d_fft_out       = (fftwf_complex*) fftwf_malloc(sizeof(fftwf_complex) * P);
-    d_fft_in        = reinterpret_cast<fftwf_complex*>(d_fft_in_buffer);
-    d_fft_p         = fftwf_plan_dft_1d(d_P, d_fft_in, d_fft_out, FFTW_FORWARD, FFTW_ESTIMATE);
-
-    // Allocate 2-dim Array: P x Np
-    d_complex_demodulates = new gr_complex*[P];
-    for (int p = 0; p < P; p++){
-        d_complex_demodulates[p] = new gr_complex[Np];
-    }
-
-    // Allocate output buffer
-    d_outputs = new float[2 * d_N * (2*Np-1)];
-
-
-    for(int i = 0; i < 2*d_N*(2*Np-1); i++){
-        d_outputs[i]=0;
     }
 }
 
