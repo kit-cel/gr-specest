@@ -60,14 +60,14 @@ specest_make_cyclo_fam (int Np, int P, int L)
 }
 
 
-specest_cyclo_fam::specest_cyclo_fam (int Np, int P, int decimation_factor)
+specest_cyclo_fam::specest_cyclo_fam (int Np, int P, int L)
 	: gr_hier_block2 ("cyclo_fam",
 		         gr_make_io_signature (1, 1, sizeof(gr_complex)),
 		         gr_make_io_signature (1, 1, sizeof(float)*(2*Np))),
-    d_decimation_factor(decimation_factor),
- 	d_stream_to_vector(specest_make_stream_to_vector_overlap(sizeof(gr_complex), Np, Np-decimation_factor)),
+    d_decimation_factor(L),
+ 	d_stream_to_vector(specest_make_stream_to_vector_overlap(sizeof(gr_complex), Np, Np-L)),
 	d_Np_fft(gr_make_fft_vcc(Np, true, gr_firdes::window(gr_firdes::WIN_HAMMING, Np, 0), false)),
-	d_calcspectrum(specest_make_cyclo_fam_calcspectrum_vcf(Np, P, decimation_factor))
+	d_calcspectrum(specest_make_cyclo_fam_calcspectrum_vcf(Np, P, L))
 {
     connect(self(), 0, d_stream_to_vector, 0);
 	connect(d_stream_to_vector, 0, d_Np_fft, 0);
