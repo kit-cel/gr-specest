@@ -43,8 +43,8 @@ class specesti_cyclo_fam_calcspectrum
 	unsigned d_output_index;
 	float d_scale;
 
-	gr_complex    **d_complex_demodulates;
-	std::vector<float> d_outputs;
+	std::vector<std::vector<gr_complex> >  d_complex_demodulates;
+	std::vector<float>                     d_outputs;
 
 	std::vector<gr_complex> d_fft_in_buffer;
 	fftwf_complex *d_fft_in;

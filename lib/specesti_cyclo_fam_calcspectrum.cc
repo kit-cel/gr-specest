@@ -30,6 +30,7 @@ specesti_cyclo_fam_calcspectrum::specesti_cyclo_fam_calcspectrum(int Np, int P, 
     d_L(L),
     d_N(P * L),
 	d_outputs(2 * d_N * (2*Np-1), 0),
+	d_complex_demodulates(P, std::vector<gr_complex>(Np,0)),
 	d_fft_in_buffer(P)
 {
     // Calculate scaling factor
@@ -46,11 +47,6 @@ specesti_cyclo_fam_calcspectrum::specesti_cyclo_fam_calcspectrum(int Np, int P, 
     d_fft_in        = reinterpret_cast<fftwf_complex*>(&d_fft_in_buffer[0]);
     d_fft_p         = fftwf_plan_dft_1d(d_P, d_fft_in, d_fft_out, FFTW_FORWARD, FFTW_ESTIMATE);
 
-    // Allocate 2-dim Array: P x Np
-    d_complex_demodulates = new gr_complex*[P];
-    for (int p = 0; p < P; p++) {
-        d_complex_demodulates[p] = new gr_complex[Np];
-    }
 }
 
 
@@ -59,11 +55,6 @@ specesti_cyclo_fam_calcspectrum::~specesti_cyclo_fam_calcspectrum()
     fftwf_destroy_plan(d_fft_p);
     fftwf_free(d_fft_out);
 
-    for (int p = 0; p < d_P; p++){
-        delete[] d_complex_demodulates[p] ;
-    }
-
-    delete[] d_complex_demodulates;
 }
 
 
@@ -120,26 +111,14 @@ void specesti_cyclo_fam_calcspectrum::calc(const gr_complex *in, float *out)
     }
 
     // FFT-Shift
-    int half = d_Np/2;
-    for (int k = 0 ; k < d_P ; k++){
-		std::complex<float> * start_ptr = &d_complex_demodulates[k][0];
-		std::complex<float> * swap_buffer = new std::complex<float>[half];
-
-		memcpy(swap_buffer, start_ptr, half * sizeof(std::complex<float>));
-		memcpy(start_ptr,  start_ptr + half, half * sizeof(std::complex<float>));
-		memcpy(start_ptr + half, swap_buffer, half * sizeof(std::complex<float>));
-
-		delete [] swap_buffer;
-    }
-
-    /*for (p=0;p<d_P;p++){ // Seems not to work for some reasons
-        gr_complex * start = &d_complex_demodulates[p][0];
-        gr_complex * mid   = &d_complex_demodulates[p][0] + d_P/2;
-        gr_complex * end   = &d_complex_demodulates[p][0] + d_P;
+    for (int k = 0 ; k < d_P ; k++){ 
+        gr_complex * start = &d_complex_demodulates[k][0];
+        gr_complex * mid   = &d_complex_demodulates[k][0] + d_P/2;
+        gr_complex * end   = &d_complex_demodulates[k][0] + d_P;
 
         std::rotate(start, mid, end);
-        std::cout<<"shift";
-    }*/
+
+    }
 
     // Correlate Spectrum
     int f_k;
