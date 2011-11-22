@@ -59,10 +59,10 @@ specesti_cyclo_fam_calcspectrum::~specesti_cyclo_fam_calcspectrum()
 
 
 inline unsigned
-specesti_cyclo_fam_calcspectrum::calc_output_index(float f_k, float f_l)
+specesti_cyclo_fam_calcspectrum::calc_output_index(int f_k, int f_l)
 {
-    float column = (f_k+f_l-2); // float only for debugging reasons, result should be integer
-    float row    = (f_k-f_l+d_Np)*d_N/d_Np;
+    int column = (f_k+f_l-2); 
+    int row    = (f_k-f_l+d_Np)*(d_N/d_Np); // d_N/d_Np is intended (=floor(d_N/d_Np)) 
     return column*2*d_N+row;
 }
 
@@ -111,14 +111,25 @@ void specesti_cyclo_fam_calcspectrum::calc(const gr_complex *in, float *out)
     }
 
     // FFT-Shift
-    for (int k = 0 ; k < d_P ; k++){ 
-        gr_complex * start = &d_complex_demodulates[k][0];
-        gr_complex * mid   = &d_complex_demodulates[k][0] + d_P/2;
-        gr_complex * end   = &d_complex_demodulates[k][0] + d_P;
+    int half = d_Np/2;
+    for (int k = 0 ; k < d_P ; k++){
+		std::complex<float> * start_ptr = &d_complex_demodulates[k][0];
+		std::complex<float> * swap_buffer = new std::complex<float>[half];
+
+		memcpy(swap_buffer, start_ptr, half * sizeof(std::complex<float>));
+		memcpy(start_ptr,  start_ptr + half, half * sizeof(std::complex<float>));
+		memcpy(start_ptr + half, swap_buffer, half * sizeof(std::complex<float>));
+
+		delete [] swap_buffer;
+    }
+
+    /*for (p=0;p<d_P;p++){ // Seems not to work for some reasons
+        gr_complex * start = &d_complex_demodulates[p][0];
+        gr_complex * mid   = &d_complex_demodulates[p][0] + d_P/2;
+        gr_complex * end   = &d_complex_demodulates[p][0] + d_P;
 
         std::rotate(start, mid, end);
-
-    }
+    }*/
 
     // Correlate Spectrum
     int f_k;

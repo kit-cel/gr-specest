@@ -18,8 +18,8 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef INCLUDED_QA_SPECESTI_CYCLO_FAM_CALCSPECTRUM_H
-#define INCLUDED_QA_SPECESTI_CYCLO_FAM_CALCSPECTRUM_H
+#ifndef INCLUDED_SPECESTI_CYCLO_FAM_CALCSPECTRUM_H
+#define INCLUDED_SPECESTI_CYCLO_FAM_CALCSPECTRUM_H
 
 #include <complex>
 #include <fftw3.h>
@@ -52,7 +52,7 @@ class specesti_cyclo_fam_calcspectrum
 	fftwf_plan     d_fft_p;
 
 	void fft(int f_k, int f_l, float *out);
-	inline unsigned calc_output_index(float f_k, float f_l);
+	inline unsigned calc_output_index(int f_k, int f_l);
 };
 
 #endif /* INCLUDED_SPECESTI_CYCLO_FAM_CALCSPECTRUM_H */

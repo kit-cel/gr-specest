@@ -86,7 +86,7 @@ class test_specest_cyclo_fam (gr_unittest.TestCase):
 
     def test_exception1_005(self):
         """ Make sure an exception is thrown when an invalid decimation factor is chosen. """
-        self.assertRaises(ValueError, specest.cyclo_fam, 16, 128, 3)
+        self.assertRaises(ValueError, specest.cyclo_fam, 16, 128, 3)  
 
 if __name__ == '__main__':
     gr_unittest.main ()

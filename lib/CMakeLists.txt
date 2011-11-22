@@ -76,8 +76,9 @@ SET(F_SRCS
 SET(CXX_QA_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/qa_specest.cc
 	${CMAKE_CURRENT_SOURCE_DIR}/qa_specesti_esprit_fortran.cc
-	${CMAKE_CURRENT_SOURCE_DIR}/qa_specest_arburg.cc)
-
+	${CMAKE_CURRENT_SOURCE_DIR}/qa_specest_arburg.cc
+	${CMAKE_CURRENT_SOURCE_DIR}/qa_specesti_cyclo_fam_calcspectrum.cc)
+	
 SET(CXX_QA_ARMADILLO_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/qa_specesti_music_armadillo.cc)
 
