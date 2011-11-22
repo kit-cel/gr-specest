@@ -57,8 +57,8 @@ specest_pad_vector::work (int noutput_items,
 	for (int i = 0; i < noutput_items; i++) {
 		memcpy(out, in, d_copylen);
 		memset(out+d_copylen, 0, d_padlen);
-		in += d_vlen_in;
-		out += d_vlen_out;
+		in += d_copylen;
+		out += d_copylen + d_padlen;
 	}
 
 	return noutput_items;
