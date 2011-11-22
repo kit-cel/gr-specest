@@ -31,7 +31,7 @@ class specesti_cyclo_fam_calcspectrum
  public:
 	specesti_cyclo_fam_calcspectrum(int Np, int P, int L);
 	~specesti_cyclo_fam_calcspectrum();
-	void calc(const gr_complex *in, float *out);
+	void calc(const gr_complex *in);
 	float* get_outputs() { return &d_outputs[0]; };
 
  private:
@@ -51,7 +51,7 @@ class specesti_cyclo_fam_calcspectrum
 	fftwf_complex *d_fft_out;
 	fftwf_plan     d_fft_p;
 
-	void fft(int f_k, int f_l, float *out);
+	void fft(int f_k, int f_l);
 	inline unsigned calc_output_index(int f_k, int f_l);
 };
 

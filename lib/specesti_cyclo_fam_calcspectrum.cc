@@ -67,7 +67,7 @@ specesti_cyclo_fam_calcspectrum::calc_output_index(int f_k, int f_l)
 }
 
 
-void specesti_cyclo_fam_calcspectrum::fft(int f_k, int f_l, float *out)
+void specesti_cyclo_fam_calcspectrum::fft(int f_k, int f_l)
 {
     // Prepare FFT
     // Copy vector to FFT-buffer
@@ -91,7 +91,7 @@ void specesti_cyclo_fam_calcspectrum::fft(int f_k, int f_l, float *out)
 }
 
 
-void specesti_cyclo_fam_calcspectrum::calc(const gr_complex *in, float *out)
+void specesti_cyclo_fam_calcspectrum::calc(const gr_complex *in)
 {
      int p = 0;
      int i = 0;
@@ -137,7 +137,7 @@ void specesti_cyclo_fam_calcspectrum::calc(const gr_complex *in, float *out)
 
     for (f_k = 1; f_k <= d_Np; f_k++) {
         for(f_l = 1; f_l <= d_Np; f_l++) {
-            fft(f_k, f_l, out);
+            fft(f_k, f_l);
         }
     }
 }

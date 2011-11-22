@@ -79,7 +79,7 @@ specest_cyclo_fam_calcspectrum_vcf::work (int noutput_items,
 
         // check if there are P new input items, if so calc new estimate
         if(++d_p_index == (2*d_N/d_K)){
-            d_calcspectrum->calc(in, out);
+            d_calcspectrum->calc(in);
             d_p_index=0;
         }
 
