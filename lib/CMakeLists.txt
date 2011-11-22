@@ -88,7 +88,8 @@ SET(CXX_QA_ARMADILLO_SRCS
 
 SET(CXX_QA
 	specest_arburg
-	specesti_esprit_fortran)
+	specesti_esprit_fortran
+	specesti_cyclo_fam_calcspectrum)
 
 ################################################################################
 # Here we add the tests you added above
