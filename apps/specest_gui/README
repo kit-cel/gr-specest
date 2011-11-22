@@ -1,0 +1,21 @@
+CPU-load-dependet Decimation:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* To get a smooth ouput when using UHD as source, a CPU-dependent decimation has been implemented. The parameter self.decimation_step sets the step-size to increase/decrease the decimation-factor --> Use with care - see known problems!
+* Decimation is increased as long as AT LEAST ONE of your system's CPUs stays less than 10 % in idle mode (more than 90 % load).
+* Decimation is decreased as long as EVERY of your system's CPUs stays more than 70 % in idle mode (less than 30 % load).
+* In the class "_cpu_usage_watcher_thread" you can set the interval (also update-interval) for the CPU-load to be measured (self.measurement_interval)
+
+Known Problems:
+~~~~~~~~~~~~~~~
+* bad_alloc errors are possible if decimation or block_len is getting to high (limited buffer-size in GNU Radio -> problem with building vectors needed for decimation)
+  ---> In most cases, the decimation could be set much higher (refresh-rate of 50-100 Hz adequate for the plot -> actual refresh-rate much higher (sample_rate / block_len)!)
+
+Howto add your own blocks to the GNU Radio Spectral Estimation Toolbox - GUI:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Add new blocks to the specest_window.ui (Use Qt4-Designer -> simply add a new tab with scrollarea, select useful field-names etc.)
+* Run "pyuic4 specest_window.ui -o specest_window.py"
+* Open specest_window.py and add the following lines at the begining of the file:
+	"from PyQt4.Qwt5 import QwtPlot, QwtCounter
+	 import PyQt4.Qt as Qt"
+  Delete the last two lines of the file.
+* Now go through steps 1-8 in specest_gui.py to add the code needed for your own blocks!
