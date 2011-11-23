@@ -237,10 +237,14 @@ class dialog_box(QtGui.QMainWindow):
             self.gui.pause_button.setText("Pause")
 
     def runFg(self):
+	self.fg.cpu_watcher = _cpu_usage_watcher_thread(self)
+	self.fg.set_head()
+	self.fg.set_decimator()
+	self.fg.set_body()
+	self.fg.set_decimator()
 	self.fg.start()
 
     def stopFg(self):
-	self.fg.sink.watcher.quit()
 	self.fg.stop()
 
     # Functions to manipulate parameters in GUI
@@ -997,7 +1001,8 @@ class head(gr.hier_block2):
                 self.head_src = gr.file_source(file_samp_type, file_to_open, True)
 		fg.set_samp_rate(file_rec_samp_rate)
 		fg.uhd_src_active = False
-		fg.cpu_watcher.quit()
+		if fg.cpu_watcher != None:
+		    fg.cpu_watcher.quit()
 		if(file_samp_type == gr.sizeof_float):
 		    self.head_bottom = gr.float_to_complex()
 		    self.connect((self.head_src, 0), (self.head_bottom, 0))
@@ -1162,16 +1167,13 @@ class my_top_block(gr.top_block):
 	self.decimator = None
         self.body = None
 	self.foot = None
-	self.cpu_watcher = _cpu_usage_watcher_thread(self)
-	self.set_head()
-	self.set_decimator()
-	self.set_body()
-	self.set_decimator()
+	self.sink = None
+	self.cpu_watcher = None
         self.main_box.show()
 
     def set_head(self):
 	self.lock()
-	if(self.head != None):
+	if(self.head != None and self.decimator != None):
 	    self.disconnect((self.head, 0), (self.decimator, 0))
 
         self.head = head(self, self.src_type, self.d_file_samp_type, self.d_file_file_to_open, self.d_file_rec_samp_rate, self.d_uhd_samp_rate, self.d_uhd_gain, self.center_f, self.d_uhd_subdev_spec)
@@ -1452,7 +1454,8 @@ class my_top_block(gr.top_block):
     def set_file_rec_samp_rate(self, rec_samp_rate):
 	self.d_file_rec_samp_rate = rec_samp_rate
 	self.set_head()
-	self.sink.watcher.set_samp_rate(self.samp_rate)
+	if self.sink != None:
+	    self.sink.watcher.set_samp_rate(self.samp_rate)
 
     def set_file_to_open(self, file_to_open):
 	self.d_file_file_to_open = file_to_open
@@ -1485,7 +1488,8 @@ class my_top_block(gr.top_block):
     def set_uhd_samp_rate(self, samp_rate):
 	self.d_uhd_samp_rate = samp_rate
 	self.set_head()
-	self.sink.watcher.set_samp_rate(self.samp_rate)
+	if self.sink != None:
+	    self.sink.watcher.set_samp_rate(self.samp_rate)
 	self.set_head()
 
     def set_uhd_ant(self, ant):
@@ -1611,5 +1615,6 @@ class my_top_block(gr.top_block):
 if __name__ == "__main__":
     tb = my_top_block();
     tb.qapp.exec_()
-    tb.sink.watcher.quit()
+    if tb.sink != None:
+        tb.sink.watcher.quit()
     tb.stop()
