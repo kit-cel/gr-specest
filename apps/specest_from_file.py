@@ -44,11 +44,15 @@ def parse_options():
             help="shift the DC carrier to the middle.")
     parser.add_option("-l", "--linear", action="store_true", default=False,
             help="Plot output on a linear scale instead of a dB scale.")
-    parser.add_option("-M", "--method", type="choice", choices=("welch", "burg", "fcov", "fmcov", "mtm", "esprit", "music"),
-            help="Choose the spectral estimation method (welch, burg, fcov, fmcov, esprit, music or mtm).", default="welch")
-    ogroup_welch = OptionGroup(parser, 'Welch-specific options')
+    parser.add_option("-M", "--method", type="choice",
+            choices=("welch", "welchsp", "burg", "fcov", "fmcov", "mtm", "esprit", "music"),
+            help="Choose the spectral estimation method (welch, welchsp, burg, fcov, fmcov, esprit, music or mtm).",
+            default="welch")
+    ogroup_welch = OptionGroup(parser, 'Welch-specific options (for welch and welchsp)')
     ogroup_welch.add_option("-m", "--ma-length", type="int", default=8,
             help="length of moving average")
+    ogroup_welch.add_option("-a", "--alpha", type="int", default=.1,
+            help="single-pole moving average coefficient (for welchsp)")
     ogroup_welch.add_option("-o", "--overlap", type="int", default=-1,
             help="number of overlapping samples per segment, leave empty for 50% overlap.")
     ogroup_welch.add_option("-w", "--window-type", type="choice",
@@ -85,7 +89,7 @@ def parse_options():
 def sanitize_input(options):
     """ Check the more complicated dependencies etc. """
     if options.samples is None:
-        if options.method == 'welch':
+        if options.method == 'welch' or options.method == 'welchsp':
             if options.overlap == -1:
                 options.samples = (options.fft_len / 2 + 1) * options.ma_length
             else:
@@ -97,7 +101,7 @@ def sanitize_input(options):
         print "Burg and (modified) Covariance methods require an order parameter."
         raise SystemExit, 1
 
-    if options.method == 'welch':
+    if options.method == 'welch' or options.method == 'welchsp':
         if options.window_type is None:
             options.window_type = gr.firdes.WIN_HAMMING
         else:
@@ -165,11 +169,15 @@ class CalcSpecest(gr.top_block):
         specest_selector = {
                 'welch': lambda: specest.welch(options.fft_len, options.overlap, options.ma_length, options.shift_fft,
                                                 options.window_type, options.window_param),
+                'welchsp': lambda: specest.welchsp(options.fft_len, options.overlap, options.ma_length, options.shift_fft,
+                                                options.window_type, options.window_param),
                 'burg': lambda: specest.burg(options.samples, options.fft_len, options.order, options.shift_fft),
                 'fcov': lambda: specest.fcov(options.samples, options.fft_len, options.order, options.shift_fft),
                 'fmcov': lambda: specest.fmcov(options.samples, options.fft_len, options.order, options.shift_fft),
-                'esprit': lambda: specest.esprit(options.sinusoids_count, options.correlation_size, options.samples, options.fft_len, 1),
-                'music': lambda: specest.music(options.sinusoids_count, options.correlation_size, options.samples, options.fft_len, 1),
+                'esprit': lambda: specest.esprit(options.sinusoids_count, options.correlation_size,
+                                                    options.samples, options.fft_len, 1),
+                'music': lambda: specest.music(options.sinusoids_count, options.correlation_size,
+                                                    options.samples, options.fft_len, 1),
                 'mtm': lambda: specest.mtm(options.fft_len, options.timebandwidthproduct, options.n_tapers,
                                            options.weight_method, options.shift_fft)}
         self.specest = specest_selector[options.method]()

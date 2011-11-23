@@ -100,7 +100,6 @@ specesti_music_armadillo::calculate(const gr_complexd* data, unsigned int data_l
 	{
 		omegas[i] = arg(z_inside_largest(i));
 	}
-
 }
 
 void

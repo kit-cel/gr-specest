@@ -41,6 +41,7 @@ SET(CXX_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/specest_arfmcov_vcc.cc
 	${CMAKE_CURRENT_SOURCE_DIR}/specest_fmcov.cc
 	${CMAKE_CURRENT_SOURCE_DIR}/specest_welch.cc
+	${CMAKE_CURRENT_SOURCE_DIR}/specest_welchsp.cc
 	${CMAKE_CURRENT_SOURCE_DIR}/specest_adaptiveweighting_vff.cc
 	${CMAKE_CURRENT_SOURCE_DIR}/specest_moving_average_vff.cc
 	${CMAKE_CURRENT_SOURCE_DIR}/specest_cyclo_fam.cc
