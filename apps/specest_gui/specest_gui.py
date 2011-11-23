@@ -1105,7 +1105,7 @@ class my_top_block(gr.top_block):
 	self.scale = "Logarithmic"
 	# File Source Parameters
 	self.d_file_rec_samp_rate = 32e3
-	self.d_file_file_to_open = "file.dat"
+	self.d_file_file_to_open = "../share/gr-specest/4cos.dat"
 	self.d_file_samp_type = gr.sizeof_gr_complex
 	# UHD Source Parameters
 	self.d_uhd_samp_type = gr.sizeof_gr_complex
