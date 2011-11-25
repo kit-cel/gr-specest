@@ -46,7 +46,7 @@ specest_cyclo_fam_calcspectrum_vcf::specest_cyclo_fam_calcspectrum_vcf (int Np, 
     set_history(P);
 
     d_calcspectrum = new specesti_cyclo_fam_calcspectrum(Np,P,L);
-    d_outbuffer = d_calcspectrum->get_outputs();
+    //d_outbuffer = d_calcspectrum->get_outputs();
 }
 
 
@@ -74,14 +74,8 @@ specest_cyclo_fam_calcspectrum_vcf::work (int noutput_items,
 	        for(int i_column = 0; i_column < (2*d_Np-1); i_column++) {
 	        
 	        out[w*2*d_Np*d_K+p*2*d_Np+i_column]  = d_calcspectrum->get_value(p+d_p_index*d_K,i_column);
-	        
-	        if(d_outbuffer[p+d_p_index*d_K+2*d_N*i_column] != d_calcspectrum->get_value(p+d_p_index*d_K,i_column)){
-	        std::cout << d_outbuffer[p+d_p_index*d_K+2*d_N*i_column] <<std::endl;
-   	        std::cout << d_calcspectrum->get_value(p+d_p_index*d_K,i_column) <<std::endl;
 	        }
-	        
-	        }
-	        
+	            
 	        out[w*2*d_Np*d_K+p*2*d_Np+2*d_Np-1]  = d_calcspectrum->get_value(p+d_p_index*d_K,0); //peridoicity
 	    	
 	    }

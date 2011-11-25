@@ -102,7 +102,7 @@ class specest_cyclo_fam : public gr_hier_block2
 	/**
 	* Direct access to the estimate. Note estimate is an 1-dim array of size 2N*(2Np-1).
 	*/
-	const float* get_estimate() { return d_calcspectrum->get_estimate(); };
+	const std::vector<std::vector<float> > &get_estimate() { return d_calcspectrum->get_estimate(); };
 };
 
 #endif /* INCLUDED_SPECEST_CYCLO_FAM_H */

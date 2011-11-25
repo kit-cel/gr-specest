@@ -41,12 +41,12 @@ class specest_cyclo_fam_calcspectrum_vcf : public gr_sync_interpolator
 
     specesti_cyclo_fam_calcspectrum *d_calcspectrum;
 
-    int d_Np;
-    int d_P;
-    int d_N;
-    int d_L;
-    int d_p_index;
-    int d_K;            // Interpolation Factor
+    int      d_Np;
+    int      d_P;
+    int      d_N;
+    int      d_L;
+    unsigned d_p_index;
+    int      d_K;            // Interpolation Factor
 
     float const *d_outbuffer;
 
@@ -57,7 +57,7 @@ class specest_cyclo_fam_calcspectrum_vcf : public gr_sync_interpolator
 			gr_vector_const_void_star &input_items,
 			gr_vector_void_star &output_items);
 
-    float const *get_estimate(){return d_calcspectrum->get_outputs();};
+    const std::vector<std::vector<float> > &get_estimate(){return d_calcspectrum->get_outputs();};
 };
 
 #endif /* INCLUDED_SPECEST_CYCLO_FAM_CALCSPECTRUM_VCF_H */

@@ -110,6 +110,21 @@ qa_specesti_cyclo_fam_calcspectrum::test2()
 	    std::cout<< " | "<<std::endl;
 	
 	}
+	
+	std::vector<std::vector<float> > values = cfcs->get_outputs();
+	
+		for(int row = 0; row < (2*P*L); row++) {
+	
+	    for(int column = 0; column < (2*Np-1); column++) {
+	    
+	    std::cout << std::setw(8) << values[row][column] <<  "\t";
+	    
+	    }
+	    
+	    std::cout<< " | "<<std::endl;
+	
+	}
+	
 	                         
 }
 

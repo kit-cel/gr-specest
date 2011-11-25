@@ -36,9 +36,9 @@ import time
 # 
 
 # Parameters of Estimation
-Np = 16
+Np = 32
 P = 128
-L = Np/8
+L = 2
 
 
 class top(gr.top_block):
@@ -48,7 +48,8 @@ class top(gr.top_block):
         gr.top_block.__init__(self)
         # Settings   
         # TODO: Parsing Filename
-        self.src = gr.file_source(gr.sizeof_float,"/path/to/file.bin",True)	
+        self.src  = src = gr.noise_source_f(gr.GR_GAUSSIAN, 1)
+        #self.src = gr.file_source(gr.sizeof_float,"/path/to/file.bin",True)	
 
         self.ftc = gr.float_to_complex(1)
         self.sink = gr.null_sink(gr.sizeof_float*2*Np)
@@ -56,14 +57,11 @@ class top(gr.top_block):
        	  
         self.connect(self.src,self.ftc,self.cyclo_fam,self.sink)
         
-	# Estimate Pointer 
-        self.estimate = self.cyclo_fam.get_estimate()
-
 def animate():
         while(True):
-            data = numpy.array(raw[0:(2*Np)*(2*P*L+1)])
-            data.resize(2*Np-1, 2*P*L)
-            data = numpy.transpose(data)
+            raw = mytb.cyclo_fam.get_estimate()
+            data = numpy.array(raw)
+                       
             image.set_data(data)
             image.changed()
             cbar.set_clim(vmax=data.max())
@@ -81,13 +79,12 @@ mytb = top()
 # Start Flowgraph
 mytb.start()
 
+time.sleep(3)
+
 
 # Calc First Image to Show
-raw = ctypes.cast( mytb.estimate.__long__(), ctypes.POINTER( ctypes.c_float) )
-
-data = numpy.array(raw[0:(2*Np-1)*2*P*L])
-data.resize(2*Np-1, 2*P*L)
-data = numpy.transpose(data)
+raw = mytb.cyclo_fam.get_estimate()
+data = numpy.array(raw)
 
 image = plt.imshow(data,interpolation='nearest',animated=True,extent= (-0.5, 0.5-1.0/Np, -1.0, 1.0-1.0/(P*L)))
                 
