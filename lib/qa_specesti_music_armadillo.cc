@@ -54,6 +54,8 @@ qa_specesti_music_armadillo::t1()
 	CPPUNIT_ASSERT_THROW(specesti_music *music = new specesti_music_armadillo(5, 1), std::invalid_argument);
 }
 
+#include<iostream>
+#include<iomanip>
 void
 qa_specesti_music_armadillo::calculate()
 {
@@ -87,6 +89,7 @@ qa_specesti_music_armadillo::calculate_pseudospectrum()
 	out.close();
 	delete music;
 }
+
 void
 qa_specesti_music_armadillo::bench()
 {
