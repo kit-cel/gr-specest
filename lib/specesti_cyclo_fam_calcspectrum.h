@@ -33,6 +33,7 @@ class specesti_cyclo_fam_calcspectrum
 	~specesti_cyclo_fam_calcspectrum();
 	void calc(const gr_complex *in);
 	float* get_outputs() { return &d_outputs[0]; };
+	float get_value(int row, int column){ return d_result[row][column]; };
 
  private:
 	int d_Np;
@@ -44,6 +45,7 @@ class specesti_cyclo_fam_calcspectrum
 	float d_scale;
 
 	std::vector<std::vector<gr_complex> >  d_complex_demodulates;
+	std::vector<std::vector<float> >       d_result;
 	std::vector<float>                     d_outputs;
 
 	std::vector<gr_complex> d_fft_in_buffer;

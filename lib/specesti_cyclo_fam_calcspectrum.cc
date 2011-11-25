@@ -30,8 +30,10 @@ specesti_cyclo_fam_calcspectrum::specesti_cyclo_fam_calcspectrum(int Np, int P, 
     d_L(L),
     d_N(P * L),
 	d_outputs(2 * d_N * (2*Np-1), 0),
+	d_result(2*d_N, std::vector<float>(2*d_Np-1,0)),
 	d_complex_demodulates(P, std::vector<gr_complex>(Np,0)),
 	d_fft_in_buffer(P)
+	
 {
     // Calculate scaling factor
     std::vector<float> window = gr_firdes::window(gr_firdes::WIN_HAMMING, d_Np, 0);
@@ -78,15 +80,22 @@ void specesti_cyclo_fam_calcspectrum::fft(int f_k, int f_l)
     fftwf_execute(d_fft_p);
     d_output_index = calc_output_index(f_k, f_l);
 
+
+    int column = (f_k+f_l-2); 
+    
+    int row    = (f_k-f_l+d_Np)*(d_N/d_Np);
+
     // Rearange, scale, get absolute value & copy result to output stream
 
     // Top of the channel support region
     for(int i = 0; i < d_N/d_Np; i++) {
         d_outputs[d_output_index+i] = std::sqrt(d_fft_out[i][0]*d_fft_out[i][0]+d_fft_out[i][1]*d_fft_out[i][1]);
+        d_result[row+i][column]     = std::sqrt(d_fft_out[i][0]*d_fft_out[i][0]+d_fft_out[i][1]*d_fft_out[i][1]);
     }
     // Bottom of the channel support region
     for(int i = 1; i <= d_N/d_Np; i++) {
         d_outputs[d_output_index-i] = std::sqrt(d_fft_out[d_P-i][0]*d_fft_out[d_P-i][0]+d_fft_out[d_P-i][1]*d_fft_out[d_P-i][1]);
+        d_result[row-i][column]     = std::sqrt(d_fft_out[d_P-i][0]*d_fft_out[d_P-i][0]+d_fft_out[d_P-i][1]*d_fft_out[d_P-i][1]);
     }
 }
 

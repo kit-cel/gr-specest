@@ -31,13 +31,13 @@
 class qa_specesti_cyclo_fam_calcspectrum : public CppUnit::TestCase {
 
 	CPPUNIT_TEST_SUITE (qa_specesti_cyclo_fam_calcspectrum);
-	CPPUNIT_TEST (t1);
-	CPPUNIT_TEST (t2);
+	CPPUNIT_TEST (test1);
+	CPPUNIT_TEST (test2);
 	CPPUNIT_TEST_SUITE_END ();
 
  private:
-	void t1 ();
-	void t2 ();
+	void test1 ();
+	void test2 ();
 };
 
 #endif /* INCLUDED_QA_SPECESTI_CYCLO_FAM_CALCSPECTRUM_H */
