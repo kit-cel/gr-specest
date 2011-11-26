@@ -43,9 +43,10 @@ L = Np/8
 class top(gr.top_block):
     def __init__(self):
         gr.top_block.__init__(self)
+        
         #Settings
         
-        self.src = gr.file_source(gr.sizeof_float,"/path/to/file.bin",True)	
+        self.src = gr.file_source(gr.sizeof_float,"/path/to/file.bin",True)
         self.ftc = gr.float_to_complex(1)
 
         trt = gr.throttle(gr.sizeof_gr_complex,1.2*P*Np)
@@ -55,21 +56,19 @@ class top(gr.top_block):
        	  
         self.connect(self.src,self.ftc,self.cyclo_fam,self.sink)
         
-        self.estimate = self.cyclo_fam.get_estimate()
 
 def animate():
         while(True):
-            data = numpy.array(raw[0:(2*Np)*(2*P*L+1)])
-            data.resize(2*Np-1, 2*P*L)
-            data = numpy.transpose(data)
+            raw = mytb.cyclo_fam.get_estimate()
+            data = numpy.array(raw)
                         
             # the actual decision code
             # should work for unknown center frequencys, as long the max values are not at f=0, alpha=0 
 
             f_max     = numpy.max(data[P*L,:])      # Max value on f-Axis
-	    alpha_max = numpy.max(data[:,Np])           # Max value on alpha-Axis	
+            alpha_max = numpy.max(data[:,Np])       # Max value on alpha-Axis	
             
- 	    tolerance = 0.9			    # Depends on the reliableness of estimate
+            tolerance = 0.9			    # Depends on the reliableness of estimate
 
             if  alpha_max < tolerance*f_max:		    
                 plt.title('QPSK')
@@ -84,7 +83,7 @@ def animate():
             cbar.draw_all()
 
             plt.draw()
-            yield True        
+            yield True
             
         
 # Start top block
@@ -94,11 +93,8 @@ mytb = top()
 mytb.start()
 
 # Calc first image to show
-raw = ctypes.cast( mytb.estimate.__long__(), ctypes.POINTER( ctypes.c_float) )
-data = numpy.array(raw[0:(2*Np-1)*2*P*L])
-
-data.resize(2*Np-1, 2*P*L)
-data = numpy.transpose(data)
+raw = mytb.cyclo_fam.get_estimate()
+data = numpy.array(raw)
 
 image = plt.imshow(data,interpolation='nearest',animated=True,extent= (-0.5, 0.5-1.0/Np, -1.0, 1.0-1.0/(P*L)))
           
