@@ -41,20 +41,18 @@ class specesti_cyclo_fam_calcspectrum
 	int d_L;
 	int d_N;
 
-	unsigned d_output_index;
 	float d_scale;
 
 	std::vector<std::vector<gr_complex> >  d_complex_demodulates;
 	std::vector<std::vector<float> >       d_result;
-	std::vector<float>                     d_outputs;
 
-	std::vector<gr_complex> d_fft_in_buffer;
-	fftwf_complex *d_fft_in;
-	fftwf_complex *d_fft_out;
-	fftwf_plan     d_fft_p;
+	std::vector<gr_complex>  d_fft_in_buffer;
+	fftwf_complex           *d_fft_in;
+	fftwf_complex           *d_fft_out;
+	fftwf_plan               d_fft_p;
 
 	void fft(int f_k, int f_l);
-	inline unsigned calc_output_index(int f_k, int f_l);
+
 };
 
 #endif /* INCLUDED_SPECESTI_CYCLO_FAM_CALCSPECTRUM_H */

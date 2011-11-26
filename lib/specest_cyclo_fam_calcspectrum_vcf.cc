@@ -46,7 +46,6 @@ specest_cyclo_fam_calcspectrum_vcf::specest_cyclo_fam_calcspectrum_vcf (int Np, 
     set_history(P);
 
     d_calcspectrum = new specesti_cyclo_fam_calcspectrum(Np,P,L);
-    //d_outbuffer = d_calcspectrum->get_outputs();
 }
 
 
@@ -73,23 +72,13 @@ specest_cyclo_fam_calcspectrum_vcf::work (int noutput_items,
 	
 	        for(int i_column = 0; i_column < (2*d_Np-1); i_column++) {
 	        
-	        out[w*2*d_Np*d_K+p*2*d_Np+i_column]  = d_calcspectrum->get_value(p+d_p_index*d_K,i_column);
-	        }
+	        out[w*2*d_Np*d_K+p*2*d_Np+i_column]  = d_calcspectrum->get_value(p+d_p_index*d_K,i_column); // No. of output w: w*2*d_Np*d_K
+	                                                                                                    // alpha_index = p+d_p_index*d_K
+	        }                                                                                           
 	            
 	        out[w*2*d_Np*d_K+p*2*d_Np+2*d_Np-1]  = d_calcspectrum->get_value(p+d_p_index*d_K,0); //peridoicity
 	    	
 	    }
-
-
-        /*for(int p = 0; p < d_K ;p++) {                            // No. of output w: w*2*d_Np*d_K
-            out[w*2*d_Np*d_K+p*2*d_Np]=d_outbuffer[p+d_p_index*d_K]; // alpha_index = d_p_index*d_K
-
-            for(int i = 1; i < 2*d_Np-1; i++) {
-                out[w*2*d_Np*d_K+p*2*d_Np+i] = d_outbuffer[p+d_p_index*d_K+2*d_N*i];
-            }
-            out[w*2*d_Np*d_K+p*2*d_Np+2*d_Np-1] = d_outbuffer[p+d_p_index*d_K]; //peridoicity
-        }*/
-
 
         // check if there are P new input items, if so calc new estimate
         if(++d_p_index == (2*d_N/d_K)) {
