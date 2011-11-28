@@ -17,88 +17,53 @@
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
 #
-
-# Demonstrates a decision algorithm for QPSK and BPSK Signals based on the
-# spectral correlation density (cyclc spectrum).
+"""
+Demonstrates a decision algorithm for QPSK and BPSK Signals based on the
+spectral correlation density (cyclic spectrum). This is merely a small
+demonstrator and should not be used for life-or-death type modulation
+classification.
+"""
 
 import numpy
-import ctypes
-
-import sys
-import gtk, gobject
-import matplotlib
-matplotlib.use('GTKAgg')
 import matplotlib.pylab as plt
+import fam_matplotlib
 
-from gnuradio import gr
-import specest
-import time
+def animate_bpsk_qpsk_detect(Np, P, L, fam_block, image, cbar):
+    """ Alternative animate function: after reading an estimate,
+    perform a simple check to see if the input was BPSK or QPSK.
+    """
+    while(True):
+        raw = fam_block.get_estimate()
+        data = numpy.array(raw)
+        # the actual decision code
+        # should work for unknown center frequencies,
+        # as long the max values are not at f=0, alpha=0
+        f_max     = numpy.max(data[P*L, :])  # Max value on f-Axis
+        alpha_max = numpy.max(data[:, Np])   # Max value on alpha-Axis
+        tolerance = 0.9			    # Depends on the reliability of estimate
+        if  alpha_max < tolerance*f_max:
+            plt.title('QPSK')
+        else:
+            plt.title('BPSK')
+        image.set_data(data)
+        image.changed()
+        cbar.set_clim(vmax=data.max())
+        cbar.draw_all()
+        plt.draw()
+        yield True
 
-# Parameters of Estimation
-Np = 32
-P= 128
-L = Np/8
+def main():
+    """ Setup plot widget and run. """
+    Np = 32
+    P  = 128
+    L  = Np/8
+    filename = 'bpsk_qpsk.dat'
+    animate_func = lambda fam_block, image, cbar: animate_bpsk_qpsk_detect(Np, P, L, fam_block, image, cbar)
+    fam_matplotlib.setup_fam_matplotlib(filename=filename, sample_type="complex",
+                                        Np=Np, P=P, L=L,
+                                        verbose=False,
+                                        animate_func=animate_func)
 
-
-class top(gr.top_block):
-    def __init__(self):
-        gr.top_block.__init__(self)
-
-        #Settings
-        self.src = gr.file_source(gr.sizeof_float, "/path/to/file.bin", True)
-        self.ftc = gr.float_to_complex(1)
-
-        trt = gr.throttle(gr.sizeof_gr_complex,1.2*P*Np)
-        self.sink = gr.null_sink(gr.sizeof_float*2*Np)
-        self.cyclo_fam = specest.cyclo_fam(Np,P,L)
-
-        self.connect(self.src, self.ftc, self.cyclo_fam, self.sink)
-
-
-def animate():
-        while(True):
-            raw = mytb.cyclo_fam.get_estimate()
-            data = numpy.array(raw)
-            # the actual decision code
-            # should work for unknown center frequencies,
-            # as long the max values are not at f=0, alpha=0
-            f_max     = numpy.max(data[P*L,:])      # Max value on f-Axis
-            alpha_max = numpy.max(data[:,Np])       # Max value on alpha-Axis
-
-            tolerance = 0.9			    # Depends on the reliability of estimate
-            if  alpha_max < tolerance*f_max:
-                plt.title('QPSK')
-            else:
-                plt.title('BPSK')
-            image.set_data(data)
-            image.changed()
-            cbar.set_clim(vmax=data.max())
-
-            cbar.draw_all()
-
-            plt.draw()
-            yield True
-
-
-# Start top block
-mytb = top()
-# Start flowgraph
-mytb.start()
-
-# Calc first image to show
-raw = mytb.cyclo_fam.get_estimate()
-data = numpy.array(raw)
-
-image = plt.imshow(data,
-                    interpolation='nearest',
-                    animated=True,
-                    extent=(-0.5, 0.5-1.0/Np, -1.0, 1.0-1.0/(P*L)))
-cbar = plt.colorbar(image)
-plt.xlabel('frequency / fs')
-plt.ylabel('cycle frequency / fs')
-plt.axis('normal')
-
-gobject.idle_add(lambda iter=animate(): iter.next())
-
-plt.show()
+if __name__ == "__main__":
+    main()
 

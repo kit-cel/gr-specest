@@ -66,6 +66,7 @@ SET(SPECEST_PY_SRCS
 	logpwrspectrum.py
 	specest_window.py
 	specest_mtm.py
-	specest_gendpss.py)
+	specest_gendpss.py
+	fam_matplotlib.py)
 
 INSTALL(FILES ${SPECEST_PY_SRCS} DESTINATION ${PYTHON_DIR}/specest)
