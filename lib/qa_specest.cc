@@ -28,6 +28,7 @@
 #include <qa_specest.h>
 #include <qa_specest_arburg.h>
 #include <qa_specesti_esprit_fortran.h>
+#include <qa_specesti_cyclo_fam_calcspectrum.h>
 
 #ifdef ARMADILLO_FOUND
 #include <qa_specesti_music_armadillo.h>
@@ -40,6 +41,7 @@ qa_specest::suite()
 
 	s->addTest(qa_specest_arburg::suite());
 	s->addTest(qa_specesti_esprit_fortran::suite());
+	s->addTest(qa_specesti_cyclo_fam_calcspectrum::suite());
 	#ifdef ARMADILLO_FOUND
 	s->addTest(qa_specesti_music_armadillo::suite());
 	#endif

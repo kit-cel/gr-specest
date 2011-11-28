@@ -18,8 +18,8 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef INCLUDED_QA_SPECESTI_CYCLO_FAM_CALCSPECTRUM_H
-#define INCLUDED_QA_SPECESTI_CYCLO_FAM_CALCSPECTRUM_H
+#ifndef INCLUDED_SPECESTI_CYCLO_FAM_CALCSPECTRUM_H
+#define INCLUDED_SPECESTI_CYCLO_FAM_CALCSPECTRUM_H
 
 #include <complex>
 #include <fftw3.h>
@@ -31,8 +31,9 @@ class specesti_cyclo_fam_calcspectrum
  public:
 	specesti_cyclo_fam_calcspectrum(int Np, int P, int L);
 	~specesti_cyclo_fam_calcspectrum();
-	void calc(const gr_complex *in, float *out);
-	float* get_outputs() { return &d_outputs[0]; };
+	void calc(const gr_complex *in);
+	const std::vector<std::vector<float> >  &get_outputs() { return d_result; };
+	float get_value(int row, int column){ return d_result[row][column]; };
 
  private:
 	int d_Np;
@@ -40,19 +41,18 @@ class specesti_cyclo_fam_calcspectrum
 	int d_L;
 	int d_N;
 
-	unsigned d_output_index;
 	float d_scale;
 
-	gr_complex    **d_complex_demodulates;
-	std::vector<float> d_outputs;
+	std::vector<std::vector<gr_complex> >  d_complex_demodulates;
+	std::vector<std::vector<float> >       d_result;
 
-	std::vector<gr_complex> d_fft_in_buffer;
-	fftwf_complex *d_fft_in;
-	fftwf_complex *d_fft_out;
-	fftwf_plan     d_fft_p;
+	std::vector<gr_complex>  d_fft_in_buffer;
+	fftwf_complex           *d_fft_in;
+	fftwf_complex           *d_fft_out;
+	fftwf_plan               d_fft_p;
 
-	void fft(int f_k, int f_l, float *out);
-	inline unsigned calc_output_index(float f_k, float f_l);
+	void fft(int f_k, int f_l);
+
 };
 
 #endif /* INCLUDED_SPECESTI_CYCLO_FAM_CALCSPECTRUM_H */

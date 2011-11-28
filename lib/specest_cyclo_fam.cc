@@ -26,23 +26,23 @@
 #include <specest_cyclo_fam.h>
 #include <stdexcept>
 
-inline bool
-specesti_is_power_of_two (int x)
-{
-  return ((x != 0) && !(x & (x - 1)));
-}
+//inline bool
+//specesti_is_power_of_two (int x)
+//{
+//  return ((x != 0) && !(x & (x - 1)));
+//}
 
 inline void
 specesti_check_arguments(int Np, int P, int decimation_factor)
 {
-	if (!specesti_is_power_of_two(Np)) {
-		throw std::invalid_argument("specest_cyclo_fam: Np has to be a power of two");
+	if (!(Np % 2 == 0)) {
+		throw  std::invalid_argument("specest_cyclo_fam: Np has to be a even number");
 	}
-	if (!specesti_is_power_of_two(P)) {
-		throw std::invalid_argument("specest_cyclo_famh: P has to be a power of two");
+	if (!(P % 2 == 0)) {
+		throw std::invalid_argument("specest_cyclo_famh: P has to be a even number");
 	}
-	if (!specesti_is_power_of_two(decimation_factor)) {
-		throw std::invalid_argument("speces_cyclo_fam: Decimation factor L has to be a power of two");
+	if (!(decimation_factor % 2 == 0)) {
+		throw std::invalid_argument("speces_cyclo_fam: Decimation factor L has to be a even number");
 	}
 
     //if (decimation_factor > (Np/4)) {

@@ -47,7 +47,7 @@ specest_cyclo_fam_sptr specest_make_cyclo_fam (int Np, int P, int decimation_fac
  * \param Np length of the first FFT (in literature usually denoted with N', see reference below)
  * \param P  length of the second FFT
  * \param L  decimation factor (must be smaller than Np/4)
- * Parameters all have to be powers of two.
+ * Parameters all have to be multiples of two.
  *
  * \b Function:
  * The estimator works on input streams of complex samples.
@@ -102,7 +102,7 @@ class specest_cyclo_fam : public gr_hier_block2
 	/**
 	* Direct access to the estimate. Note estimate is an 1-dim array of size 2N*(2Np-1).
 	*/
-	const float* get_estimate() { return d_calcspectrum->get_estimate(); };
+	const std::vector<std::vector<float> > &get_estimate() { return d_calcspectrum->get_estimate(); };
 };
 
 #endif /* INCLUDED_SPECEST_CYCLO_FAM_H */

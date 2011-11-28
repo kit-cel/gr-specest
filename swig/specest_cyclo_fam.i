@@ -7,7 +7,7 @@ specest_make_cyclo_fam (int Np, int P, int decimation_factor)
 class specest_cyclo_fam : public gr_hier_block2
 {
  public:
- const float* get_estimate();
+ const std::vector<std::vector<float> > &get_estimate();
  
  private:
 	specest_cyclo_fam (int Np, int P, int decimation_factor);
