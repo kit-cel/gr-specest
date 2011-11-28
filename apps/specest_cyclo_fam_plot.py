@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# vim: set fileencoding=utf-8 :
 #
 # Copyright 2011 Communications Engineering Lab, KIT
 #
@@ -17,87 +18,114 @@
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
 #
+"""
+Plots the magnitude of the spectral correlation density
+(cyclic spectrum) of a file estimated with FAM.
 
-# Plots the magnituce of the spectral correlation density (cyclic spectrum) of a file 
-# estimated with FAM
+"""
 
 import numpy
-import ctypes
+import time
+from optparse import OptionParser
 
-import gtk, gobject
+import gobject
 import matplotlib
 matplotlib.use('GTKAgg')
 import matplotlib.pylab as plt
 from gnuradio import gr
+
 import specest
-import time
+from gnuradio.eng_option import eng_option
 
-
-# 
-
-# Parameters of Estimation
-Np = 32
-P = 128
-L = 2
-
-
-class top(gr.top_block):
-
-    def __init__(self):
-
+class FAMProcessor(gr.top_block):
+    """ Simple flow graph: run file through FAM.
+        Plotting is done in animate()! """
+    def __init__(self, Np=32, P=128, L=2,
+                 filename=None, sample_type='complex', verbose=True):
         gr.top_block.__init__(self)
-        # Settings   
-        # TODO: Parsing Filename
-        self.src  = src = gr.noise_source_f(gr.GR_GAUSSIAN, 1)
-        #self.src = gr.file_source(gr.sizeof_float,"/path/to/file.bin",True)	
+        if filename is None:
+            src = gr.noise_source_c(gr.GR_GAUSSIAN, 1)
+            if verbose:
+                print "Using Gaussian noise source."
+        else:
+            if sample_type == 'complex':
+                src = gr.file_source(gr.sizeof_gr_complex, filename, True)
+            else:
+                fsrc = gr.file_source(gr.sizeof_float, filename, True)
+                src = gr.float_to_complex()
+                self.connect(fsrc, src)
+            if verbose:
+                print "Reading data from %s" % filename
+        if verbose:
+            print "FAM configuration:"
+            print "N'   = %d" % Np
+            print "P    = %d" % P
+            print "L    = %d" % L
+            #print "Δf   = %f" % asfd
+        sink = gr.null_sink(gr.sizeof_float * 2 * Np)
+        self.cyclo_fam = specest.cyclo_fam(Np, P, L)
+        self.connect(src, self.cyclo_fam, sink)
 
-        self.ftc = gr.float_to_complex(1)
-        self.sink = gr.null_sink(gr.sizeof_float*2*Np)
-        self.cyclo_fam = specest.cyclo_fam(Np,P,L)
-       	  
-        self.connect(self.src,self.ftc,self.cyclo_fam,self.sink)
-        
-def animate():
-        while(True):
-            raw = mytb.cyclo_fam.get_estimate()
-            data = numpy.array(raw)
-                       
-            image.set_data(data)
-            image.changed()
-            cbar.set_clim(vmax=data.max())
+def animate(fam_block, image, cbar):
+    """ Read the data from the running block and shove it onto
+    the Matplotlib widget.
+    """
+    while(True):
+        raw = fam_block.get_estimate()
+        data = numpy.array(raw)
+        image.set_data(data)
+        image.changed()
+        cbar.set_clim(vmax=data.max())
+        cbar.draw_all()
+        plt.draw()
+        yield True
 
-            cbar.draw_all()
+def parse_options():
+    """ Options parser. """
+    usage = "%prog: [options] filename"
+    parser = OptionParser(option_class=eng_option, usage=usage)
+    parser.add_option("-s", "--sample-type", type="choice",
+                      choices=("float", "complex"),
+                      help="Set input type to float or complex.", default="complex")
+    parser.add_option("-N", "--Np", type="int", default=32,
+            help="N' (not N!)")
+    parser.add_option("-P", type="int", default=128,
+            help="P")
+    parser.add_option("-L", default=2,
+            help="L")
+    (options, args) = parser.parse_args ()
+    if len(args) != 1:
+        return (options, None)
+    return (options, args[0])
 
-            plt.draw()
-            yield True        
+def main():
+    """ Setup plot widget and run. """
+    (options, filename) = parse_options()
+    mytb = FAMProcessor(filename=filename,
+                        Np=options.Np, P=options.P, L=options.L,
+                        sample_type=options.sample_type)
+    # Start Flowgraph in background, then give it some time to fire up
+    mytb.start()
+    time.sleep(3)
+    # Calc First Image to Show, setup axis
+    raw = mytb.cyclo_fam.get_estimate()
+    data = numpy.array(raw)
+    image = plt.imshow(data,
+                        interpolation='nearest',
+                        animated=True,
+                        extent=(-0.5, 0.5-1.0/options.Np, -1.0, 1.0-1.0/(options.P*options.L)))
+    cbar = plt.colorbar(image)
+    plt.xlabel('frequency / fs')
+    plt.ylabel('cycle frequency / fs')
+    plt.axis('normal')
+    plt.title('Magnitude of estimated cyclic spectrum with FAM')
 
-# Go:
-        
-# Start Top Block
-mytb = top()
+    # optional:
+    # pylab.axhline(linewidth=1, color='w')
+    # pylab.axvline(linewidth=1, color='w')
+    gobject.idle_add(lambda iter=animate(mytb.cyclo_fam, image, cbar): iter.next())
+    plt.show()
 
-# Start Flowgraph
-mytb.start()
+if __name__ == "__main__":
+    main()
 
-time.sleep(3)
-
-
-# Calc First Image to Show
-raw = mytb.cyclo_fam.get_estimate()
-data = numpy.array(raw)
-
-image = plt.imshow(data,interpolation='nearest',animated=True,extent= (-0.5, 0.5-1.0/Np, -1.0, 1.0-1.0/(P*L)))
-                
-cbar = plt.colorbar(image)
-plt.xlabel('frequency /fs')
-plt.ylabel('cycle frequency /fs')
-plt.axis('normal')
-plt.title('Magnitude of estimated cyclic spectrum with FAM')
-
-# optional:
-# pylab.axhline(linewidth=1, color='w')
-# pylab.axvline(linewidth=1, color='w')
-           
-gobject.idle_add(lambda iter=animate(): iter.next())
-
-plt.show()

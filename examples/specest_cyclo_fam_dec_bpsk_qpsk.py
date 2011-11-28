@@ -18,7 +18,7 @@
 # Boston, MA 02110-1301, USA.
 #
 
-# Demonstrates a decision algorithm for QPSK and BPSK Signals based on the 
+# Demonstrates a decision algorithm for QPSK and BPSK Signals based on the
 # spectral correlation density (cyclc spectrum).
 
 import numpy
@@ -29,12 +29,12 @@ import gtk, gobject
 import matplotlib
 matplotlib.use('GTKAgg')
 import matplotlib.pylab as plt
+
 from gnuradio import gr
 import specest
 import time
 
 # Parameters of Estimation
-
 Np = 32
 P= 128
 L = Np/8
@@ -43,39 +43,33 @@ L = Np/8
 class top(gr.top_block):
     def __init__(self):
         gr.top_block.__init__(self)
-        
+
         #Settings
-        
-        self.src = gr.file_source(gr.sizeof_float,"/path/to/file.bin",True)
+        self.src = gr.file_source(gr.sizeof_float, "/path/to/file.bin", True)
         self.ftc = gr.float_to_complex(1)
 
         trt = gr.throttle(gr.sizeof_gr_complex,1.2*P*Np)
         self.sink = gr.null_sink(gr.sizeof_float*2*Np)
-
         self.cyclo_fam = specest.cyclo_fam(Np,P,L)
-       	  
-        self.connect(self.src,self.ftc,self.cyclo_fam,self.sink)
-        
+
+        self.connect(self.src, self.ftc, self.cyclo_fam, self.sink)
+
 
 def animate():
         while(True):
             raw = mytb.cyclo_fam.get_estimate()
             data = numpy.array(raw)
-                        
             # the actual decision code
-            # should work for unknown center frequencys, as long the max values are not at f=0, alpha=0 
-
+            # should work for unknown center frequencies,
+            # as long the max values are not at f=0, alpha=0
             f_max     = numpy.max(data[P*L,:])      # Max value on f-Axis
-            alpha_max = numpy.max(data[:,Np])       # Max value on alpha-Axis	
-            
-            tolerance = 0.9			    # Depends on the reliableness of estimate
+            alpha_max = numpy.max(data[:,Np])       # Max value on alpha-Axis
 
-            if  alpha_max < tolerance*f_max:		    
+            tolerance = 0.9			    # Depends on the reliability of estimate
+            if  alpha_max < tolerance*f_max:
                 plt.title('QPSK')
             else:
                 plt.title('BPSK')
-            
-            
             image.set_data(data)
             image.changed()
             cbar.set_clim(vmax=data.max())
@@ -84,11 +78,10 @@ def animate():
 
             plt.draw()
             yield True
-            
-        
+
+
 # Start top block
 mytb = top()
-
 # Start flowgraph
 mytb.start()
 
@@ -96,13 +89,16 @@ mytb.start()
 raw = mytb.cyclo_fam.get_estimate()
 data = numpy.array(raw)
 
-image = plt.imshow(data,interpolation='nearest',animated=True,extent= (-0.5, 0.5-1.0/Np, -1.0, 1.0-1.0/(P*L)))
-          
+image = plt.imshow(data,
+                    interpolation='nearest',
+                    animated=True,
+                    extent=(-0.5, 0.5-1.0/Np, -1.0, 1.0-1.0/(P*L)))
 cbar = plt.colorbar(image)
-plt.xlabel('frequency /fs')
-plt.ylabel('cycle frequency /fs')
+plt.xlabel('frequency / fs')
+plt.ylabel('cycle frequency / fs')
 plt.axis('normal')
-   
+
 gobject.idle_add(lambda iter=animate(): iter.next())
 
 plt.show()
+

@@ -66,18 +66,16 @@ specest_cyclo_fam_calcspectrum_vcf::work (int noutput_items,
     int ninput_items = noutput_items/(d_K);
 
     for(int w = 0; w < ninput_items; w++) {
-       
-        // Write estimate to outputstream
-        for(int p = 0; p < d_K ;p++) {
-	
+        // Write estimate to output stream
+        for(int p = 0; p < d_K; p++) {
 	        for(int i_column = 0; i_column < (2*d_Np-1); i_column++) {
-	        
-	        out[w*2*d_Np*d_K+p*2*d_Np+i_column]  = d_calcspectrum->get_value(p+d_p_index*d_K,i_column); // No. of output w: w*2*d_Np*d_K
-	                                                                                                    // alpha_index = p+d_p_index*d_K
-	        }                                                                                           
-	            
-	        out[w*2*d_Np*d_K+p*2*d_Np+2*d_Np-1]  = d_calcspectrum->get_value(p+d_p_index*d_K,0); //peridoicity
-	    	
+				// No. of output w: w*2*d_Np*d_K
+				// alpha_index = p+d_p_index*d_K
+				out[w*2*d_Np*d_K+p*2*d_Np+i_column] = d_calcspectrum->get_value(p+d_p_index*d_K, i_column);
+	        }
+			// Copy first element (periodically) to the end, this way the item size
+			// is much nicer.
+	        out[w*2*d_Np*d_K+p*2*d_Np+2*d_Np-1] = d_calcspectrum->get_value(p+d_p_index*d_K, 0);
 	    }
 
         // check if there are P new input items, if so calc new estimate
