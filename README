@@ -7,6 +7,11 @@ In order to sucessfully build the gr-specest modules you will need:
 * libuhd
 * gfortran (others might work as well, not tested)
 
+A note on Fortran: The fort77 compiler does *not* work here. However, if
+you have both a current gfortran version and the old fort77 installed, it
+might happen that CMake detects the wrong version. Either specify the
+compiler manually or delete the old Fortran compiler.
+
 After checking out the code from the repository, change to the gr-specest
 directory. If you want to build with a different compiler such as clang
 you might have to do something like:

@@ -1,6 +1,6 @@
 CPU-load-dependet Decimation:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* To get a smooth ouput when using UHD as source, a CPU-dependent decimation has been implemented. The parameter self.decimation_step sets the step-size to increase/decrease the decimation-factor --> Use with care - see known problems!
+* To get a smooth output when using UHD as source, a CPU-dependent decimation has been implemented. The parameter self.decimation_step sets the step-size to increase/decrease the decimation-factor --> Use with care - see known problems!
 * Decimation is increased as long as AT LEAST ONE of your system's CPUs stays less than 10 % in idle mode (more than 90 % load).
 * Decimation is decreased as long as EVERY of your system's CPUs stays more than 70 % in idle mode (less than 30 % load).
 * In the class "_cpu_usage_watcher_thread" you can set the interval (also update-interval) for the CPU-load to be measured (self.measurement_interval)
