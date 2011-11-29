@@ -79,7 +79,11 @@ specesti_music_armadillo::calculate(const gr_complexd* data, unsigned int data_l
 	// generate a base for the noise subspace
 	G = eigvec.cols(0, d_m-d_n-1);
 	// solve a*GG*a = 0 => a*Qa = 0
+#if ARMA_VERSION_MAJOR < 2
 	Q = G * arma::htrans(G);
+#else
+	Q = G * arma::trans(G);
+#endif
 	// get the coefficents of the complex polynom
 	for(int i = 0; i < d_m-1; i++) {
 		c(i+d_m,0) = arma::sum(Q.diag(i+1));
@@ -87,7 +91,11 @@ specesti_music_armadillo::calculate(const gr_complexd* data, unsigned int data_l
 	}
 	c(d_m-1) = arma::sum(Q.diag());
 	// calculate roots and get the largest inside the unit-cirle
+#if ARMA_VERSION_MAJOR < 2
 	z_all = arma::sort(roots(arma::trans(c)), 1);
+#else
+	z_all = arma::sort(roots(arma::strans(c)), 1);
+#endif
 	for (unsigned int i = 0; i < z_all.n_rows; i++)
 	{
 		if (std::abs(z_all(i)) < 1)
@@ -124,6 +132,10 @@ specesti_music_armadillo::calculate_pseudospectrum(const gr_complexd* data, unsi
 	  double omega = -M_PI + i * 2.0*M_PI/(pspectrum_len -1);
 		for(int t = 0; t < d_m; t++)
 			a[t] = exp(gr_complexd(0,-omega*t)); //TODO magic -1
+#if ARMA_VERSION_MAJOR < 2
 		pspectrum[i] = 1.0 / pow((arma::norm(arma::htrans(G) * a, 2)),2);
+#else
+		pspectrum[i] = 1.0 / pow((arma::norm(arma::trans(G) * a, 2)),2);
+#endif
 	}
 }

@@ -11,7 +11,11 @@ specesti::correst(const gr_complexd* data, unsigned int data_len, unsigned int m
 		y_est.row((m-1)-i) = y.cols(i, y.n_cols-(m-1)+i-1);
 
 	for (unsigned int i = 0; i < y.n_cols-(m-1); i++)
+#if ARMA_VERSION_MAJOR < 2
 		*(R) = *(R) + y_est.col(i)*arma::htrans(y_est.col(i));
+#else
+		*(R) = *(R) + y_est.col(i)*arma::trans(y_est.col(i));
+#endif
 
 	*(R) = *(R) / (y.n_cols-(m-1));
 }
