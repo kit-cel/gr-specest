@@ -36,31 +36,39 @@ WIN_TYPE_IDX = {'Hann': gr.firdes.WIN_HANN,
 ESTIM_TAB_NAMES = {'Welch': 0, 'Welch (SP)': 1, 'Burg': 2, 'fcov': 3, 'fmcov': 4, 'MTM': 5, 'Music': 6, 'Esprit': 7}
 ### Estimator Definitions ####################################################
 class EstimatorBase(object):
+    """ Derive any estimator bindings from this class. """
     def __init__(self):
         self.fg = None
         self.gui = None
         self.block = None
 
     def connect_fg(self, fg):
+        " Don't call this yourself! "
         self.fg = fg
 
     def connect_gui(self, gui):
+        " Don't call this yourself! "
         self.gui = gui
         self.setup_gui(gui.gui)
         self.connect_control_signals(gui)
 
     def setup_gui(self, gui):
+        " Overload this to set the values in the fields of the GUI. "
         pass
 
     def connect_control_signals(self, gui):
-        """ Connect Qt control signals to setters """
+        " Overload this to connect Qt control signals to setters. "
         pass
 
     def setup_block(self, fg):
+        """Overload this to configure the actual estimator block.
+        Must return a tuple (input block size, output block size)
+        """
         pass
 
 
 class EstimatorWelch(EstimatorBase):
+    """ Bindings for the Welch spectral estimator. """
     def __init__(self):
         EstimatorBase.__init__(self)
         self.mov_avg_len = 8
@@ -77,7 +85,6 @@ class EstimatorWelch(EstimatorBase):
         gui.welch_window_option.setValue(self.window_option)
 
     def connect_control_signals(self, gui):
-        """ Connect Qt control signals to setters """
         gui.connect(gui.gui.welch_mov_avg, QtCore.SIGNAL("editingFinished()"),
                     self._set_ma_len)
         gui.connect(gui.gui.welch_overlap, QtCore.SIGNAL("valueChanged()"),
@@ -110,9 +117,7 @@ class EstimatorWelch(EstimatorBase):
         self.fg.set_body()
         self.fg.set_decimator()
 
-
     def setup_block(self, shift_fft):
-        """ Returns: (FFT size, input block len) """
         try:
             window = WIN_TYPE_IDX[self.window]
         except KeyError:
@@ -121,6 +126,7 @@ class EstimatorWelch(EstimatorBase):
                                    self.mov_avg_len, shift_fft,
                                    window, self.window_option)
         return (self.fft_size, self.fft_size)
+
 
 class EstimatorWelchSP(EstimatorBase):
     def __init__(self):
@@ -229,9 +235,9 @@ class EstimatorBurg(EstimatorBase):
         self.fg.set_body()
         self.fg.set_decimator()
 
-    def setup_block(self, fg):
+    def setup_block(self, shift_fft):
         self.block = specest.burg(self.block_len, self.fft_size,
-                                  self.order, fg.shift_fft, self.decim)
+                                  self.order, shift_fft, self.decim)
         return (self.block_len, self.fft_size)
 
 class EstimatorFcov(EstimatorBase):
@@ -464,7 +470,7 @@ estimators = {'Welch': EstimatorWelch(),
 class SpecEstGUI(QtGui.QMainWindow):
     """ All of this controls the actual GUI. """
     def __init__(self, fg, parent=None):
-        QtGui.QWidget.__init__(self, parent)
+        QtGui.QMainWindow.__init__(self, parent)
 
         self.gui = Ui_MainWindow()
         self.gui.setupUi(self)
@@ -513,11 +519,11 @@ class SpecEstGUI(QtGui.QMainWindow):
 
         # Connect control signals
         self.connect(self.gui.pause_button, QtCore.SIGNAL("clicked()"),
-                                 self.pauseFg)
+                                 self.pause_flow_graph)
         self.connect(self.gui.run_button, QtCore.SIGNAL("clicked()"),
-                                 self.runFg)
+                                 self.run_flow_graph)
         self.connect(self.gui.close_button, QtCore.SIGNAL("clicked()"),
-                                 self.stopFg)
+                                 self.stop_flow_graph)
         # Connect general signals
         self.connect(self.gui.input_selector, QtCore.SIGNAL("currentIndexChanged(int)"),
                                  self.input_selector_text)
@@ -578,7 +584,7 @@ class SpecEstGUI(QtGui.QMainWindow):
             self.first_run = self.first_run + 1
         self.gui.plot.replot()
 
-    def pauseFg(self):
+    def pause_flow_graph(self):
         """ Pause and unpause the flow graph. """
         if(self.gui.pause_button.text() == "Pause"):
             self.fg.stop()
@@ -588,33 +594,24 @@ class SpecEstGUI(QtGui.QMainWindow):
             self.fg.start()
             self.gui.pause_button.setText("Pause")
 
-    def runFg(self):
-        self.fg.cpu_watcher = _cpu_usage_watcher_thread(self)
+    def run_flow_graph(self):
+        """ Init and start the flow graph. """
+        self.fg.cpu_watcher = CPUUsageWatcherThread(self)
         self.fg.set_head()
         self.fg.set_decimator()
         self.fg.set_body()
         self.fg.set_decimator()
         self.fg.start()
 
-    def stopFg(self):
+    def stop_flow_graph(self):
         self.fg.stop()
 
     # Functions to manipulate parameters in GUI
     def set_input_selector(self, src_type):
-        if(src_type == "File"):
-            self.gui.input_selector.setCurrentIndex(0)
-        elif(src_type == "UHD"):
-            self.gui.input_selector.setCurrentIndex(1)
-        else:
-            pass
+        self.gui.input_selector.setCurrentIndex({'File': 0, 'UHD': 1}[src_type])
 
     def set_input_tab(self, src_type):
-        if(src_type == "File"):
-            self.gui.tabWidget_2.setCurrentIndex(0)
-        elif(src_type == "UHD"):
-            self.gui.tabWidget_2.setCurrentIndex(1)
-        else:
-            pass
+        self.gui.tabWidget_2.setCurrentIndex({'File': 0, 'UHD': 1}[src_type])
 
     def set_method_selector(self, method):
         method_idx = {'Welch': 0, 'Burg': 1, 'fcov': 2, 'fmcov': 3, 'MTM': 4, 'Music': 5, 'Esprit': 6}
@@ -676,8 +673,8 @@ class SpecEstGUI(QtGui.QMainWindow):
             pass
 
     def input_tab_text(self, tab):
-        ### Add code to execute, when input-tab changes!
-        input_tab = tab
+        # FIXME Add code to execute, when input-tab changes!
+        pass
 
     def method_selector_text(self):
         try:
@@ -688,8 +685,8 @@ class SpecEstGUI(QtGui.QMainWindow):
             pass
 
     def method_tab_text(self, tab):
-        ### Add code to execute, when method-tab changes!
-        method_tab = tab
+        # FIXME Add code to execute, when method-tab changes!
+        pass
 
     def center_f_text(self):
         try:
@@ -801,7 +798,10 @@ class Spy(Qt.QObject):
             self.emit(Qt.SIGNAL("MouseMove"), event.pos())
         return False
 
-class _queue_watcher_thread(QtCore.QThread):
+### Threads ##################################################################
+class QueueWatcherThread(QtCore.QThread):
+    """Watches over the message queue and dumps data into the plot if enough
+    new samples have arrived. """
     def __init__(self, msgq, d_len, d_type_numpy, samp_rate, center_f):
         QtCore.QThread.__init__(self)
         self.msgq = msgq
@@ -831,7 +831,7 @@ class _queue_watcher_thread(QtCore.QThread):
         self.x_values = (pylab.array(range(-(self.d_len / 2), (self.d_len / 2)))) * \
                         self.samp_rate / 2 / round(self.d_len/2) / 1e6 + self.center_f
 
-class _cpu_usage_watcher_thread(QtCore.QThread):
+class CPUUsageWatcherThread(QtCore.QThread):
     """ Permanently observe the CPU load. """
     def __init__(self, fg):
         QtCore.QThread.__init__(self)
@@ -872,7 +872,7 @@ class _cpu_usage_watcher_thread(QtCore.QThread):
                     self.fg.set_decimation(self.fg.decimation - 1)
 
 ### GNU Radio flow graph and blocks ##########################################
-class my_top_block(gr.top_block):
+class TopBlock(gr.top_block):
     def __init__(self):
         gr.top_block.__init__(self)
 
@@ -1144,7 +1144,8 @@ class head(gr.hier_block2):
                 self.head_src = None
         elif(src_type == "UHD"):
             try:
-                self.head_src = uhd.single_usrp_source(device_addr='', io_type=uhd.io_type_t.COMPLEX_FLOAT32, num_channels=1)
+                self.head_src = uhd.single_usrp_source(device_addr='',
+                                                       io_type=uhd.io_type_t.COMPLEX_FLOAT32, num_channels=1)
                 self.head_src.set_samp_rate(fg.d_uhd_samp_rate)
                 self.head_src.set_gain(fg.d_uhd_gain, 0)
                 self.head_src.set_center_freq(fg.center_f*1e6 ,0)
@@ -1191,17 +1192,16 @@ class plot_sink(gr.hier_block2):
         gr.hier_block2.__init__(self, "plot_sink",
                 gr.io_signature(1, 1, d_type * d_len),
                 gr.io_signature(0, 0, 0))
-
         self.msgq = gr.msg_queue(1)
         self.snk = gr.message_sink(d_type * d_len, self.msgq, True)
         self.connect(self, self.snk)
-
-        self.watcher = _queue_watcher_thread(self.msgq, d_len, d_type_numpy, samp_rate, center_f)
-
-        qt_box.connect(self.watcher, Qt.SIGNAL("new_plot_data(PyQt_PyObject, PyQt_PyObject, PyQt_PyObject)"), qt_box.plot_data)
+        self.watcher = QueueWatcherThread(self.msgq, d_len, d_type_numpy, samp_rate, center_f)
+        qt_box.connect(self.watcher,
+                       Qt.SIGNAL("new_plot_data(PyQt_PyObject, PyQt_PyObject, PyQt_PyObject)"),
+                       qt_box.plot_data)
 
 if __name__ == "__main__":
-    tb = my_top_block()
+    tb = TopBlock()
     tb.qapp.exec_()
     if tb.sink is not None:
         tb.sink.watcher.quit()
