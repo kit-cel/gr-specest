@@ -27,6 +27,13 @@ FFT_SIZE_INDEX = {16: 0, 32: 1, 64: 2, 128: 3, 256: 4, 512: 5, 1024: 6,
 
 WINDOW_INDEX = {'Hann': 0, 'Hamming': 1, 'Kaiser': 2, 'Blackman': 3,
                 'Blackman-Harris': 4, 'Rectangular': 5}
+WIN_TYPE_IDX = {'Hann': gr.firdes.WIN_HANN,
+                'Hamming': gr.firdes.WIN_HAMMING,
+                'Kaiser': gr.firdes.WIN_KAISER,
+                'Blackman': gr.firdes.WIN_BLACKMAN,
+                'Blackman-Harris': gr.firdes.WIN_BLACKMAN_hARRIS,
+                'Rectangular': gr.firdes.WIN_RECTANGULAR}
+ESTIM_TAB_NAMES = {'Welch': 0, 'Welch (SP)': 1, 'Burg': 2, 'fcov': 3, 'fmcov': 4, 'MTM': 5, 'Music': 6, 'Esprit': 7}
 ### Estimator Definitions ####################################################
 class EstimatorBase(object):
     def __init__(self):
@@ -69,9 +76,6 @@ class EstimatorWelch(EstimatorBase):
         gui.welch_window.setCurrentIndex(WINDOW_INDEX[self.window])
         gui.welch_window_option.setValue(self.window_option)
 
-    def set_welch_window_option(self, window_option):
-        self.gui.welch_window_option.setValue(window_option)
-
     def connect_control_signals(self, gui):
         """ Connect Qt control signals to setters """
         gui.connect(gui.gui.welch_mov_avg, QtCore.SIGNAL("editingFinished()"),
@@ -85,7 +89,6 @@ class EstimatorWelch(EstimatorBase):
         gui.connect(gui.gui.welch_fft_size, QtCore.SIGNAL("currentIndexChanged(int)"),
                     self._set_fft_size)
 
-    # FIXME sometimes the body does not need to be updated
     def _set_ma_len(self):
         self.mov_avg_len = self.gui.gui.welch_mov_avg.text().toLong()[0]
         self.fg.set_body()
@@ -110,19 +113,73 @@ class EstimatorWelch(EstimatorBase):
 
     def setup_block(self, shift_fft):
         """ Returns: (FFT size, input block len) """
-        win_type = {'Hann': gr.firdes.WIN_HANN,
-                    'Hamming': gr.firdes.WIN_HAMMING,
-                    'Kaiser': gr.firdes.WIN_KAISER,
-                    'Blackman': gr.firdes.WIN_BLACKMAN,
-                    'Blackman-Harris': gr.firdes.WIN_BLACKMAN_hARRIS,
-                    'Rectangular': gr.firdes.WIN_RECTANGULAR}
         try:
-            window = win_type[self.window]
+            window = WIN_TYPE_IDX[self.window]
         except KeyError:
             print "Unkown window-type set for Welch!"
-        print "Setting welch w/ fft size %d" % self.fft_size
         self.block = specest.welch(self.fft_size, self.overlap,
                                    self.mov_avg_len, shift_fft,
+                                   window, self.window_option)
+        return (self.fft_size, self.fft_size)
+
+class EstimatorWelchSP(EstimatorBase):
+    def __init__(self):
+        EstimatorBase.__init__(self)
+        self.alpha = 0.1
+        self.overlap = 0
+        self.window = "Hamming"
+        self.window_option = 0.00
+        self.fft_size = 512
+
+    def setup_gui(self, gui):
+        gui.welchsp_alpha.setValue(self.alpha)
+        gui.welchsp_overlap.setValue(self.overlap)
+        gui.welchsp_window.setCurrentIndex(WINDOW_INDEX[self.window])
+        gui.welchsp_window_option.setValue(self.window_option)
+        gui.welchsp_fft_size.setCurrentIndex(FFT_SIZE_INDEX[self.fft_size])
+
+    def connect_control_signals(self, gui):
+        """ Connect Qt control signals to setters """
+        gui.connect(gui.gui.welchsp_alpha, QtCore.SIGNAL("editingFinished()"),
+                    self._set_alpha)
+        gui.connect(gui.gui.welchsp_overlap, QtCore.SIGNAL("valueChanged()"),
+                    self._set_overlap)
+        gui.connect(gui.gui.welchsp_window, QtCore.SIGNAL("currentIndexChanged(int)"),
+                    self._set_window)
+        gui.connect(gui.gui.welchsp_window_option, QtCore.SIGNAL("currentIndexChanged(int)"),
+                    self._set_window_option)
+        gui.connect(gui.gui.welchsp_fft_size, QtCore.SIGNAL("currentIndexChanged(int)"),
+                    self._set_fft_size)
+
+    def _set_alpha(self):
+        self.alpha = self.gui.gui.welchsp_alpha.text().toDouble()[0]
+        self.fg.set_body()
+
+    def _set_overlap(self):
+        self.overlap = self.gui.gui.welchsp_overlap.text().toLong()[0]
+        self.fg.set_body()
+
+    def _set_window(self):
+        self.window = str(self.gui.gui.welchsp_window.currentText())
+        self.fg.set_body()
+
+    def _set_window_option(self):
+        self.window_option = self.gui.gui.welchsp_window_option.text().toLong()[0]
+        self.fg.set_body()
+
+    def _set_fft_size(self, fft_idx):
+        self.fft_size = [k for k, v in FFT_SIZE_INDEX.iteritems() if v == fft_idx][0]
+        self.fg.set_body()
+        self.fg.set_decimator()
+
+
+    def setup_block(self, shift_fft):
+        try:
+            window = WIN_TYPE_IDX[self.window]
+        except KeyError:
+            print "Unknown window-type set for Welch!"
+        self.block = specest.welchsp(self.fft_size, self.overlap,
+                                   self.alpha, shift_fft,
                                    window, self.window_option)
         return (self.fft_size, self.fft_size)
 
@@ -394,6 +451,7 @@ class EstimatorESPRIT(EstimatorBase):
 
 # Define the estimators! (*Trumpets*)
 estimators = {'Welch': EstimatorWelch(),
+              'Welch (SP)':  EstimatorWelchSP(),
               'Burg':  EstimatorBurg(),
               'fcov':  EstimatorFcov(),
               'fmcov': EstimatorFmcov(),
@@ -563,8 +621,7 @@ class SpecEstGUI(QtGui.QMainWindow):
         self.gui.method_selector.setCurrentIndex(method_idx[method])
 
     def set_method_tab(self, method):
-        method_idx = {'Welch': 0, 'Burg': 1, 'fcov': 2, 'fmcov': 3, 'MTM': 4, 'Music': 5, 'Esprit': 6}
-        self.gui.tabWidget.setCurrentIndex(method_idx[method])
+        self.gui.tabWidget.setCurrentIndex(ESTIM_TAB_NAMES[method])
 
     def set_center_f(self, center_f):
         self.gui.center_f.setValue(center_f)
