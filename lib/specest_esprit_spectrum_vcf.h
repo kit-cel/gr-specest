@@ -42,7 +42,6 @@ class specest_esprit_spectrum_vcf : public gr_sync_block
  public:
 	~specest_esprit_spectrum_vcf ();
 
-
 	int work (int noutput_items,
 	          gr_vector_const_void_star &input_items,
 	          gr_vector_void_star &output_items);
@@ -54,6 +53,9 @@ class specest_esprit_spectrum_vcf : public gr_sync_block
 	unsigned int d_nsamples;
 	unsigned int d_pspectrum_len;
 
+	std::vector<gr_complexd> d_in_buf;
+	std::vector<double> d_out_buf;
 };
 
 #endif /* INCLUDED_SPECEST_ESPRIT_SPECTRUM_VCF_H */
+

@@ -42,15 +42,18 @@ class specest_esprit_vcf : public gr_sync_block
  public:
 	~specest_esprit_vcf ();
 
-
 	int work (int noutput_items,
 	          gr_vector_const_void_star &input_items,
 	          gr_vector_void_star &output_items);
 
-	specesti_esprit* d_impl;
 	unsigned int d_m;
 	unsigned int d_n;
 	unsigned int d_nsamples;
+	specesti_esprit* d_impl;
+
+	std::vector<gr_complexd> d_in_buf;
+	std::vector<double> d_out_buf;
 };
 
 #endif /* INCLUDED_SPECEST_ESPRIT_VCF_H */
+

@@ -38,11 +38,13 @@ specest_esprit_spectrum_vcf::specest_esprit_spectrum_vcf (unsigned int n, unsign
 	: gr_sync_block ("esprit_spectrum_vcf",
 		gr_make_io_signature (1, 1, sizeof (gr_complex) * nsamples),
 		gr_make_io_signature (1, 1, sizeof (float) * pspectrum_len)),
-		d_m(m),
-		d_n(n),
-		d_nsamples(nsamples),
-		d_pspectrum_len(pspectrum_len),
-		d_impl(new specesti_esprit_fortran(n,m))
+	d_m(m),
+	d_n(n),
+	d_nsamples(nsamples),
+	d_pspectrum_len(pspectrum_len),
+	d_impl(new specesti_esprit_fortran(n,m)),
+	d_in_buf(d_nsamples, 0),
+	d_out_buf(d_pspectrum_len, 0)
 {
 }
 
@@ -52,25 +54,27 @@ specest_esprit_spectrum_vcf::~specest_esprit_spectrum_vcf ()
 	delete d_impl;
 }
 
-int 
+
+int
 specest_esprit_spectrum_vcf::work (int noutput_items,
                                    gr_vector_const_void_star &input_items,
                                    gr_vector_void_star &output_items)
 {
 	const gr_complex *in = (const gr_complex *) input_items[0];
-	gr_complexd* double_input = new gr_complexd[d_nsamples];
-	for(int i = 0; i < d_nsamples; i++)
-		double_input[i] = static_cast<gr_complexd>(in[i]);
-
 	float* out = static_cast<float*> (output_items[0]);
-	double* tmpout = new double[d_pspectrum_len];
-	d_impl->calculate_pseudospectrum(double_input, d_nsamples, tmpout, d_pspectrum_len);
-	for(int i = 0; i < d_pspectrum_len; i++)
-		out[i] = (float) tmpout[i];
 
-	delete[] double_input;
-	delete[] tmpout;
+	for (int item = 0; item < noutput_items; item++) {
+		for(int i = 0; i < d_nsamples; i++)
+			d_in_buf[i] = static_cast<gr_complexd>(in[i]);
 
-	return 1;
+		d_impl->calculate_pseudospectrum(&d_in_buf[0], d_nsamples, &d_out_buf[0], d_pspectrum_len);
+		for(int i = 0; i < d_pspectrum_len; i++)
+			out[i] = (float) d_out_buf[i];
+
+		in += d_nsamples;
+		out += d_pspectrum_len;
+	}
+
+	return noutput_items;
 }
 
