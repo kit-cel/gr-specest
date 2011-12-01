@@ -6,6 +6,8 @@ In order to sucessfully build the gr-specest modules you will need:
 * libgnuradio-core
 * libuhd
 * gfortran (others might work as well, not tested)
+* liblapack-dev
+* libblas-dev
 
 A note on Fortran: The fort77 compiler does *not* work here. However, if
 you have both a current gfortran version and the old fort77 installed, it
