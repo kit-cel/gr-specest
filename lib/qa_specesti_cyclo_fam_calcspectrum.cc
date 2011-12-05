@@ -39,9 +39,9 @@ void
 qa_specesti_cyclo_fam_calcspectrum::test2()
 {
 	
-	int P=4;
-	int Np=4;
-	int L=2;
+	const int P=4;
+	const int Np=4;
+	const int L=2;
 	
 	specesti_cyclo_fam_calcspectrum *cfcs = new specesti_cyclo_fam_calcspectrum(P,Np,L);
 	gr_complex data[Np*P];
