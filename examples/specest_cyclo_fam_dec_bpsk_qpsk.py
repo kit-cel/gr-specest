@@ -25,8 +25,8 @@ classification.
 """
 
 import numpy
+from specest import fam_matplotlib
 import matplotlib.pylab as plt
-import fam_matplotlib
 
 def animate_bpsk_qpsk_detect(Np, P, L, fam_block, image, cbar):
     """ Alternative animate function: after reading an estimate,
@@ -35,12 +35,12 @@ def animate_bpsk_qpsk_detect(Np, P, L, fam_block, image, cbar):
     while(True):
         raw = fam_block.get_estimate()
         data = numpy.array(raw)
-        # the actual decision code
-        # should work for unknown center frequencies,
-        # as long the max values are not at f=0, alpha=0
+        """ The actual decision code:
+        Should work for unknown center frequencies,
+        as long the max values are not at f=0, alpha=0"""
         f_max     = numpy.max(data[P*L, :])  # Max value on f-Axis
         alpha_max = numpy.max(data[:, Np])   # Max value on alpha-Axis
-        tolerance = 0.9			    # Depends on the reliability of estimate
+        tolerance = 0.8                      # Depends on the reliability of estimate
         if  alpha_max < tolerance*f_max:
             plt.title('QPSK')
         else:
@@ -57,9 +57,9 @@ def main():
     Np = 32
     P  = 128
     L  = Np/8
-    filename = 'bpsk_qpsk.dat'
+    filename = 'bpsk_qpsk.bin'
     animate_func = lambda fam_block, image, cbar: animate_bpsk_qpsk_detect(Np, P, L, fam_block, image, cbar)
-    fam_matplotlib.setup_fam_matplotlib(filename=filename, sample_type="complex",
+    fam_matplotlib.setup_fam_matplotlib(filename=filename, sample_type="float",
                                         Np=Np, P=P, L=L,
                                         verbose=False,
                                         animate_func=animate_func)
