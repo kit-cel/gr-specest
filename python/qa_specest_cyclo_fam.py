@@ -90,6 +90,21 @@ class test_specest_cyclo_fam (gr_unittest.TestCase):
         """ Make sure an exception is thrown when an invalid decimation factor is chosen. """
         self.assertRaises(ValueError, specest.cyclo_fam, 16, 128, 3)  
 
+    def test_get_functions_006 (self):
+        
+        Np = 128
+        P = 512
+        L = 4
+        
+        N = P*L
+         
+        cyclo_fam  = specest.cyclo_fam (Np,P,L)
+
+        self.assertEqual(cyclo_fam.get_Np(),Np)
+        self.assertEqual(cyclo_fam.get_N(),N)
+        self.assertEqual(cyclo_fam.get_L(),L)
+        self.assertEqual(cyclo_fam.get_P(),P)
+        
     """def test_006 (self):
     
         src_data = (1, 1, 1, 1,  1, 1, 1, 1,  1, 1, 1, 1,  1, 1, 1, 1,  1, 1, 1, 1,  1, 1, 1, 1,  1, 1, 1, 1,  1, 1, 1, 1)

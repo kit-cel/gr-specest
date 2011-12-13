@@ -53,6 +53,11 @@ class specest_cyclo_fam_calcspectrum_vcf : public gr_sync_interpolator
  public:
 	~specest_cyclo_fam_calcspectrum_vcf ();
 
+	int get_Np(){ return d_Np; };
+	int get_N(){ return d_N; };
+	int get_P(){ return d_P; };
+    int get_L(){ return d_L; };
+ 
 	int work (int noutput_items,
 			gr_vector_const_void_star &input_items,
 			gr_vector_void_star &output_items);
