@@ -59,7 +59,6 @@ specesti_check_arguments(int Np, int P, int decimation_factor)
 	//}
 
     //TODO check if N>>Np
-
 }
 
 
@@ -72,18 +71,15 @@ specest_make_cyclo_fam (int Np, int P, int L)
 
 
 specest_cyclo_fam_sptr
-specest_make_cyclo_fam (float fs, float df, float da, float q)
+specest_make_cyclo_fam (float fs, float df, float dalpha, float q)
 {
-    
-  
     //TODO check for overlap between 0.75..1
     
-    //Calculate Parameters Np, P, L
-    
+    //Calculate Parameters Np, P, L    
     int Np,P,L;
     
     Np = specesti_round_to_even(fs/df);
-    float N = specesti_round_to_even(fs/da);
+    float N = specesti_round_to_even(fs/dalpha);
     L = specesti_round_to_even(N*(1-q));
     
     if(L<2){ L = 2;} //ensure that L is at least the minimum value of 2
@@ -91,9 +87,7 @@ specest_make_cyclo_fam (float fs, float df, float da, float q)
     P = specesti_round_to_even(N/L);
     
     specesti_check_arguments(Np,P,L);
-    
 
-    
     // return block with desired parametrization
     return gnuradio::get_initial_sptr (new specest_cyclo_fam (Np, P, L, fs));
 }
@@ -125,9 +119,8 @@ specest_cyclo_fam::specest_cyclo_fam (int Np, int P, int L, float fs)
     d_fs = fs;
     
     //actual resolutions 
-    
     d_df = fs/Np;
-    d_da = fs/(P*L); 
+    d_dalpha = fs/(P*L); 
     
     //TODO are desired resolutions met?
     

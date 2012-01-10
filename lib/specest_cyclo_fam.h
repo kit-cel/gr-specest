@@ -120,7 +120,7 @@ class specest_cyclo_fam : public gr_hier_block2
 
 	float d_fs;
 	float d_df;
-	float d_da;
+	float d_dalpha;
 
  public:
 	~specest_cyclo_fam ();
@@ -132,7 +132,7 @@ class specest_cyclo_fam : public gr_hier_block2
     
 	float get_sample_frequency() { return d_fs; };
     float get_frequency_resolution()  { return d_df; };
-    float get_cycle_frequency_resolution() { return d_da; };
+    float get_cycle_frequency_resolution() { return d_dalpha; };
 
 
     
