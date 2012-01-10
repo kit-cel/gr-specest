@@ -32,6 +32,15 @@
 //  return ((x != 0) && !(x & (x - 1)));
 //}
 
+inline int
+specesti_round_to_even(float x)
+{
+
+  return int(x) + int(x) % 2; 
+
+}
+
+
 inline void
 specesti_check_arguments(int Np, int P, int decimation_factor)
 {
@@ -49,6 +58,8 @@ specesti_check_arguments(int Np, int P, int decimation_factor)
 	//	throw std::invalid_argument("specest_cyclo_fam: Decimation factor L must be smaller than Np/4");
 	//}
 
+    //TODO check if N>>Np
+
 }
 
 
@@ -61,9 +72,30 @@ specest_make_cyclo_fam (int Np, int P, int L)
 
 
 specest_cyclo_fam_sptr
-specest_make_cyclo_fam (long sample_frequency, long delta_f, long delta_alpha, float overlap)
+specest_make_cyclo_fam (float fs, float df, float da, float q)
 {
- //TODO
+    
+  
+    //TODO check for overlap between 0.75..1
+    
+    //Calculate Parameters Np, P, L
+    
+    int Np,P,L;
+    
+    Np = specesti_round_to_even(fs/df);
+    float N = specesti_round_to_even(fs/da);
+    L = specesti_round_to_even(N*(1-q));
+    
+    if(L<2){ L = 2;} //ensure that L is at least the minimum value of 2
+            
+    P = specesti_round_to_even(N/L);
+    
+    specesti_check_arguments(Np,P,L);
+    
+
+    
+    // return block with desired parametrization
+    return gnuradio::get_initial_sptr (new specest_cyclo_fam (Np, P, L, fs));
 }
 
 
@@ -81,6 +113,29 @@ specest_cyclo_fam::specest_cyclo_fam (int Np, int P, int L)
 	connect(d_calcspectrum, 0, self(), 0);
 }
 
+
+specest_cyclo_fam::specest_cyclo_fam (int Np, int P, int L, float fs)
+	: gr_hier_block2 ("cyclo_fam",
+		         gr_make_io_signature (1, 1, sizeof(gr_complex)),
+		         gr_make_io_signature (1, 1, sizeof(float)*(2*Np))),
+ 	d_stream_to_vector(specest_make_stream_to_vector_overlap(sizeof(gr_complex), Np, Np-L)),
+	d_Np_fft(gr_make_fft_vcc(Np, true, gr_firdes::window(gr_firdes::WIN_HAMMING, Np, 0), false)),
+	d_calcspectrum(specest_make_cyclo_fam_calcspectrum_vcf(Np, P, L))
+{    
+    d_fs = fs;
+    
+    //actual resolutions 
+    
+    d_df = fs/Np;
+    d_da = fs/(P*L); 
+    
+    //TODO are desired resolutions met?
+    
+    connect(self(), 0, d_stream_to_vector, 0);
+	connect(d_stream_to_vector, 0, d_Np_fft, 0);
+    connect(d_Np_fft, 0, d_calcspectrum, 0);
+	connect(d_calcspectrum, 0, self(), 0);
+}
 
 specest_cyclo_fam::~specest_cyclo_fam ()
 {}

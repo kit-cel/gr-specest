@@ -98,51 +98,36 @@ class test_specest_cyclo_fam (gr_unittest.TestCase):
         
         N = P*L
          
-        cyclo_fam  = specest.cyclo_fam (Np,P,L)
+        cyclo_fam  = specest.cyclo_fam(Np,P,L)
 
         self.assertEqual(cyclo_fam.get_Np(),Np)
         self.assertEqual(cyclo_fam.get_N(),N)
         self.assertEqual(cyclo_fam.get_L(),L)
         self.assertEqual(cyclo_fam.get_P(),P)
-        
-    """def test_006 (self):
     
-        src_data = (1, 1, 1, 1,  1, 1, 1, 1,  1, 1, 1, 1,  1, 1, 1, 1,  1, 1, 1, 1,  1, 1, 1, 1,  1, 1, 1, 1,  1, 1, 1, 1)
-
-        expected_data = (   0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 1.384, 0.794, 1.384, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.794, 1.384, 2.411, 1.384, 0.794, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.794, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000  )
-        Np = 6
-        P = 8
-        L = 2
+    
+    def test_007 (self):
+    
+        fs = 133
+        df = 2.3
+        da = 1.4
+        q  = 0.9 
+             
+        cyclo_fam  = specest.cyclo_fam(fs, df, da, q)
+                
+        print cyclo_fam.get_Np()
+        print cyclo_fam.get_N()
+        print cyclo_fam.get_L()
+        print cyclo_fam.get_P()
         
-        src = gr.vector_source_c(src_data, False)
-        cyclo_fam = specest.cyclo_fam(Np, P, L)
-
-        sink = gr.vector_sink_f(2*Np)
-        self.tb.connect(src, cyclo_fam, sink)
-        self.tb.run()
+        print cyclo_fam.get_sample_frequency()
+        print cyclo_fam.get_frequency_resolution()
+        print cyclo_fam.get_cycle_frequency_resolution()
         
-        estimated_data =  sink.data()[-2*2*P*L*(2*Np):]
-        data = numpy.array(estimated_data[0:(2*Np)*2*2*P*L])
-        data.resize(2*Np-1, 2*2*P*L)
-        data = numpy.transpose(data)
-        print data        
-        #self.assertFloatTuplesAlmostEqual(expected_data,estimated_data,3) """
-
+        self.assertEqual(cyclo_fam.get_sample_frequency(),fs)
+        #self.assertLessEqual(cyclo_fam.get_frequency_resolution(),df)
+        #self.assertLessEqual(cyclo_fam.get_cycle_frequency_resolution(),da)
+                
 if __name__ == '__main__':
     gr_unittest.main ()
 

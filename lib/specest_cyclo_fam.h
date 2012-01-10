@@ -40,7 +40,7 @@ specest_make_cyclo_fam (int Np, int P, int decimation_factor);
  * \brief Create a FAM spectrum estimator with desired resolution in frequency and cycle frequency
  */
 specest_cyclo_fam_sptr
-specest_make_cyclo_fam (long sample_frequency, long delta_f, long delta_alpha, float overlap);
+specest_make_cyclo_fam (float sample_frequency, float delta_f, float delta_alpha, float overlap);
 
 
 /**
@@ -101,7 +101,7 @@ class specest_cyclo_fam : public gr_hier_block2
 	 */       
  
 	friend specest_cyclo_fam_sptr
-        specest_make_cyclo_fam (long sample_frequency, long delta_f, long delta_alpha, float overlap);
+        specest_make_cyclo_fam (float sample_frequency, float delta_f, float delta_alpha, float overlap);
 	 
 
 	/**
@@ -111,15 +111,16 @@ class specest_cyclo_fam : public gr_hier_block2
 	 */
 	 
 	specest_cyclo_fam (int Np, int P, int decimation_factor);
-
+    specest_cyclo_fam (int Np, int P, int decimation_factor, float fs);
+	
 	//Blocks
 	specest_stream_to_vector_overlap_sptr        d_stream_to_vector;
 	gr_fft_vcc_sptr                              d_Np_fft;
 	specest_cyclo_fam_calcspectrum_vcf_sptr      d_calcspectrum;
 
-	unsigned int                                 d_fs;
-	unsigned int                                 d_df;
-	unsigned int                                 d_da;
+	float d_fs;
+	float d_df;
+	float d_da;
 
  public:
 	~specest_cyclo_fam ();
@@ -129,9 +130,9 @@ class specest_cyclo_fam : public gr_hier_block2
     int get_P() { return d_calcspectrum->get_P(); };
     int get_L() { return d_calcspectrum->get_L(); };
     
-	int get_sample_frequency(); //TODO
-    int get_frequency_resolution; //TODO
-    int get_cycle_frequency_resolution(); //TODO
+	float get_sample_frequency() { return d_fs; };
+    float get_frequency_resolution()  { return d_df; };
+    float get_cycle_frequency_resolution() { return d_da; };
 
 
     
