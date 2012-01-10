@@ -54,9 +54,13 @@ specesti_check_arguments(int Np, int P, int decimation_factor)
 		throw std::invalid_argument("speces_cyclo_fam: Decimation factor L has to be a even number");
 	}
 
-    //if (decimation_factor > (Np/4)) {
-	//	throw std::invalid_argument("specest_cyclo_fam: Decimation factor L must be smaller than Np/4");
+    //if (decimation_factor >> (Np/4)) {
+    //	throw std::invalid_argument("specest_cyclo_fam: Decimation factor L must be smaller than Np/4");
 	//}
+
+    if ( Np >= P*decimation_factor) {
+    	throw std::invalid_argument("specest_cyclo_fam: N must be greater than Np");
+	}
 
     //TODO check if N>>Np
 }
@@ -73,22 +77,26 @@ specest_make_cyclo_fam (int Np, int P, int L)
 specest_cyclo_fam_sptr
 specest_make_cyclo_fam (float fs, float df, float dalpha, float q)
 {
-    //TODO check for overlap between 0.75..1
-    
-    //Calculate Parameters Np, P, L    
+    // Check if overlap is between 0.75..1
+	if (!(0.75 <= q && q <= 1)) {
+		throw std::invalid_argument("speces_cyclo_fam: overlap has to be between 0.75 and 1");
+	}
+	   
+    // Calculate Parameters Np, P, L    
     int Np,P,L;
     
     Np = specesti_round_to_even(fs/df);
     float N = specesti_round_to_even(fs/dalpha);
     L = specesti_round_to_even(N*(1-q));
     
-    if(L<2){ L = 2;} //ensure that L is at least the minimum value of 2
+    // Ensure that L is at least the minimum value of 2
+    if(L<2){ L = 2;}
             
     P = specesti_round_to_even(N/L);
     
     specesti_check_arguments(Np,P,L);
 
-    // return block with desired parametrization
+    // Return block with desired parametrization
     return gnuradio::get_initial_sptr (new specest_cyclo_fam (Np, P, L, fs));
 }
 

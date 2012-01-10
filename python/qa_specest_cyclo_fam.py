@@ -79,18 +79,23 @@ class test_specest_cyclo_fam (gr_unittest.TestCase):
 
 
     def test_exception1_003 (self):
-        """ Make sure an exception is thrown when an invalid FFT-Size is chosen. """
+        """ Make sure an exception is thrown when an invalid FFT-Size (Np) is chosen. """
         self.assertRaises(ValueError, specest.cyclo_fam, 17, 128, 2)
 
-    def test_exception1_004 (self):
-        """ Make sure an exception is thrown when an invalid FFT-Size is chosen. """
+    def test_exception2_004 (self):
+        """ Make sure an exception is thrown when an invalid FFT-Size (P) is chosen. """
         self.assertRaises(ValueError, specest.cyclo_fam, 16, 129, 2)
 
-    def test_exception1_005 (self):
+    def test_exception3_005 (self):
         """ Make sure an exception is thrown when an invalid decimation factor is chosen. """
-        self.assertRaises(ValueError, specest.cyclo_fam, 16, 128, 3)  
+        self.assertRaises(ValueError, specest.cyclo_fam, 16, 128, 3) 
 
-    def test_get_functions_006 (self):
+    def test_exception4_006 (self):
+        """ Make sure an exception is thrown when an invalid overlap factor is chosen. """
+        self.assertRaises(ValueError, specest.cyclo_fam, 100.0, 2.0, 1.0 , 0.74)
+        self.assertRaises(ValueError, specest.cyclo_fam, 100.0, 2.0, 1.0 , 1.1)
+
+    def test_get_functions_007 (self):
         
         Np = 128
         P = 512
@@ -106,7 +111,7 @@ class test_specest_cyclo_fam (gr_unittest.TestCase):
         self.assertEqual(cyclo_fam.get_P(),P)
     
     
-    def test_007 (self):
+    def test_008 (self):
     
         fs = 133
         df = 2.3
@@ -114,16 +119,7 @@ class test_specest_cyclo_fam (gr_unittest.TestCase):
         q  = 0.9 
              
         cyclo_fam  = specest.cyclo_fam(fs, df, da, q)
-                
-        print cyclo_fam.get_Np()
-        print cyclo_fam.get_N()
-        print cyclo_fam.get_L()
-        print cyclo_fam.get_P()
-        
-        print cyclo_fam.get_sample_frequency()
-        print cyclo_fam.get_frequency_resolution()
-        print cyclo_fam.get_cycle_frequency_resolution()
-        
+                       
         self.assertEqual(cyclo_fam.get_sample_frequency(),fs)
         #self.assertLessEqual(cyclo_fam.get_frequency_resolution(),df)
         #self.assertLessEqual(cyclo_fam.get_cycle_frequency_resolution(),da)
