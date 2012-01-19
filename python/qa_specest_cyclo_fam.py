@@ -81,7 +81,8 @@ class test_specest_cyclo_fam (gr_unittest.TestCase):
     def test_exception1_003 (self):
         """ Make sure an exception is thrown when an invalid FFT-Size (Np) is chosen. """
         self.assertRaises(ValueError, specest.cyclo_fam, 17, 128, 2)
-
+        self.assertRaises(ValueError, specest.cyclo_fam, 128, 16, 2)
+    
     def test_exception2_004 (self):
         """ Make sure an exception is thrown when an invalid FFT-Size (P) is chosen. """
         self.assertRaises(ValueError, specest.cyclo_fam, 16, 129, 2)

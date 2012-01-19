@@ -105,8 +105,8 @@ class specest_cyclo_fam : public gr_hier_block2
 	 
 
 	/**
-	 * \param Np Number of input samples for the channelizer. Used for computing the complex demodulates. Frequency resolution is approx. fs/Np
-	 * \param P Number of samples the estimate is based on. Cycle frequency resolution is approx. fs/(P*L)
+	 * \param Np Number of input samples for the channelizer. Used for computing the complex demodulates. Frequency resolution is approx. fs/Np.
+	 * \param P Number of samples the estimate is based on. Cycle frequency resolution is approx. fs/(P*L).
 	 * \param decimation_factor Also called L. Complex demodulates overlap by (Np-L) samples.
 	 */
 	 
@@ -137,7 +137,7 @@ class specest_cyclo_fam : public gr_hier_block2
 
     
 	/**
-	* Direct access to the estimate. Note estimate is a 2-dim array of size 2N x (2Np-1).
+	* Direct access to the estimate. Note: Estimate is a 2-dim array of size 2N x (2Np-1).
 	*/
 	const std::vector<std::vector<float> > &get_estimate() { return d_calcspectrum->get_estimate(); };
 };

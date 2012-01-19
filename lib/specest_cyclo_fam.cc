@@ -26,12 +26,6 @@
 #include <specest_cyclo_fam.h>
 #include <stdexcept>
 
-//inline bool
-//specesti_is_power_of_two (int x)
-//{
-//  return ((x != 0) && !(x & (x - 1)));
-//}
-
 inline int
 specesti_round_to_even(float x)
 {
@@ -86,11 +80,11 @@ specest_make_cyclo_fam (float fs, float df, float dalpha, float q)
     int Np,P,L;
     
     Np = specesti_round_to_even(fs/df);
-    float N = specesti_round_to_even(fs/dalpha);
+    float N = fs/dalpha;
     L = specesti_round_to_even(N*(1-q));
     
     // Ensure that L is at least the minimum value of 2
-    if(L<2){ L = 2;}
+    if(L<2){ L = 2; }
             
     P = specesti_round_to_even(N/L);
     
