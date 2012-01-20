@@ -30,7 +30,7 @@ inline int
 specesti_round_to_even(float x)
 {
 
-  return int(x) + int(x) % 2; 
+  return int(x) + int(x) % 2;
 
 }
 
@@ -75,19 +75,19 @@ specest_make_cyclo_fam (float fs, float df, float dalpha, float q)
 	if (!(0.75 <= q && q <= 1)) {
 		throw std::invalid_argument("speces_cyclo_fam: overlap has to be between 0.75 and 1");
 	}
-	   
-    // Calculate Parameters Np, P, L    
+	
+    // Calculate Parameters Np, P, L
     int Np,P,L;
-    
+
     Np = specesti_round_to_even(fs/df);
     float N = fs/dalpha;
     L = specesti_round_to_even(N*(1-q));
-    
+
     // Ensure that L is at least the minimum value of 2
     if(L<2){ L = 2; }
-            
+
     P = specesti_round_to_even(N/L);
-    
+
     specesti_check_arguments(Np,P,L);
 
     // Return block with desired parametrization
@@ -117,15 +117,14 @@ specest_cyclo_fam::specest_cyclo_fam (int Np, int P, int L, float fs)
  	d_stream_to_vector(specest_make_stream_to_vector_overlap(sizeof(gr_complex), Np, Np-L)),
 	d_Np_fft(gr_make_fft_vcc(Np, true, gr_firdes::window(gr_firdes::WIN_HAMMING, Np, 0), false)),
 	d_calcspectrum(specest_make_cyclo_fam_calcspectrum_vcf(Np, P, L))
-{    
+{
     d_fs = fs;
-    
-    //actual resolutions 
+
+    //actual resolutions
     d_df = fs/Np;
-    d_dalpha = fs/(P*L); 
-    
+    d_dalpha = fs/(P*L);
+
     //TODO are desired resolutions met?
-    
     connect(self(), 0, d_stream_to_vector, 0);
 	connect(d_stream_to_vector, 0, d_Np_fft, 0);
     connect(d_Np_fft, 0, d_calcspectrum, 0);
