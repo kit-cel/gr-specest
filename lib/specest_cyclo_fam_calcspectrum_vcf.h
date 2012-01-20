@@ -30,7 +30,7 @@ typedef boost::shared_ptr<specest_cyclo_fam_calcspectrum_vcf> specest_cyclo_fam_
 specest_cyclo_fam_calcspectrum_vcf_sptr specest_make_cyclo_fam_calcspectrum_vcf (int Np, int P, int L);
 
 /*!
- * \brief
+ * \brief Does the heavy lifting of specest_cyclo_fam.
  *
  */
 class specest_cyclo_fam_calcspectrum_vcf : public gr_sync_interpolator
