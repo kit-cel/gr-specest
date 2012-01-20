@@ -79,55 +79,52 @@ class test_specest_cyclo_fam (gr_unittest.TestCase):
 
 
     def test_exception1_003 (self):
-        """ Make sure an exception is thrown when an invalid FFT-Size is chosen. """
+        """ Make sure an exception is thrown when an invalid FFT-Size (Np) is chosen. """
         self.assertRaises(ValueError, specest.cyclo_fam, 17, 128, 2)
-
-    def test_exception1_004 (self):
-        """ Make sure an exception is thrown when an invalid FFT-Size is chosen. """
+        self.assertRaises(ValueError, specest.cyclo_fam, 128, 16, 2)
+    
+    def test_exception2_004 (self):
+        """ Make sure an exception is thrown when an invalid FFT-Size (P) is chosen. """
         self.assertRaises(ValueError, specest.cyclo_fam, 16, 129, 2)
 
-    def test_exception1_005 (self):
+    def test_exception3_005 (self):
         """ Make sure an exception is thrown when an invalid decimation factor is chosen. """
-        self.assertRaises(ValueError, specest.cyclo_fam, 16, 128, 3)  
+        self.assertRaises(ValueError, specest.cyclo_fam, 16, 128, 3) 
 
-    """def test_006 (self):
+    def test_exception4_006 (self):
+        """ Make sure an exception is thrown when an invalid overlap factor is chosen. """
+        self.assertRaises(ValueError, specest.cyclo_fam, 100.0, 2.0, 1.0 , 0.74)
+        self.assertRaises(ValueError, specest.cyclo_fam, 100.0, 2.0, 1.0 , 1.1)
+
+    def test_get_functions_007 (self):
+        
+        Np = 128
+        P = 512
+        L = 4
+        
+        N = P*L
+         
+        cyclo_fam  = specest.cyclo_fam(Np,P,L)
+
+        self.assertEqual(cyclo_fam.get_Np(),Np)
+        self.assertEqual(cyclo_fam.get_N(),N)
+        self.assertEqual(cyclo_fam.get_L(),L)
+        self.assertEqual(cyclo_fam.get_P(),P)
     
-        src_data = (1, 1, 1, 1,  1, 1, 1, 1,  1, 1, 1, 1,  1, 1, 1, 1,  1, 1, 1, 1,  1, 1, 1, 1,  1, 1, 1, 1,  1, 1, 1, 1)
-
-        expected_data = (   0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 1.384, 0.794, 1.384, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.794, 1.384, 2.411, 1.384, 0.794, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.794, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
-                            0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000  )
-        Np = 6
-        P = 8
-        L = 2
-        
-        src = gr.vector_source_c(src_data, False)
-        cyclo_fam = specest.cyclo_fam(Np, P, L)
-
-        sink = gr.vector_sink_f(2*Np)
-        self.tb.connect(src, cyclo_fam, sink)
-        self.tb.run()
-        
-        estimated_data =  sink.data()[-2*2*P*L*(2*Np):]
-        data = numpy.array(estimated_data[0:(2*Np)*2*2*P*L])
-        data.resize(2*Np-1, 2*2*P*L)
-        data = numpy.transpose(data)
-        print data        
-        #self.assertFloatTuplesAlmostEqual(expected_data,estimated_data,3) """
-
+    
+    def test_008 (self):
+    
+        fs = 133
+        df = 2.3
+        da = 1.4
+        q  = 0.9 
+             
+        cyclo_fam  = specest.cyclo_fam(fs, df, da, q)
+                       
+        self.assertEqual(cyclo_fam.get_sample_frequency(),fs)
+        #self.assertLessEqual(cyclo_fam.get_frequency_resolution(),df)
+        #self.assertLessEqual(cyclo_fam.get_cycle_frequency_resolution(),da)
+                
 if __name__ == '__main__':
     gr_unittest.main ()
 
