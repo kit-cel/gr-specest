@@ -1041,7 +1041,8 @@ class TopBlock(gr.top_block):
     def set_src_type(self, src_type):
         self.src_type = src_type
         self.set_head()
-        self.sink.watcher.set_samp_rate(self.samp_rate)
+        if self.sink is not None:
+            self.sink.watcher.set_samp_rate(self.samp_rate)
         self.set_head()
         self.set_decimator()
 
