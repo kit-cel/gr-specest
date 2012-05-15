@@ -50,7 +50,7 @@ specest_arburg_vcc::specest_arburg_vcc (unsigned blocklen,
 	d_blocklen(blocklen), d_order(order), d_normalise(normalise)
 {
 	// TODO catch?
-	d_burg = new specesti_arburg(blocklen, order);
+	d_burg = new specest_arburg_impl(blocklen, order);
 }
 
 

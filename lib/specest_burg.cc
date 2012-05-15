@@ -33,7 +33,7 @@ using std::vector;
 // throwing exceptions in the constructor ends up in segfaults in the Python
 // domain
 inline void
-specesti_check_arguments(unsigned fft_len, unsigned num_samples, unsigned order)
+specest_check_arguments_impl(unsigned fft_len, unsigned num_samples, unsigned order)
 {
 	if (fft_len < 2) {
 		throw std::invalid_argument("specest_burg: The length of FFT window should be greater than or equal to 2.");
@@ -54,7 +54,7 @@ specest_make_burg(unsigned int block_len,
 					bool fftshift,
 					int decimation)
 {
-	specesti_check_arguments(fft_len, block_len, order);
+	specest_check_arguments_impl(fft_len, block_len, order);
 	return gnuradio::get_initial_sptr(new specest_burg(
 				block_len,
 				fft_len,

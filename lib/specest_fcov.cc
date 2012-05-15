@@ -30,7 +30,7 @@ using std::vector;
 
 
 inline void
-specesti_check_arguments(unsigned int fft_len, unsigned int num_samples, unsigned int order)
+specest_check_arguments_impl(unsigned int fft_len, unsigned int num_samples, unsigned int order)
 {
 	if (fft_len < 2) {
 		throw std::invalid_argument("specest_fcov: The length of FFT window should be greater than or equal to 2.");
@@ -47,7 +47,7 @@ specesti_check_arguments(unsigned int fft_len, unsigned int num_samples, unsigne
 specest_fcov_sptr
 specest_make_fcov(unsigned int block_len, unsigned int fft_len, unsigned int order, bool fftshift, int decimation)
 {
-	specesti_check_arguments(fft_len, block_len, order);
+	specest_check_arguments_impl(fft_len, block_len, order);
 	return gnuradio::get_initial_sptr(new specest_fcov(block_len, fft_len, order, fftshift, decimation));
 }
 

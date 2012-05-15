@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Communications Engineering Lab, KIT
+ * Copyright 2010,2012 Communications Engineering Lab, KIT
  *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,12 +19,12 @@
 
 #include <cstdio>
 #include <stdexcept>
-#include <cppunit/TestAssert.h>
-#include <gr_complex.h>
-#include <qa_specest_arburg.h>
-#include <specesti_arburg.h>
 #include <iostream>
 #include <cmath>
+#include <gr_complex.h>
+#include <boost/test/unit_test.hpp>
+#include <specest_arburg_impl.h>
+
 
 using std::exp;
 using std::abs;
@@ -318,20 +318,19 @@ void print_error(const float *expected_result, gr_complex *real_data, int n) {
 	//}
 }
 
-void
-qa_specest_arburg::t1()
+
+BOOST_AUTO_TEST_CASE(qa_specest_arburg_impl_testthrows)
 {
-	CPPUNIT_ASSERT_THROW( specesti_arburg *AR = new specesti_arburg(23, 42), std::invalid_argument );
-	CPPUNIT_ASSERT_THROW( specesti_arburg *AR = new specesti_arburg(0, 42), std::invalid_argument );
-	CPPUNIT_ASSERT_THROW( specesti_arburg *AR = new specesti_arburg(23, 0), std::invalid_argument );
+	BOOST_CHECK_THROW( specest_arburg_impl *AR = new specest_arburg_impl(23, 42), std::invalid_argument );
+	BOOST_CHECK_THROW( specest_arburg_impl *AR = new specest_arburg_impl(0, 42), std::invalid_argument );
+	BOOST_CHECK_THROW( specest_arburg_impl *AR = new specest_arburg_impl(23, 0), std::invalid_argument );
 }
 
 
 /**
  * Compare coefficients to precalculated results.
  */
-void
-qa_specest_arburg::t2()
+BOOST_AUTO_TEST_CASE(qa_specest_arburg_t2)
 {
 	// tbw
 	// In fact, I wrote this once and it simply didn't work.

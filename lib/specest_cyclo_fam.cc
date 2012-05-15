@@ -27,7 +27,7 @@
 #include <stdexcept>
 
 inline int
-specesti_round_to_even(float x)
+specest_round_to_even_impl(float x)
 {
 
   return int(x) + int(x) % 2;
@@ -36,7 +36,7 @@ specesti_round_to_even(float x)
 
 
 inline void
-specesti_check_arguments(int Np, int P, int decimation_factor)
+specest_check_arguments_impl(int Np, int P, int decimation_factor)
 {
 	if (!(Np % 2 == 0)) {
 		throw  std::invalid_argument("specest_cyclo_fam: Np has to be a even number");
@@ -63,7 +63,7 @@ specesti_check_arguments(int Np, int P, int decimation_factor)
 specest_cyclo_fam_sptr
 specest_make_cyclo_fam (int Np, int P, int L)
 {
-    specesti_check_arguments(Np,P,L);
+    specest_check_arguments_impl(Np,P,L);
     return gnuradio::get_initial_sptr (new specest_cyclo_fam (Np, P, L));
 }
 
@@ -79,16 +79,16 @@ specest_make_cyclo_fam (float fs, float df, float dalpha, float q)
     // Calculate Parameters Np, P, L
     int Np,P,L;
 
-    Np = specesti_round_to_even(fs/df);
+    Np = specest_round_to_even_impl(fs/df);
     float N = fs/dalpha;
-    L = specesti_round_to_even(N*(1-q));
+    L = specest_round_to_even_impl(N*(1-q));
 
     // Ensure that L is at least the minimum value of 2
     if(L<2){ L = 2; }
 
-    P = specesti_round_to_even(N/L);
+    P = specest_round_to_even_impl(N/L);
 
-    specesti_check_arguments(Np,P,L);
+    specest_check_arguments_impl(Np,P,L);
 
     // Return block with desired parametrization
     return gnuradio::get_initial_sptr (new specest_cyclo_fam (Np, P, L, fs));

@@ -24,7 +24,7 @@
 
 #include <gr_io_signature.h>
 #include <specest_music_spectrum_vcf.h>
-#include <specesti_music_armadillo.h>
+#include <specest_music_armadillo_impl.h>
 
 
 specest_music_spectrum_vcf_sptr
@@ -42,7 +42,7 @@ specest_music_spectrum_vcf::specest_music_spectrum_vcf (unsigned int n, unsigned
 		d_n(n),
 		d_nsamples(nsamples),
 		d_pspectrum_len(pspectrum_len),
-		d_impl(new specesti_music_armadillo(n,m))
+		d_impl(new specest_music_armadillo_impl(n,m))
 {
 }
 

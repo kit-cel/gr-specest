@@ -46,7 +46,7 @@ specest_arfcov_vcc::specest_arfcov_vcc (unsigned blocklen, unsigned order, int n
 	d_blocklen(blocklen), d_order(order), d_normalise(normalise)
 {
 	// TODO catch?
-	d_fcov = new specesti_arfcov(blocklen, order);
+	d_fcov = new specest_arfcov_impl(blocklen, order);
 }
 
 

@@ -38,7 +38,7 @@ using std::vector;
  * - The power of the window function
  */
 inline float
-specesti_calculate_ma_scale(int fft_len, int ma_len, const vector<float> &window)
+specest_calculate_ma_scale_impl(int fft_len, int ma_len, const vector<float> &window)
 {
 
 	float scale = 1.0 / (fft_len * ma_len * 2 * M_PI);
@@ -59,7 +59,7 @@ specesti_calculate_ma_scale(int fft_len, int ma_len, const vector<float> &window
 // I'd prefer doing this in the specest constructor, but for some reason throwing
 // exceptions in the constructor ends up in seg faults in the Python domain
 inline void
-specesti_check_arguments(unsigned fft_len, int overlap, const vector<float> &window)
+specest_check_arguments_impl(unsigned fft_len, int overlap, const vector<float> &window)
 {
 	if (window.size() != 0 && window.size() != fft_len) {
 		throw std::invalid_argument("specest_welch: when providing a window, it must have the same length as fft_len.");
@@ -73,7 +73,7 @@ specesti_check_arguments(unsigned fft_len, int overlap, const vector<float> &win
 specest_welch_sptr
 specest_make_welch(unsigned fft_len, int overlap, int ma_len, bool fft_shift, const vector<float> &window)
 {
-	specesti_check_arguments(fft_len, overlap, window);
+	specest_check_arguments_impl(fft_len, overlap, window);
 	return gnuradio::get_initial_sptr(new specest_welch(fft_len, overlap, ma_len, fft_shift, window));
 }
 
@@ -99,7 +99,7 @@ specest_welch::specest_welch(unsigned fft_len, int overlap, int ma_len, bool fft
 		d_fft(gr_make_fft_vcc(fft_len, true, window, fft_shift)),
 		d_mag_square(gr_make_complex_to_mag_squared(fft_len)),
 		d_moving_average(specest_make_moving_average_vff (ma_len, fft_len,
-					specesti_calculate_ma_scale(fft_len, ma_len, window)))
+					specest_calculate_ma_scale_impl(fft_len, ma_len, window)))
 {
 	connect(self(), 0, d_stream_to_vector, 0);
 	connect(d_stream_to_vector, 0, d_fft, 0);

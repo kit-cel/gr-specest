@@ -24,7 +24,7 @@
 
 #include <gr_io_signature.h>
 #include <specest_esprit_vcf.h>
-#include <specesti_esprit_fortran.h>
+#include <specest_esprit_fortran_impl.h>
 
 
 specest_esprit_vcf_sptr
@@ -41,7 +41,7 @@ specest_esprit_vcf::specest_esprit_vcf (unsigned int n, unsigned int m, unsigned
 	d_n(n),
 	d_m(m),
 	d_nsamples(nsamples),
-	d_impl(new specesti_esprit_fortran(n, m)),
+	d_impl(new specest_esprit_fortran_impl(n, m)),
 	d_in_buf(d_nsamples, 0),
 	d_out_buf(d_n, 0)
 {
