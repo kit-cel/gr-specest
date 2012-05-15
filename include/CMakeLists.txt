@@ -21,6 +21,18 @@
 ########################################################################
 # Install public header files
 ########################################################################
+if(ARMADILLO_FOUND)
+	set(CXX_ARMADILLO_HDRS
+		specest_music.h
+		specest_music_vcf.h
+		specest_music_spectrum_vcf.h
+		specest_music_armadillo_impl.h
+		specest_correst_impl.h
+	)
+else()
+	set(CXX_ARMADILLO_HDRS)
+endif()
+
 install(FILES
     specest_api.h
     specest_adaptiveweighting_vff.h
@@ -37,9 +49,6 @@ install(FILES
     specest_fcov.h
     specest_fmcov.h
     specest_moving_average_vff.h
-    specest_music.h
-    specest_music_spectrum_vcf.h
-    specest_music_vcf.h
     specest_pad_vector.h
     specest_reciprocal_ff.h
     specest_stream_to_vector_overlap.h
@@ -48,12 +57,23 @@ install(FILES
     specest_arburg_impl.h
     specest_arfcov_impl.h
     specest_arfmcov_impl.h
-    specest_correst_impl.h
     specest_cyclo_fam_calcspectrum_impl.h
     specest_esprit_fortran_impl.h
     specest_esprit_impl.h
-    specest_music_armadillo_impl.h
     specest_music_fortran_impl.h
     specest_music_impl.h
+    ${CXX_ARMADILLO_HDRS}
     DESTINATION include/specest
 )
+
+
+IF (ARMADILLO_FOUND)
+	        SET(HAVE_ARMADILLO 1)
+		        SET(armadillo_optional_headers "#include \"specest_music.h\" \n#include \"specest_music_vcf.h\" \n#include \"specest_music_spectrum_vcf.h\"")
+			        SET(armadillo_optional_dot_i "%include \"specest_music.i\" \n%include \"specest_music_vcf.i\" \n%include \"specest_music_spectrum_vcf.i\"")
+			ELSE(ARMADILLO_FOUND)
+				        SET(armadillo_optional_headers "")
+					        SET(armadillo_optional_dot_i "")
+						        MESSAGE("-- As armadillo wasn't found, the MUSIC algorithm will not be built")
+						ENDIF(ARMADILLO_FOUND)
+

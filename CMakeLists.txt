@@ -111,6 +111,13 @@ find_package(BLAS REQUIRED)
 find_package(LAPACK REQUIRED)
 find_package(Armadillo)
 include(Armadillo)
+MESSAGE("-- As armadillo wasn't found, the MUSIC algorithm will not be built")
+IF (ARMADILLO_FOUND)
+	# Nothing
+ELSE(ARMADILLO_FOUND)
+	MESSAGE("-- As armadillo wasn't found, the MUSIC algorithm will not be built")
+ENDIF(ARMADILLO_FOUND)
+
 
 # Not sure if we still need this
 #IF(UNIX AND ("${CMAKE_SIZEOF_VOID_P}" EQUAL "8"))
