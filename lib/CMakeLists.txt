@@ -93,7 +93,7 @@ set_target_properties(gnuradio-specest
 ########################################################################
 # Install built library files
 ########################################################################
-install(TARGETS gnuradio-specest
+install(TARGETS gnuradio-specest gnuradio-specest-fortran
     LIBRARY DESTINATION lib${LIB_SUFFIX} # .so/.dylib file
     ARCHIVE DESTINATION lib${LIB_SUFFIX} # .lib file
     RUNTIME DESTINATION bin              # .dll file
