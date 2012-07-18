@@ -22,9 +22,6 @@
 #include "specest_fcov.h"
 #include "specest_fmcov.h"
 #include "specest_moving_average_vff.h"
-#include "specest_music.h"
-#include "specest_music_vcf.h"
-#include "specest_music_spectrum_vcf.h"
 #include "specest_pad_vector.h"
 #include "specest_reciprocal_ff.h"
 #include "specest_stream_to_vector_overlap.h"
@@ -71,15 +68,6 @@ GR_SWIG_BLOCK_MAGIC(specest,fmcov);
 GR_SWIG_BLOCK_MAGIC(specest,moving_average_vff);
 %include "specest_moving_average_vff.h"
 
-GR_SWIG_BLOCK_MAGIC(specest,music);
-%include "specest_music.h"
-
-GR_SWIG_BLOCK_MAGIC(specest,music_vcf);
-%include "specest_music_vcf.h"
-
-GR_SWIG_BLOCK_MAGIC(specest,music_spectrum_vcf);
-%include "specest_music_spectrum_vcf.h"
-
 GR_SWIG_BLOCK_MAGIC(specest,pad_vector);
 %include "specest_pad_vector.h"
 
@@ -95,3 +83,7 @@ GR_SWIG_BLOCK_MAGIC(specest,welch);
 GR_SWIG_BLOCK_MAGIC(specest,welchsp);
 %include "specest_welchsp.h"
 
+%include "../lib/config.h"
+#ifdef ARMADILLO_FOUND
+%include "specest_armadillo_swig.i"
+#endif

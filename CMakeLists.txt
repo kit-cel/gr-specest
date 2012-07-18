@@ -166,3 +166,8 @@ add_subdirectory(python)
 add_subdirectory(grc)
 add_subdirectory(apps)
 add_subdirectory(docs)
+
+configure_file(
+    ${CMAKE_SOURCE_DIR}/lib/config.h.in
+    ${CMAKE_CURRENT_BINARY_DIR}/lib/config.h
+@ONLY)
