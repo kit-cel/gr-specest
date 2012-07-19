@@ -189,16 +189,6 @@ class EstimatorWelchSP(EstimatorBase):
                                    window, self.window_option)
         return (self.fft_size, self.fft_size)
 
-#class EstimatorWelchSP(EstimatorBase):
-    #def __init__(self):
-        #EstimatorBase.__init__(self)
-
-    #def connect_control_signals(self, gui):
-        #""" Connect Qt control signals to setters """
-
-    #def setup_block(self, shift_fft):
-        #return (self.fft_size, self.fft_size)
-
 class EstimatorBurg(EstimatorBase):
     def __init__(self):
         EstimatorBase.__init__(self)
@@ -914,6 +904,9 @@ class TopBlock(gr.top_block):
 
         for estimator_name in estimators:
             estimators[estimator_name].connect_fg(self)
+        self.set_head()
+        self.set_body()
+        self.set_decimator()
 
 
     def set_head(self):

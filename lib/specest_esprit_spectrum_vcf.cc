@@ -24,7 +24,7 @@
 
 #include <gr_io_signature.h>
 #include <specest_esprit_spectrum_vcf.h>
-#include <specesti_esprit_fortran.h>
+#include <specest_esprit_fortran_impl.h>
 
 
 specest_esprit_spectrum_vcf_sptr
@@ -42,7 +42,7 @@ specest_esprit_spectrum_vcf::specest_esprit_spectrum_vcf (unsigned int n, unsign
 	d_n(n),
 	d_nsamples(nsamples),
 	d_pspectrum_len(pspectrum_len),
-	d_impl(new specesti_esprit_fortran(n,m)),
+	d_impl(new specest_esprit_fortran_impl(n,m)),
 	d_in_buf(d_nsamples, 0),
 	d_out_buf(d_pspectrum_len, 0)
 {

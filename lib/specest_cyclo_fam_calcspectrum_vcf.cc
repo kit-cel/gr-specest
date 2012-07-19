@@ -45,7 +45,7 @@ specest_cyclo_fam_calcspectrum_vcf::specest_cyclo_fam_calcspectrum_vcf (int Np, 
 {
     set_history(P);
 
-    d_calcspectrum = new specesti_cyclo_fam_calcspectrum(Np,P,L);
+    d_calcspectrum = new specest_cyclo_fam_calcspectrum_impl(Np,P,L);
 }
 
 
