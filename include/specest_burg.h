@@ -78,7 +78,7 @@ class SPECEST_API specest_burg : public gr_hier_block2
 					unsigned order,
 					bool fftshift,
 					int decimation);
-	
+
 	specest_stream_to_vector_overlap_sptr d_stream_to_vector;
 	gr_keep_one_in_n_sptr d_keep_one_in_n;
 	specest_arburg_vcc_sptr d_arburg;

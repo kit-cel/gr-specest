@@ -197,7 +197,7 @@ class control_panel(wx.Panel):
           # Just ignore the key value we get
           # we only need to now that the visability or size of something has changed
           self.parent.Layout()
-          #self.parent.Fit()          
+          #self.parent.Fit()
 
 ##################################################
 # Spectrum window with plotter and control panel

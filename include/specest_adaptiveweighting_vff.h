@@ -35,7 +35,7 @@ SPECEST_API specest_adaptiveweighting_vff_sptr specest_make_adaptiveweighting_vf
  *
  * @param vlen: length of the eigenspectra which are connected by GNU Radio
  * @param lambdas: the diffirent eigenvalues belonging to the eigenspectra
- * 
+ *
  */
 class SPECEST_API specest_adaptiveweighting_vff : public gr_sync_block
 {

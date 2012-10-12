@@ -43,7 +43,7 @@
 
 	MUSIC (Multiple Signal Classification) is a subspace oriented parametric spectrum estimator.
 
-	It works primarily by correlating a series of samples in a correlation matrix, 
+	It works primarily by correlating a series of samples in a correlation matrix,
 	decomposing it into orthogonal eigenvectors, building a noise subspace from the
 	eigenvectors belonging to the (m-n) smallest eigenvalues, and finding the sinusoid
 	frequencies, for which the projection length into this subspace equals zero.

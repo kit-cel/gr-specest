@@ -115,7 +115,7 @@ specest_arfcov_impl::calculate(const gr_complex *x, gr_complex *ar_coeff, int no
   unsigned N = d_blocklen;
   unsigned pmax = d_order;
   init_buffers();
-  
+
 //------------------INITIALIZATION--------------------------
   int i;
   double sum = 0.0;
@@ -125,7 +125,7 @@ specest_arfcov_impl::calculate(const gr_complex *x, gr_complex *ar_coeff, int no
   double vb; // Backward prediction error
   double vfi = sum + norm(x[N-1]);
   double vbii = sum + norm(x[0]);
-  
+
   double delta = 1 - norm(x[0])/vf;
   double gamma = 1 - norm(x[N-1])/vf;
   d[pmax] = gr_complexd(conj(x[0]))/vf;
@@ -134,7 +134,7 @@ specest_arfcov_impl::calculate(const gr_complex *x, gr_complex *ar_coeff, int no
   gr_complexd ebN = gr_complexd(x[N-1]);
   afi[0] = 1.0;
   abii[pmax] = 1.0;
-  
+
   /*// Debug-Code
   cout << "delta= " << delta << endl;
   cout << "gamma= " << gamma << endl;
@@ -142,10 +142,10 @@ specest_arfcov_impl::calculate(const gr_complex *x, gr_complex *ar_coeff, int no
   cout << "c[0]= " << real(c[0]) << ", " << imag(c[0]) << endl;
   cout << "afi[0]= " << real(afi[0]) << endl;
   cout << "---------------\n";*/
-  
+
 //---------------------MAIN LOOP------------------------
   unsigned p;
-  
+
   for (p=1;p<(pmax+1);p++) {
     gr_complexd r0;
     r0 = 0.0;
@@ -165,7 +165,7 @@ specest_arfcov_impl::calculate(const gr_complex *x, gr_complex *ar_coeff, int no
     }
     vf = vfi - norm(Z)/vbii;
     vb = vbii - norm(Z)/vfi;
-    
+
     gr_complexd theta;
     double deltaii, gammai;
     theta = 0.0;
@@ -177,7 +177,7 @@ specest_arfcov_impl::calculate(const gr_complex *x, gr_complex *ar_coeff, int no
       dii[pmax+1-p+i] = d[pmax+1-p+i] + conj(theta)/gamma * c[i];
       ci[i] = c[i] + theta/delta * d[pmax+1-p+i];
     }
-    
+
     efp = ebN = 0.0;
     for (i=0;i<(p+1);i++) {
       efp += gr_complexd(x[p-i]) * af[i];
@@ -189,7 +189,7 @@ specest_arfcov_impl::calculate(const gr_complex *x, gr_complex *ar_coeff, int no
     }
     vfi = vf - norm(efp)/deltaii;
     vbii = vb - norm(ebN)/gammai;
-    
+
     gr_complexd d0,cp;
     d0 = conj(efp)/vf;
     cp = conj(ebN)/vb;
@@ -199,9 +199,9 @@ specest_arfcov_impl::calculate(const gr_complex *x, gr_complex *ar_coeff, int no
     }
     delta = deltaii - norm(efp)/vf;
     gamma = gammai - norm(ebN)/vb;
-    
+
   }
-  
+
   /*for (p=0;p<pmax+1;p++)
     ar_coeff[p] = gr_complex(af[p]);*/
   // Copy to output buffer
@@ -214,6 +214,6 @@ specest_arfcov_impl::calculate(const gr_complex *x, gr_complex *ar_coeff, int no
       ar_coeff[p] = gr_complex(af[p]);
     }
   }
-    
+
   return (float) (vf/(N-pmax));
 }

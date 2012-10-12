@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
-/* 
+/*
  * Copyright 2010 Communications Engineering Lab, KIT
  *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -25,7 +25,7 @@
 
 specest_music_armadillo_impl::specest_music_armadillo_impl(unsigned int n, unsigned int m) : d_n(n), d_m(m)
 {
-	if (n > m) 
+	if (n > m)
 			throw std::invalid_argument("specest_music_armadillo_impl: n cannot exceed m in length.");
 }
 
@@ -34,7 +34,7 @@ specest_music_armadillo_impl::~specest_music_armadillo_impl()
 }
 
 inline
-arma::cx_mat 
+arma::cx_mat
 specest_music_armadillo_impl::diag(arma::cx_colvec c, int k)
 {
 	int n = c.n_rows+abs(k);
@@ -43,7 +43,7 @@ specest_music_armadillo_impl::diag(arma::cx_colvec c, int k)
 	return A;
 }
 
-arma::cx_mat 
+arma::cx_mat
 specest_music_armadillo_impl::roots(arma::cx_rowvec c)
 {
 	int n = c.n_cols - 1;
@@ -59,7 +59,7 @@ specest_music_armadillo_impl::roots(arma::cx_rowvec c)
 }
 
 
-void 
+void
 specest_music_armadillo_impl::calculate(const gr_complexd* data, unsigned int data_len,
                                     double* omegas)
 {

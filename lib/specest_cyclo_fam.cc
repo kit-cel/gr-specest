@@ -75,7 +75,7 @@ specest_make_cyclo_fam (float fs, float df, float dalpha, float q)
 	if (!(0.75 <= q && q <= 1)) {
 		throw std::invalid_argument("speces_cyclo_fam: overlap has to be between 0.75 and 1");
 	}
-	
+
     // Calculate Parameters Np, P, L
     int Np,P,L;
 

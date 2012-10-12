@@ -32,7 +32,7 @@ specest_cyclo_fam_calcspectrum_impl::specest_cyclo_fam_calcspectrum_impl(int Np,
 	d_result(2*d_N, std::vector<float>(2*d_Np-1,0)),
 	d_complex_demodulates(P, std::vector<gr_complex>(Np,0)),
 	d_fft_in_buffer(P)
-	
+
 {
     // Calculate scaling factor
     std::vector<float> window = gr_firdes::window(gr_firdes::WIN_HAMMING, d_Np, 0);
@@ -69,10 +69,10 @@ void specest_cyclo_fam_calcspectrum_impl::fft(int f_k, int f_l)
     fftwf_execute(d_fft_p);
 
     // Rearange, scale, get absolute value & copy result to output stream
-    
-    int column = (f_k+f_l-2); 
-    int row    = (f_k-f_l+d_Np)*(d_N/d_Np); // d_N/d_Np is intended (=floor(d_N/d_Np)) 
-    
+
+    int column = (f_k+f_l-2);
+    int row    = (f_k-f_l+d_Np)*(d_N/d_Np); // d_N/d_Np is intended (=floor(d_N/d_Np))
+
     // Top of the channel support region
     for(int i = 0; i < d_N/d_Np; i++) {
         d_result[row+i][column]     = std::sqrt(d_fft_out[i][0]*d_fft_out[i][0]+d_fft_out[i][1]*d_fft_out[i][1]);

@@ -56,7 +56,7 @@ class SPECEST_API specest_arfcov_impl
 
 	gr_complexd *af; //!< Forward AR coefficients
 	gr_complexd *ab; //!< Backward AR coefficients
-	gr_complexd *afi; 
+	gr_complexd *afi;
 	gr_complexd *abii;
 	gr_complexd *c;
 	gr_complexd *d;

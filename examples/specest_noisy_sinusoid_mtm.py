@@ -17,11 +17,11 @@ class app_top_block(stdgui2.std_top_block):
 	        self.panel = panel
 
 		parser = OptionParser(usage="%prog: [options]")
-		parser.add_option("-N", "--dpsslength", type="int", 
+		parser.add_option("-N", "--dpsslength", type="int",
 			help="Length of the DPSS", default="512")
-		parser.add_option("-B", "--timebandwidthproduct", type="float", 
+		parser.add_option("-B", "--timebandwidthproduct", type="float",
 			help="Time Bandwidthproduct used to calculate the DPSS", default="3")
-		parser.add_option("-K", "--tapers", type="int", 
+		parser.add_option("-K", "--tapers", type="int",
 			help="Number of Tapers used to calculate the Spectrum", default="5")
 		parser.add_option("-W", "--weighting", type="choice", choices=("unity", "eigenvalues" ,"adaptive" ),
 			help="weighting-type to be used (unity, eigenvalues, adaptive) ", default="adaptive")
@@ -62,7 +62,7 @@ class app_top_block(stdgui2.std_top_block):
     	        	return self.set_freq(kv['freq'])
 
 		vbox.Add(self.scope.win, 10, wx.EXPAND)
-        
+
 		#self._build_subpanel(vbox)
 
     	def _build_subpanel(self, vbox_arg):
@@ -70,7 +70,7 @@ class app_top_block(stdgui2.std_top_block):
 
 	 	# FIXME figure out how to have this be a subpanel that is always
 		# created, but has its visibility controlled by foo.Show(True/False)
-        
+
 		def _form_set_decim(kv):
 			return self.set_decim(kv['decim'])
 
@@ -80,21 +80,21 @@ class app_top_block(stdgui2.std_top_block):
         	panel = self.panel
         	vbox = vbox_arg
         	myform = self.myform
-	
+
 	        #panel = wx.Panel(self.panel, -1)
 	        #vbox = wx.BoxSizer(wx.VERTICAL)
-	
+
 	        hbox = wx.BoxSizer(wx.HORIZONTAL)
 	        hbox.Add((5,0), 0)
-	
+
 	        myform['decim'] = form.int_field(
 			parent=panel, sizer=hbox, label="Decim",
 	        	callback=myform.check_input_and_call(_form_set_decim, self._set_status_msg))
-	
+
 	        hbox.Add((5,0), 1)
 	        myform['fs@usb'] = form.static_float_field(
 	        	parent=panel, sizer=hbox, label="Fs@USB")
-	
+
         	hbox.Add((5,0), 1)
        		myform['dbname'] = form.static_text_field(
         		parent=panel, sizer=hbox)

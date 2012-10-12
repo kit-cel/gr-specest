@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
 /*
  * Copyright 2010 Communications Engineering Lab, KIT
- * 
+ *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -43,7 +43,7 @@ SPECEST_API specest_make_arfcov_vcc (unsigned blocklen, unsigned order, int norm
  * The coefficients can also be normalised by the noise power which is useful when this block
  * is used for spectral analysis by passing a Boolean value to \p normalise. This default to
  * true (normalise) if only one output is connected and to false (don't normalise) if two output
- * are connected, but can be overriden by \p normalise. 
+ * are connected, but can be overriden by \p normalise.
  *
  * \ingroup specest
  */

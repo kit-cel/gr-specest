@@ -67,14 +67,14 @@ class _spectrum_sink_base(gr.hier_block2, common.wxgui_hb):
 		#ensure avg alpha
 		if avg_alpha is None: avg_alpha = 2.0/specest_rate
                 #ensure analog alpha
-                if persist_alpha is None: 
+                if persist_alpha is None:
                   actual_specest_rate=float(sample_rate/pspectrum_len)/float(max(1,int(float((sample_rate/pspectrum_len)/specest_rate))))
                   #print "requested_specest_rate ",specest_rate
                   #print "actual_specest_rate    ",actual_specest_rate
                   analog_cutoff_freq=0.5 # Hertz
                   #calculate alpha from wanted cutoff freq
                   persist_alpha = 1.0 - math.exp(-2.0*math.pi*analog_cutoff_freq/actual_specest_rate)
-                  
+
 		#init
 		gr.hier_block2.__init__(
 			self,
@@ -185,7 +185,7 @@ class test_app_block (stdgui2.std_top_block):
         self.connect(src3,(combine1,2))
         self.connect(noise, (combine1,3))
         self.connect(combine1,thr1, sink1)
-        
+
 def main ():
     app = stdgui2.stdapp (test_app_block, "ESPRIT Sink Test App")
     app.MainLoop ()

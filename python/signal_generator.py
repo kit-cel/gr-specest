@@ -9,8 +9,8 @@ class signal_generator(gr.hier_block2):
 
     @param n_sinusoids: Number of complex sinusoids
     @type n_sinusoids: number
-    @param SNR: Signal to Noise Ratio in dB. 
-                Please note that in this case SNR describes the ratio between 
+    @param SNR: Signal to Noise Ratio in dB.
+                Please note that in this case SNR describes the ratio between
                 the sum of the energies of the sinusoids and the noise.
     @type SNR: float
     @param samp_rate : Sampling Rate for the sources
@@ -38,7 +38,7 @@ class signal_generator(gr.hier_block2):
         self.add = gr.add_cc()
         self.head = gr.head(gr.sizeof_gr_complex, nsamples)
         self.sink = gr.vector_sink_f(vlen=n_sinusoids)
-        # wire it up ... 
+        # wire it up ...
         for s in range(n_sinusoids):
             self.connect(self.srcs[s], (self.add, s))
         # Additive noise

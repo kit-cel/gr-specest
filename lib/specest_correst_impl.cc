@@ -1,6 +1,6 @@
 #include <specest_correst_impl.h>
 
-void 
+void
 specest_impl::correst(const gr_complexd* data, unsigned int data_len, unsigned int m, arma::cx_mat* R)
 {
 	arma::cx_rowvec y(data, data_len); //TODO possible speedup with the other two options ...

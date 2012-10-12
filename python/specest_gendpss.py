@@ -3,7 +3,7 @@
 import math
 from gnuradio import gr
 
-## generates the first K slepian sequences 
+## generates the first K slepian sequences
 # @param N: Length of the FFT
 # @param NW: Time Bandwidth Product usually is of value 2, 2.5, 3.0, 3.5, or 4
 # @param K: Numbers of Tapers to use. K should be smaller than 2*NW
@@ -12,7 +12,7 @@ from gnuradio import gr
 # @param DELTA: sets the accuracy of the DPSS computation. Default value is 1E-6
 #		If DELTA is set to \f$ \Delta \f$ the computation of the eigenvector stops as soon as the first component of the eigenvector changes less than \f$ \Delta \f$ after an iteration.
 class gendpss():
-    # Generates DPSS utilizing the algorithm given in 
+    # Generates DPSS utilizing the algorithm given in
     # "A Simple Algorithm for Generating Disgrete Prolate Spheroidal Sequences" D.M. Gruenenbacher, D.R. Hummels IEEE Vol 42 11. November 1994 \n
     def __init__(self, N = 512 , NW = 3 , K = 5, weighting = 'unity', EPS=1E-6, DELTA=1E-6):
         self.N = N
@@ -74,7 +74,7 @@ class gendpss():
 
 
     ## Gives back the number of sign changes in a sequence
-    # @param seq: 
+    # @param seq:
     # @return: the number of sign-changes in seq
     def func_signchanges(self,seq):
         count = 0
@@ -89,7 +89,7 @@ class gendpss():
 
     ## Calculates the kth eigenvalue of the T-Matrix
     # @return: the kth eigenvalue
-    def func_get_eigenvalue(self,k):	
+    def func_get_eigenvalue(self,k):
         # the interval in which the eigenvalues can be found is limited by the Gershgorin circle theorem. See Golub and Van Loan, "Matrix Computations" 1989 2nd ed. p341
         maxrange = 0.125*( (self.N-1)*(self.N+2) + self.N*(self.N+1) ) + 0.25
         lmax = maxrange
@@ -181,7 +181,7 @@ class gendpss():
         # this is the critical element since python can't compute sin(0)/0
         linesinc[k] = (2*self.W)
         sum += linesinc[0+k]*eigenvector[0+k]
-        i = k + 1	
+        i = k + 1
         while i < self.N:
             linesinc[i] = (math.sin(2*math.pi*self.W*(i-k)))/(math.pi*(i-k))
             sum += linesinc[i]*eigenvector[i]

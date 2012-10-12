@@ -89,7 +89,7 @@ class test_app_block (stdgui2.std_top_block):
         #vbox.Add (sink2.win, 1, wx.EXPAND)
         self.connect(source,scale,sink1)
         #self.connect(scale,sink2)
-        
+
 def main ():
     app = stdgui2.stdapp (test_app_block, "ESPRIT Sink Test App")
     app.MainLoop ()

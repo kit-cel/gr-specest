@@ -1,17 +1,17 @@
 #!/usr/bin/env python
-# 
+#
 # Copyright 2010 Communications Engineering Lab, KIT
-# 
+#
 # This is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 3, or (at your option)
 # any later version.
-# 
+#
 # This software is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this software; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
@@ -31,7 +31,7 @@ class qa_esprit_vcf (gr_unittest.TestCase):
 
     def tearDown (self):
         self.tb = None
-    
+
     def test__001_t (self):
         """
         Generate a signal with n_sinusoids sinusoids
@@ -43,14 +43,14 @@ class qa_esprit_vcf (gr_unittest.TestCase):
         samp_rate = 32000
         SNR = 10 # in dB
         decimals = 3
-        self.siggen = siggen.signal_generator(n_sinusoids = n_sinusoids, 
+        self.siggen = siggen.signal_generator(n_sinusoids = n_sinusoids,
                                               SNR = SNR, samp_rate = samp_rate,
                                               nsamples = nsamples)
 
         self.stream = gr.stream_to_vector(gr.sizeof_gr_complex, nsamples)
         self.esprit = specest.esprit_vcf(n=n_sinusoids, m=100, nsamples = nsamples)
         self.sink = gr.vector_sink_f(vlen=n_sinusoids)
-        # wire it up ... 
+        # wire it up ...
         self.tb.connect(self.siggen, self.stream, self.esprit, self.sink)
         for i in range(100):
             self.tb.run()
@@ -73,14 +73,14 @@ class qa_esprit_vcf (gr_unittest.TestCase):
         self.stream = gr.stream_to_vector(gr.sizeof_gr_complex, nsamples)
         self.esprit = specest.esprit_vcf(n=1, m=64, nsamples = nsamples)
         self.sink = gr.vector_sink_f(vlen=1)
-        # wire it up ... 
+        # wire it up ...
         self.tb.connect(self.siggen, self.stream, self.esprit, self.sink)
         self.tb.run()
         MSE = 0.0
         omega = self.siggen.omegas()[0]
         for i in range(n_trials):
-            MSE += (omega - self.sink.data()[i])**2.0 
-        print '\n' + 70*'-' 
+            MSE += (omega - self.sink.data()[i])**2.0
+        print '\n' + 70*'-'
         print 'Testing specest_esprit_vcf ...'
         print 'Ran %u trials to estimate the frequency' % n_trials
         print 'Used %u samples to estimate the frequency' % nsamples
@@ -88,7 +88,7 @@ class qa_esprit_vcf (gr_unittest.TestCase):
         print 'SNR of %u dB' % SNR
         print 'Root mean square error %g' % numpy.sqrt(MSE/n_trials)
         print 'Cramer-Rao Bound %g' % numpy.sqrt(6/10**(SNR/10.0)/nsamples**3)
-        print 70*'-' 
+        print 70*'-'
 
 if __name__ == '__main__':
     gr_unittest.main ()

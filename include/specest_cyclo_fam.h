@@ -95,25 +95,25 @@ class SPECEST_API specest_cyclo_fam : public gr_hier_block2
         specest_make_cyclo_fam (int Np, int P, int L);
 
  	/**
-	 * \param sample_frequency 
+	 * \param sample_frequency
 	 * \param delta_f Desired Frequency resolution
 	 * \param delta_alpha Desired Cycle Frequency resolution
 	 * \param overlap Overlap of the complex demodulates in percent. Should be between 75%...100% (maximum overlap)
-	 */       
- 
+	 */
+
 	friend SPECEST_API specest_cyclo_fam_sptr
         specest_make_cyclo_fam (float sample_frequency, float delta_f, float delta_alpha, float overlap);
-	 
+
 
 	/**
 	 * \param Np Number of input samples for the channelizer. Used for computing the complex demodulates. Frequency resolution is approx. fs/Np.
 	 * \param P Number of samples the estimate is based on. Cycle frequency resolution is approx. fs/(P*L).
 	 * \param decimation_factor Also called L. Complex demodulates overlap by (Np-L) samples.
 	 */
-	 
+
 	specest_cyclo_fam (int Np, int P, int decimation_factor);
     specest_cyclo_fam (int Np, int P, int decimation_factor, float fs);
-	
+
 	//Blocks
 	specest_stream_to_vector_overlap_sptr        d_stream_to_vector;
 	gr_fft_vcc_sptr                              d_Np_fft;
@@ -125,18 +125,18 @@ class SPECEST_API specest_cyclo_fam : public gr_hier_block2
 
  public:
 	~specest_cyclo_fam ();
-	
+
 	int get_Np() { return d_calcspectrum->get_Np(); };
 	int get_N() { return d_calcspectrum->get_N(); };
     int get_P() { return d_calcspectrum->get_P(); };
     int get_L() { return d_calcspectrum->get_L(); };
-    
+
 	float get_sample_frequency() { return d_fs; };
     float get_frequency_resolution()  { return d_df; };
     float get_cycle_frequency_resolution() { return d_dalpha; };
 
 
-    
+
 	/**
 	* Direct access to the estimate. Note: Estimate is a 2-dim array of size 2N x (2Np-1).
 	*/

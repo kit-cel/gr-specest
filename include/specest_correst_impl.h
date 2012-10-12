@@ -6,7 +6,7 @@
 
 namespace specest_impl
 {
-void 
+void
 correst(const gr_complexd* data, unsigned int data_len, unsigned int m, arma::cx_mat *R);
 }
 

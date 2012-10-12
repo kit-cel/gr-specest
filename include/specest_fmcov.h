@@ -66,7 +66,7 @@ class SPECEST_API specest_fmcov : public gr_hier_block2
 	 *                   results in a lower update rate of the spectrum estimate.
 	 */
 	specest_fmcov(unsigned block_len, unsigned fft_len, unsigned order, bool fftshift, int decimation);
-	
+
 	specest_stream_to_vector_overlap_sptr d_stream_to_vector;
 	gr_keep_one_in_n_sptr d_keep_one_in_n;
 	specest_arfmcov_vcc_sptr d_arfmcov;

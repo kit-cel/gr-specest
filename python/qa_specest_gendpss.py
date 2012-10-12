@@ -21,7 +21,7 @@ class TestSequenceFunctions(unittest.TestCase):
 		self.N = 32
 		self.K = 6
 		self.NW = 3
-	
+
 	def assertMatrixAlmostEqual(self,first,second,places):
 		first = numpy.abs(first)
 		second = numpy.abs(second)
@@ -35,9 +35,9 @@ class TestSequenceFunctions(unittest.TestCase):
 					break
 			if CHECK:
 				raise self.failureException('%r != %r within %r places. Check A[%i,%i] or B[%i,%i] (indexes starting from 0).' % (first, second, places, m , n, m, n))
-	
+
 	def test_gen(self):
-		dpss = specest_gendpss.gendpss(N = self.N, K = self.K, NW = self.NW)	
+		dpss = specest_gendpss.gendpss(N = self.N, K = self.K, NW = self.NW)
 		A = numpy.array(dpss.dpssarray)
 		B = numpy.array(test_sig)
 		self.assertMatrixAlmostEqual(A,B,places=6)

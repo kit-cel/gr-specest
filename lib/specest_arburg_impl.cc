@@ -41,8 +41,8 @@ specest_arburg_impl::specest_arburg_impl(unsigned blocklen, unsigned order)
 
 	d_ef = new gr_complexd[d_blocklen];
 	d_eb = new gr_complexd[d_blocklen];
-	d_efp = new gr_complexd[d_blocklen];	
-	d_arcoeff = new gr_complexd[d_order+1];	
+	d_efp = new gr_complexd[d_blocklen];
+	d_arcoeff = new gr_complexd[d_order+1];
 	d_arcoeff2 = new gr_complexd[d_order+1];
 }
 
@@ -63,7 +63,7 @@ specest_arburg_impl::set_order(unsigned order)
 	d_order = order;
 	delete[] d_arcoeff;
 	delete[] d_arcoeff2;
-	d_arcoeff = new gr_complexd[d_order+1];	
+	d_arcoeff = new gr_complexd[d_order+1];
 	d_arcoeff2 = new gr_complexd[d_order+1];
 }
 
@@ -77,7 +77,7 @@ specest_arburg_impl::set_blocklen(unsigned blocklen)
 	delete[] d_efp;
 	d_ef = new gr_complexd[d_blocklen];
 	d_eb = new gr_complexd[d_blocklen];
-	d_efp = new gr_complexd[d_blocklen];	
+	d_efp = new gr_complexd[d_blocklen];
 }
 
 
