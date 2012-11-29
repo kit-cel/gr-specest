@@ -23,7 +23,11 @@
 #include <specest_correst_impl.h>
 #include <armadillo>
 
-specest_music_armadillo_impl::specest_music_armadillo_impl(unsigned int n, unsigned int m) : d_n(n), d_m(m)
+specest_music_armadillo_impl::specest_music_armadillo_impl(unsigned int n,
+                                                           unsigned int m,
+                                                           bool is_doa)
+                                                         : d_n(n), d_m(m),
+                                                           d_is_doa(is_doa)
 {
 	if (n > m)
 			throw std::invalid_argument("specest_music_armadillo_impl: n cannot exceed m in length.");
@@ -64,7 +68,10 @@ specest_music_armadillo_impl::calculate(const gr_complexd* data, unsigned int da
                                     double* omegas)
 {
 	arma::cx_mat R(d_m, d_m);
-	specest_impl::correst(data, data_len, d_m, &R);
+	if(d_is_doa)
+		specest_impl::correst_doa(data, data_len, d_m, &R);
+	else
+		specest_impl::correst(data, data_len, d_m, &R);
 	arma::colvec eigvals;
 	arma::cx_mat eigvec;
 	arma::cx_mat G;

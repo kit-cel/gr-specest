@@ -19,3 +19,14 @@ specest_impl::correst(const gr_complexd* data, unsigned int data_len, unsigned i
 
 	*(R) = *(R) / (y.n_cols-(m-1));
 }
+
+void
+specest_impl::correst_doa(const gr_complexd* data, unsigned int data_len,
+        unsigned int m, arma::cx_mat* R)
+{
+    arma::cx_mat x(arma::cx_rowvec(data, data_len));
+    unsigned int average_over = data_len / m;
+    x.reshape(m, average_over);
+
+    *(R) = x * x.t() / average_over;
+}

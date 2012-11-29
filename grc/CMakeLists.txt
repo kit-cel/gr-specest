@@ -23,6 +23,7 @@ install(FILES
     specest_cyclo_fam.xml
     specest_esprit_vcf.xml
     specest_music_vcf.xml
+    specest_doa_music_vcf.xml
     specest_spectrum_sink.xml
     specest_welch.xml
     DESTINATION share/gnuradio/grc/blocks

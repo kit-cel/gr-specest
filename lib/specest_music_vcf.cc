@@ -28,20 +28,20 @@
 
 
 specest_music_vcf_sptr
-specest_make_music_vcf (unsigned int n, unsigned int m, unsigned int nsamples)
+specest_make_music_vcf (unsigned int n, unsigned int m, unsigned int nsamples, bool is_doa)
 {
-	return specest_music_vcf_sptr (new specest_music_vcf (n, m, nsamples));
+	return specest_music_vcf_sptr (new specest_music_vcf (n, m, nsamples, is_doa));
 }
 
 
-specest_music_vcf::specest_music_vcf (unsigned int n, unsigned int m, unsigned int nsamples)
+specest_music_vcf::specest_music_vcf (unsigned int n, unsigned int m, unsigned int nsamples, bool is_doa)
 	: gr_sync_block ("music_vcf",
 		gr_make_io_signature (1, 1, nsamples * sizeof (gr_complex)),
 		gr_make_io_signature (1, 1, n * sizeof (float))),
-	  d_n(n),
+		d_n(n),
 		d_m(m),
 		d_nsamples(nsamples),
-		d_impl(new specest_music_armadillo_impl(n, m))
+		d_impl(new specest_music_armadillo_impl(n, m, is_doa))
 {
 }
 

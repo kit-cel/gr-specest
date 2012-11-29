@@ -28,7 +28,7 @@
 class specest_music_vcf;
 typedef boost::shared_ptr<specest_music_vcf> specest_music_vcf_sptr;
 
-SPECEST_API specest_music_vcf_sptr specest_make_music_vcf (unsigned int n, unsigned int m, unsigned int nsamples);
+SPECEST_API specest_music_vcf_sptr specest_make_music_vcf (unsigned int n, unsigned int m, unsigned int nsamples, bool is_doa = false);
 
 /*!
  * \brief
@@ -36,9 +36,9 @@ SPECEST_API specest_music_vcf_sptr specest_make_music_vcf (unsigned int n, unsig
  */
 class SPECEST_API specest_music_vcf : public gr_sync_block
 {
-	friend SPECEST_API specest_music_vcf_sptr specest_make_music_vcf (unsigned int n, unsigned int m, unsigned int nsamples);
+	friend SPECEST_API specest_music_vcf_sptr specest_make_music_vcf (unsigned int n, unsigned int m, unsigned int nsamples, bool is_doa);
 
-	specest_music_vcf (unsigned int n, unsigned int m, unsigned int nsamples);
+	specest_music_vcf (unsigned int n, unsigned int m, unsigned int nsamples, bool is_doa);
 
  public:
 	~specest_music_vcf ();

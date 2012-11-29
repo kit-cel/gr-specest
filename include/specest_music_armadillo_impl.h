@@ -25,7 +25,7 @@
 class SPECEST_API specest_music_armadillo_impl : virtual public specest_music_impl
 {
 	public:
-		specest_music_armadillo_impl(unsigned int n, unsigned int m);
+		specest_music_armadillo_impl(unsigned int n, unsigned int m, bool is_doa = false);
 		~specest_music_armadillo_impl();
 
 		void calculate(const gr_complexd *data, unsigned int data_len,
@@ -36,6 +36,7 @@ class SPECEST_API specest_music_armadillo_impl : virtual public specest_music_im
 	private:
 		unsigned int d_n;
 		unsigned int d_m;
+		bool d_is_doa;
 		arma::cx_mat diag(arma::cx_colvec c, int k);
 		arma::cx_mat roots(arma::cx_rowvec c);
 };
