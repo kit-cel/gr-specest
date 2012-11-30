@@ -28,7 +28,7 @@
 class specest_esprit_vcf;
 typedef boost::shared_ptr<specest_esprit_vcf> specest_esprit_vcf_sptr;
 
-SPECEST_API specest_esprit_vcf_sptr specest_make_esprit_vcf (unsigned int n, unsigned int m, unsigned int nsamples);
+SPECEST_API specest_esprit_vcf_sptr specest_make_esprit_vcf (unsigned int n, unsigned int m, unsigned int nsamples, bool is_doa = false);
 
 /*!
  * \brief
@@ -36,9 +36,9 @@ SPECEST_API specest_esprit_vcf_sptr specest_make_esprit_vcf (unsigned int n, uns
  */
 class SPECEST_API specest_esprit_vcf : public gr_sync_block
 {
-	friend SPECEST_API specest_esprit_vcf_sptr specest_make_esprit_vcf (unsigned int n, unsigned int m, unsigned int nsamples);
+	friend SPECEST_API specest_esprit_vcf_sptr specest_make_esprit_vcf (unsigned int n, unsigned int m, unsigned int nsamples, bool is_doa);
 
-	specest_esprit_vcf (unsigned int n, unsigned int m, unsigned int nsamples);
+	specest_esprit_vcf (unsigned int n, unsigned int m, unsigned int nsamples, bool is_doa);
 
  public:
 	~specest_esprit_vcf ();

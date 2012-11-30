@@ -26,7 +26,7 @@
 class SPECEST_API specest_esprit_fortran_impl : virtual public specest_esprit_impl
 {
 	public:
-		specest_esprit_fortran_impl(unsigned n, unsigned m);
+		specest_esprit_fortran_impl(unsigned n, unsigned m, bool is_doa = false);
 		void calculate(const gr_complexd *data, unsigned int data_len,
 		               double* omegas);
 		void calculate_pseudospectrum(const gr_complexd* data, unsigned int data_len,
@@ -35,5 +35,6 @@ class SPECEST_API specest_esprit_fortran_impl : virtual public specest_esprit_im
 	private:
 		unsigned int d_n;
 		unsigned int d_m;
+		bool d_is_doa;
 };
 #endif /* INCLUDED_SPECESTI_ESPRIT_FORTRAN_H */

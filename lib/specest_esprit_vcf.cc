@@ -28,13 +28,13 @@
 
 
 specest_esprit_vcf_sptr
-specest_make_esprit_vcf (unsigned int n, unsigned int m, unsigned int nsamples)
+specest_make_esprit_vcf (unsigned int n, unsigned int m, unsigned int nsamples, bool is_doa)
 {
-	return specest_esprit_vcf_sptr (new specest_esprit_vcf (n, m, nsamples));
+	return specest_esprit_vcf_sptr (new specest_esprit_vcf (n, m, nsamples, is_doa));
 }
 
 
-specest_esprit_vcf::specest_esprit_vcf (unsigned int n, unsigned int m, unsigned int nsamples)
+specest_esprit_vcf::specest_esprit_vcf (unsigned int n, unsigned int m, unsigned int nsamples, bool is_doa)
 	: gr_sync_block ("esprit_vcf",
 		gr_make_io_signature (1, 1, nsamples * sizeof (gr_complex)),
 		gr_make_io_signature (1, 1, n * sizeof (float))),

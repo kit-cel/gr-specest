@@ -30,12 +30,17 @@ extern "C"
 	void zesprit_(const gr_complexd* samples, unsigned int* ldata,
 	                unsigned int* n, unsigned int* m,
 	                double* omegas);
+
+	void zesprit_doa_(const gr_complexd* samples, unsigned int* ldata,
+	                unsigned int* n, unsigned int* m,
+	                double* omegas);
+
 	void zesprit_spectrum_(const gr_complexd* samples, unsigned int* ldata,
 	                         unsigned int* n, unsigned int* m,
 	                         double* pspectrum, unsigned int* lpspectrum);
 }
 
-specest_esprit_fortran_impl::specest_esprit_fortran_impl(unsigned n, unsigned m) : d_n(n), d_m(m)
+specest_esprit_fortran_impl::specest_esprit_fortran_impl(unsigned n, unsigned m, bool is_doa) : d_n(n), d_m(m), d_is_doa(is_doa)
 {
 	if (n > m)
 		throw std::invalid_argument("specest_esprit_fortran_impl: n cannot exceed m in length.");
@@ -49,7 +54,10 @@ specest_esprit_fortran_impl::~specest_esprit_fortran_impl()
 void specest_esprit_fortran_impl::calculate(const gr_complexd *data, unsigned int data_len,
                                         double* omegas)
 {
-	zesprit_(data, &data_len, &d_n, &d_m, omegas);
+	if(d_is_doa)
+		zesprit_doa_(data, &data_len, &d_n, &d_m, omegas);
+	else
+		zesprit_(data, &data_len, &d_n, &d_m, omegas);
 }
 
 void specest_esprit_fortran_impl::calculate_pseudospectrum(const gr_complexd *data, unsigned int data_len,
