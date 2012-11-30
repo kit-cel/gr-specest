@@ -41,7 +41,7 @@ specest_esprit_vcf::specest_esprit_vcf (unsigned int n, unsigned int m, unsigned
 	d_n(n),
 	d_m(m),
 	d_nsamples(nsamples),
-	d_impl(new specest_esprit_fortran_impl(n, m)),
+	d_impl(new specest_esprit_fortran_impl(n, m, is_doa)),
 	d_in_buf(d_nsamples, 0),
 	d_out_buf(d_n, 0)
 {
