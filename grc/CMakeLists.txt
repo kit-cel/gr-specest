@@ -21,5 +21,6 @@ install(FILES
     specest_reciprocal_ff.xml
     specest_pad_vector.xml
     specest_stream_to_vector_overlap.xml
-    specest_moving_average_vff.xml DESTINATION share/gnuradio/grc/blocks
+    specest_moving_average_vff.xml
+    specest_adaptiveweighting_vff.xml DESTINATION share/gnuradio/grc/blocks
 )

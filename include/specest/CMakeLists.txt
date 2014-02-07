@@ -25,5 +25,6 @@ install(FILES
     reciprocal_ff.h
     pad_vector.h
     stream_to_vector_overlap.h
-    moving_average_vff.h DESTINATION include/specest
+    moving_average_vff.h
+    adaptiveweighting_vff.h DESTINATION include/specest
 )

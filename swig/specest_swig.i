@@ -12,6 +12,7 @@
 #include "specest/pad_vector.h"
 #include "specest/stream_to_vector_overlap.h"
 #include "specest/moving_average_vff.h"
+#include "specest/adaptiveweighting_vff.h"
 %}
 
 
@@ -23,3 +24,5 @@ GR_SWIG_BLOCK_MAGIC2(specest, pad_vector);
 GR_SWIG_BLOCK_MAGIC2(specest, stream_to_vector_overlap);
 %include "specest/moving_average_vff.h"
 GR_SWIG_BLOCK_MAGIC2(specest, moving_average_vff);
+%include "specest/adaptiveweighting_vff.h"
+GR_SWIG_BLOCK_MAGIC2(specest, adaptiveweighting_vff);
