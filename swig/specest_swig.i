@@ -8,6 +8,9 @@
 %include "specest_swig_doc.i"
 
 %{
+#include "specest/reciprocal_ff.h"
 %}
 
 
+%include "specest/reciprocal_ff.h"
+GR_SWIG_BLOCK_MAGIC2(specest, reciprocal_ff);

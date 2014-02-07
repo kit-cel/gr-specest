@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<block>
+  <name>Reciprocal</name>
+  <key>specest_reciprocal_ff</key>
+  <category>Spectrum Estimation</category>
+  <import>import specest</import>
+  <make>specest.reciprocal_ff($vlen)</make>
+  <param>
+    <name>Vector Length</name>
+    <key>vlen</key>
+    <value>1</value>
+    <type>int</type>
+  </param>
+  <sink>
+    <name>in</name>
+    <type>float</type>
+    <vlen>$vlen</vlen>
+  </sink>
+  <source>
+    <name>out</name>
+    <type>float</type>
+    <vlen>$vlen</vlen>
+  </source>
+</block>

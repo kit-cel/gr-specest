@@ -22,5 +22,5 @@
 ########################################################################
 install(FILES
     api.h
-    DESTINATION include/specest
+    reciprocal_ff.h DESTINATION include/specest
 )
