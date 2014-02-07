@@ -19,5 +19,6 @@
 
 install(FILES
     specest_reciprocal_ff.xml
-    specest_pad_vector.xml DESTINATION share/gnuradio/grc/blocks
+    specest_pad_vector.xml
+    specest_stream_to_vector_overlap.xml DESTINATION share/gnuradio/grc/blocks
 )

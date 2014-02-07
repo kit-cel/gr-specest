@@ -10,6 +10,7 @@
 %{
 #include "specest/reciprocal_ff.h"
 #include "specest/pad_vector.h"
+#include "specest/stream_to_vector_overlap.h"
 %}
 
 
@@ -17,3 +18,5 @@
 GR_SWIG_BLOCK_MAGIC2(specest, reciprocal_ff);
 %include "specest/pad_vector.h"
 GR_SWIG_BLOCK_MAGIC2(specest, pad_vector);
+%include "specest/stream_to_vector_overlap.h"
+GR_SWIG_BLOCK_MAGIC2(specest, stream_to_vector_overlap);
