@@ -29,6 +29,7 @@ list(APPEND specest_sources
     reciprocal_ff_impl.cc
     pad_vector_impl.cc
     stream_to_vector_overlap_impl.cc
+    moving_average_vff_impl.cc
 )
 
 add_library(gnuradio-specest SHARED ${specest_sources})

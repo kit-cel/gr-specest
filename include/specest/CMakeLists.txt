@@ -24,5 +24,6 @@ install(FILES
     api.h
     reciprocal_ff.h
     pad_vector.h
-    stream_to_vector_overlap.h DESTINATION include/specest
+    stream_to_vector_overlap.h
+    moving_average_vff.h DESTINATION include/specest
 )

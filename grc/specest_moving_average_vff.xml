@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<block>
+  <name>Moving Average (Vector)</name>
+  <key>specest_moving_average_vff</key>
+  <category>Spectrum Estimation</category>
+  <import>import specest</import>
+  <make>specest.moving_average_vff($length, $vlen, $scale, $max_iter)</make>
+  <param>
+    <name>Averaging Length</name>
+    <key>length</key>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Vector Length</name>
+    <key>vlen</key>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Scale</name>
+    <key>scale</key>
+    <type>float</type>
+  </param>
+  <param>
+    <name>Max. Iterations</name>
+    <key>max_iter</key>
+    <value>4096</value>
+    <type>int</type>
+  </param>
+  <sink>
+    <name>in</name>
+    <type>float</type>
+    <vlen>$vlen</vlen>
+  </sink>
+  <source>
+    <name>out</name>
+    <type>float</type>
+    <vlen>$vlen</vlen>
+  </source>
+</block>
