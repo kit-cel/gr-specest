@@ -23,6 +23,8 @@
 ########################################################################
 cmake_minimum_required(VERSION 2.6)
 project(gr-specest CXX C)
+enable_language(Fortran)
+enable_language(CXX)
 enable_testing()
 
 #select the release build type by default to get optimization flags
@@ -33,6 +35,14 @@ endif(NOT CMAKE_BUILD_TYPE)
 set(CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE} CACHE STRING "")
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/Modules)
+
+message("\n=============================================================================================")
+message("GNU Radio Spectral Estimation Toolbox")
+message("Copyright 2009-2012 Communications Engineering Lab, KIT\n")
+message("This program comes with ABSOLUTELY NO WARRANTY.")
+message("This is free software, and you are welcome to redistribute it under certain conditions.")
+message("For further information see COPYING")
+message("=============================================================================================\n")
 
 ########################################################################
 # Compiler specific setup
@@ -83,6 +93,7 @@ set(GRC_BLOCKS_DIR      ${GR_PKG_DATA_DIR}/grc/blocks)
 ########################################################################
 # Find gnuradio build dependencies
 ########################################################################
+find_package(GnuradioRuntime)
 find_package(CppUnit)
 
 # Search for GNU Radio and its components and versions. Add any
@@ -92,9 +103,35 @@ find_package(CppUnit)
 set(GR_REQUIRED_COMPONENTS RUNTIME)
 find_package(Gnuradio "3.7.2" REQUIRED)
 
+if(NOT GNURADIO_RUNTIME_FOUND)
+    message(FATAL_ERROR "GnuRadio Runtime required to compile specest")
+endif()
 if(NOT CPPUNIT_FOUND)
     message(FATAL_ERROR "CppUnit required to compile specest")
 endif()
+
+########################################################################
+# Find specest build dependencies
+########################################################################
+find_package(BLAS REQUIRED)
+find_package(LAPACK REQUIRED)
+find_package(Armadillo)
+find_package(FFTW3f)
+include(Armadillo)
+IF (ARMADILLO_FOUND)
+	MESSAGE("-- Found Armadillo, building MUSIC")
+ELSE(ARMADILLO_FOUND)
+	MESSAGE("-- As armadillo wasn't found, the MUSIC algorithm will not be built")
+ENDIF(ARMADILLO_FOUND)
+
+set(GR_REQUIRED_MODULES RUNTIME BLOCKS FILTER FFT)
+find_package(Gnuradio 3.7.0)
+
+# Not sure if we still need this
+#IF(UNIX AND ("${CMAKE_SIZEOF_VOID_P}" EQUAL "8"))
+        #LIST(APPEND BOOST_LIBRARYDIR "/usr/lib64") #fedora 64-bit fix
+        #SET(LIB_POSTFIX 64)
+#ENDIF(UNIX AND ("${CMAKE_SIZEOF_VOID_P}" EQUAL "8"))
 
 ########################################################################
 # Setup the include and linker paths
@@ -107,6 +144,7 @@ include_directories(
     ${Boost_INCLUDE_DIRS}
     ${CPPUNIT_INCLUDE_DIRS}
     ${GNURADIO_ALL_INCLUDE_DIRS}
+    ${FFTW3F_INCLUDE_DIRS}
 )
 
 link_directories(
@@ -114,6 +152,7 @@ link_directories(
     ${CPPUNIT_LIBRARY_DIRS}
     ${GNURADIO_RUNTIME_LIBRARY_DIRS}
 )
+link_directories( ${FFTW3F_LIBRARY_DIRS} )
 
 # Set component parameters
 set(GR_SPECEST_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/include CACHE INTERNAL "" FORCE)
