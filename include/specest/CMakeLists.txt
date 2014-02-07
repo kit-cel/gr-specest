@@ -1,4 +1,4 @@
-# Copyright 2011 Free Software Foundation, Inc.
+# Copyright 2011,2012 Free Software Foundation, Inc.
 #
 # This file is part of GNU Radio
 #
@@ -18,26 +18,9 @@
 # Boston, MA 02110-1301, USA.
 
 ########################################################################
-# Include python install macros
+# Install public header files
 ########################################################################
-include(GrPython)
-if(NOT PYTHONINTERP_FOUND)
-    return()
-endif()
-
-########################################################################
-# Install python sources
-########################################################################
-GR_PYTHON_INSTALL(
-    FILES
-    __init__.py
-    DESTINATION ${GR_PYTHON_DIR}/specest
+install(FILES
+    api.h
+    DESTINATION include/specest
 )
-
-########################################################################
-# Handle the unit tests
-########################################################################
-include(GrTest)
-
-set(GR_TEST_TARGET_DEPS gnuradio-specest)
-set(GR_TEST_PYTHON_DIRS ${CMAKE_BINARY_DIR}/swig)

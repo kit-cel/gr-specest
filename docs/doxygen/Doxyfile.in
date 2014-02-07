@@ -25,7 +25,7 @@ DOXYFILE_ENCODING      = UTF-8
 # The PROJECT_NAME tag is a single word (or a sequence of words surrounded
 # by quotes) that should identify the project.
 
-PROJECT_NAME           = "The Spectrum Estimation Toolbox for GNU Radio"
+PROJECT_NAME           = "GNU Radio's SPECEST Package"
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number.
 # This could be handy for archiving the generated documentation or
@@ -660,7 +660,7 @@ EXAMPLE_RECURSIVE      = NO
 # directories that contain image that are included in the documentation (see
 # the \image command).
 
-IMAGE_PATH             = @abs_top_srcdir@/docs/doxygen/other
+IMAGE_PATH             =
 
 # The INPUT_FILTER tag can be used to specify a program that doxygen should
 # invoke to filter for each input file. Doxygen will invoke the filter program
@@ -679,7 +679,7 @@ INPUT_FILTER           =
 # info on how filters are used. If FILTER_PATTERNS is empty, INPUT_FILTER
 # is applied to all files.
 
-FILTER_PATTERNS        = *.py=@top_srcdir@/gnuradio-core/doc/other/doxypy.py
+FILTER_PATTERNS        = *.py=@top_srcdir@/doc/doxygen/other/doxypy.py
 
 # If the FILTER_SOURCE_FILES tag is set to YES, the input filter (if set using
 # INPUT_FILTER) will be used to filter the input files when producing source

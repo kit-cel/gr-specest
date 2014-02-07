@@ -46,14 +46,6 @@ from specest_swig import *
 
 # import any pure python here
 #
-from specest_mtm import mtm
-from specest_gendpss import gendpss
-
-#from specsink import spec_sink_f
-#from specsink import spec_sink_c
-from spectrum_sink_gl import spectrum_sink_c
-from spectrum_sink_gl import spectrum_sink_f
-
 
 # ----------------------------------------------------------------
 # Tail of workaround

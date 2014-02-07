@@ -50,4 +50,3 @@ add_custom_command(
 add_custom_target(doxygen_target ALL DEPENDS ${BUILT_DIRS})
 
 install(DIRECTORY ${BUILT_DIRS} DESTINATION ${GR_PKG_DOC_DIR})
-

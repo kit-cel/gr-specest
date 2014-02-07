@@ -1,6 +1,6 @@
 /*!
- * \defgroup block GNU Radio Spectral Estimation Toolbox C++ Signal Processing Blocks
- * \brief All C++ blocks that can be used from the SpecEst GNU Radio
+ * \defgroup block GNU Radio SPECEST C++ Signal Processing Blocks
+ * \brief All C++ blocks that can be used from the SPECEST GNU Radio
  *        module are listed here or in the subcategories below.
  *
  */

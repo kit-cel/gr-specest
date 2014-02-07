@@ -18,12 +18,5 @@
 # Boston, MA 02110-1301, USA.
 
 install(FILES
-    specest_arburg_vcc.xml
-    specest_burg.xml
-    specest_cyclo_fam.xml
-    specest_esprit_vcf.xml
-    specest_music_vcf.xml
-    specest_spectrum_sink.xml
-    specest_welch.xml
     DESTINATION share/gnuradio/grc/blocks
 )

@@ -1,5 +1,7 @@
 # Copyright 2011 Free Software Foundation, Inc.
 #
+# This file is part of GNU Radio
+#
 # GNU Radio is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 3, or (at your option)
@@ -19,7 +21,7 @@
 # Include swig generation macros
 ########################################################################
 find_package(SWIG)
-find_package(PythonLibs)
+find_package(PythonLibs 2)
 if(NOT SWIG_FOUND OR NOT PYTHONLIBS_FOUND)
     return()
 endif()
@@ -29,15 +31,11 @@ include(GrPython)
 ########################################################################
 # Setup swig generation
 ########################################################################
-foreach(incdir ${GNURADIO_CORE_INCLUDE_DIRS})
-    list(APPEND GR_SWIG_INCLUDE_DIRS ${incdir}/swig)
+foreach(incdir ${GNURADIO_RUNTIME_INCLUDE_DIRS})
+    list(APPEND GR_SWIG_INCLUDE_DIRS ${incdir}/gnuradio/swig)
 endforeach(incdir)
 
-foreach(incdir ${GRUEL_INCLUDE_DIRS})
-    list(APPEND GR_SWIG_INCLUDE_DIRS ${incdir}/gruel/swig)
-endforeach(incdir)
-
-set(GR_SWIG_LIBRARIES gnuradio-specest gnuradio-specest-fortran ${ARMADILLO_LIBRARIES})
+set(GR_SWIG_LIBRARIES gnuradio-specest)
 set(GR_SWIG_DOC_FILE ${CMAKE_CURRENT_BINARY_DIR}/specest_swig_doc.i)
 set(GR_SWIG_DOC_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/../include)
 
