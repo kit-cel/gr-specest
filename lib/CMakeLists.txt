@@ -27,6 +27,7 @@ link_directories(${Boost_LIBRARY_DIRS})
 
 list(APPEND specest_sources
     reciprocal_ff_impl.cc
+    pad_vector_impl.cc
 )
 
 add_library(gnuradio-specest SHARED ${specest_sources})
