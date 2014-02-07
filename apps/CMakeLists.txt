@@ -18,8 +18,12 @@
 # Boston, MA 02110-1301, USA.
 
 include(GrPython)
+subdirs(specest_gui)
 
 GR_PYTHON_INSTALL(
     PROGRAMS
+    specest_cyclo_fam_plot.py
+    specest_from_file.py
+    specest_uhd.py
     DESTINATION bin
 )

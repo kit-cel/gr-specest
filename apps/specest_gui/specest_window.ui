@@ -1,0 +1,2514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1236</width>
+    <height>751</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Spectrum Estimation GUI</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QFrame" name="frame">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>451</height>
+       </size>
+      </property>
+      <property name="sizeIncrement">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="mouseTracking">
+       <bool>false</bool>
+      </property>
+      <property name="acceptDrops">
+       <bool>false</bool>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <layout class="QVBoxLayout" name="sink">
+         <item>
+          <widget class="QwtPlot" name="plot">
+           <property name="palette">
+            <palette>
+             <active>
+              <colorrole role="Base">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
+                 <red>255</red>
+                 <green>255</green>
+                 <blue>255</blue>
+                </color>
+               </brush>
+              </colorrole>
+              <colorrole role="Window">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
+                 <red>255</red>
+                 <green>255</green>
+                 <blue>255</blue>
+                </color>
+               </brush>
+              </colorrole>
+             </active>
+             <inactive>
+              <colorrole role="Base">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
+                 <red>255</red>
+                 <green>255</green>
+                 <blue>255</blue>
+                </color>
+               </brush>
+              </colorrole>
+              <colorrole role="Window">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
+                 <red>255</red>
+                 <green>255</green>
+                 <blue>255</blue>
+                </color>
+               </brush>
+              </colorrole>
+             </inactive>
+             <disabled>
+              <colorrole role="Base">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
+                 <red>255</red>
+                 <green>255</green>
+                 <blue>255</blue>
+                </color>
+               </brush>
+              </colorrole>
+              <colorrole role="Window">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
+                 <red>255</red>
+                 <green>255</green>
+                 <blue>255</blue>
+                </color>
+               </brush>
+              </colorrole>
+             </disabled>
+            </palette>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="frame_2">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>231</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>231</height>
+       </size>
+      </property>
+      <property name="baseSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>9</number>
+       </property>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <property name="spacing">
+          <number>6</number>
+         </property>
+         <item>
+          <widget class="QGroupBox" name="gridGroupBox_2">
+           <property name="title">
+            <string>Input Settings</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_3">
+            <item row="1" column="0">
+             <widget class="QTabWidget" name="tabWidget_2">
+              <property name="currentIndex">
+               <number>1</number>
+              </property>
+              <widget class="QWidget" name="tab_8">
+               <property name="palette">
+                <palette>
+                 <active>
+                  <colorrole role="Base">
+                   <brush brushstyle="SolidPattern">
+                    <color alpha="255">
+                     <red>255</red>
+                     <green>255</green>
+                     <blue>255</blue>
+                    </color>
+                   </brush>
+                  </colorrole>
+                  <colorrole role="Window">
+                   <brush brushstyle="SolidPattern">
+                    <color alpha="255">
+                     <red>222</red>
+                     <green>222</green>
+                     <blue>222</blue>
+                    </color>
+                   </brush>
+                  </colorrole>
+                 </active>
+                 <inactive>
+                  <colorrole role="Base">
+                   <brush brushstyle="SolidPattern">
+                    <color alpha="255">
+                     <red>255</red>
+                     <green>255</green>
+                     <blue>255</blue>
+                    </color>
+                   </brush>
+                  </colorrole>
+                  <colorrole role="Window">
+                   <brush brushstyle="SolidPattern">
+                    <color alpha="255">
+                     <red>222</red>
+                     <green>222</green>
+                     <blue>222</blue>
+                    </color>
+                   </brush>
+                  </colorrole>
+                 </inactive>
+                 <disabled>
+                  <colorrole role="Base">
+                   <brush brushstyle="SolidPattern">
+                    <color alpha="255">
+                     <red>222</red>
+                     <green>222</green>
+                     <blue>222</blue>
+                    </color>
+                   </brush>
+                  </colorrole>
+                  <colorrole role="Window">
+                   <brush brushstyle="SolidPattern">
+                    <color alpha="255">
+                     <red>222</red>
+                     <green>222</green>
+                     <blue>222</blue>
+                    </color>
+                   </brush>
+                  </colorrole>
+                 </disabled>
+                </palette>
+               </property>
+               <attribute name="title">
+                <string>File</string>
+               </attribute>
+               <layout class="QVBoxLayout" name="verticalLayout_5">
+                <property name="margin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QScrollArea" name="scrollArea_4">
+                  <property name="frameShape">
+                   <enum>QFrame::NoFrame</enum>
+                  </property>
+                  <property name="widgetResizable">
+                   <bool>true</bool>
+                  </property>
+                  <widget class="QWidget" name="scrollAreaWidgetContents_4">
+                   <property name="geometry">
+                    <rect>
+                     <x>0</x>
+                     <y>0</y>
+                     <width>374</width>
+                     <height>155</height>
+                    </rect>
+                   </property>
+                   <layout class="QFormLayout" name="formLayout_11">
+                    <property name="fieldGrowthPolicy">
+                     <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+                    </property>
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="sampleTypeLabel">
+                      <property name="text">
+                       <string>Sample Type</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <widget class="QComboBox" name="file_samp_type">
+                      <item>
+                       <property name="text">
+                        <string>complex</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>float</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item row="2" column="0">
+                     <widget class="QLabel" name="fileLabel">
+                      <property name="text">
+                       <string>File:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="1">
+                     <widget class="QLineEdit" name="file_file_to_open"/>
+                    </item>
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="recordingSampleRateSpsLabel">
+                      <property name="text">
+                       <string>Recording Sample Rate (sps)</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QLineEdit" name="file_rec_samp_rate"/>
+                    </item>
+                   </layout>
+                  </widget>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QWidget" name="tab_10">
+               <attribute name="title">
+                <string>UHD</string>
+               </attribute>
+               <layout class="QVBoxLayout" name="verticalLayout_7">
+                <property name="margin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QScrollArea" name="scrollArea_3">
+                  <property name="palette">
+                   <palette>
+                    <active>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Window">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </active>
+                    <inactive>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Window">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </inactive>
+                    <disabled>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Window">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </disabled>
+                   </palette>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::NoFrame</enum>
+                  </property>
+                  <property name="widgetResizable">
+                   <bool>true</bool>
+                  </property>
+                  <widget class="QWidget" name="scrollAreaWidgetContents_3">
+                   <property name="geometry">
+                    <rect>
+                     <x>0</x>
+                     <y>0</y>
+                     <width>357</width>
+                     <height>161</height>
+                    </rect>
+                   </property>
+                   <layout class="QFormLayout" name="formLayout_10">
+                    <property name="fieldGrowthPolicy">
+                     <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+                    </property>
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="sampleTypeLabel_2">
+                      <property name="text">
+                       <string>Sample Type</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <widget class="QComboBox" name="uhd_samp_type">
+                      <item>
+                       <property name="text">
+                        <string>complex</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>float</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item row="2" column="0">
+                     <widget class="QLabel" name="numberOfSamplesLabel_2">
+                      <property name="text">
+                       <string>Gain (dB)</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="1">
+                     <widget class="QSpinBox" name="uhd_gain"/>
+                    </item>
+                    <item row="3" column="0">
+                     <widget class="QLabel" name="uhd_samp_rate_label">
+                      <property name="text">
+                       <string>Sample Rate (sps)</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="4" column="0">
+                     <widget class="QLabel" name="fileLabel_2">
+                      <property name="text">
+                       <string>Antenna</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="4" column="1">
+                     <widget class="QLineEdit" name="uhd_ant"/>
+                    </item>
+                    <item row="5" column="0">
+                     <widget class="QLabel" name="subdeviceSpecificationLabel">
+                      <property name="text">
+                       <string>Subdevice Specification</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="5" column="1">
+                     <widget class="QLineEdit" name="uhd_subdev_spec"/>
+                    </item>
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="uhd_board_num_labell">
+                      <property name="text">
+                       <string>Board Number</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QSpinBox" name="uhd_board_num"/>
+                    </item>
+                    <item row="3" column="1">
+                     <widget class="QSpinBox" name="uhd_samp_rate">
+                      <property name="maximum">
+                       <number>999999999</number>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="line">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="gridGroupBox_2">
+           <property name="title">
+            <string>General</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_2">
+            <item row="0" column="0">
+             <layout class="QGridLayout" name="gridLayout">
+              <item row="2" column="0">
+               <layout class="QFormLayout" name="formLayout">
+                <property name="fieldGrowthPolicy">
+                 <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+                </property>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="inputLabel">
+                  <property name="text">
+                   <string>Input</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QComboBox" name="input_selector">
+                  <item>
+                   <property name="text">
+                    <string>File</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>UHD</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_3">
+                  <property name="text">
+                   <string>Method</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QComboBox" name="method_selector">
+                  <property name="editable">
+                   <bool>false</bool>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>Welch</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Welch (SP)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Burg</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>fcov</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>fmcov</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>MTM</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Music</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Esprit</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_4">
+                  <property name="text">
+                   <string>Center Frequency (MHz)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QwtCounter" name="center_f">
+                  <property name="numButtons">
+                   <number>2</number>
+                  </property>
+                  <property name="basicstep" stdset="0">
+                   <double>0.100000000000000</double>
+                  </property>
+                  <property name="maxValue">
+                   <double>1000000.000000000000000</double>
+                  </property>
+                  <property name="value">
+                   <double>100.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="scaleLabel">
+                  <property name="text">
+                   <string>Scale</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QComboBox" name="scale">
+                  <item>
+                   <property name="text">
+                    <string>Logarithmic</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Linear</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="0" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_2">
+                <item>
+                 <widget class="QPushButton" name="run_button">
+                  <property name="text">
+                   <string>Run</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pause_button">
+                  <property name="text">
+                   <string>Pause</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="close_button">
+                  <property name="text">
+                   <string>Close</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="1" column="0">
+               <widget class="Line" name="line_3">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="line_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="verticalGroupBox_3">
+           <property name="title">
+            <string>Spectrum Estimation Settings</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QTabWidget" name="tabWidget">
+              <property name="currentIndex">
+               <number>1</number>
+              </property>
+              <widget class="QWidget" name="tab">
+               <attribute name="title">
+                <string>Welch</string>
+               </attribute>
+               <layout class="QVBoxLayout" name="verticalLayout_10">
+                <property name="margin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QScrollArea" name="scrollArea_5">
+                  <property name="palette">
+                   <palette>
+                    <active>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Window">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </active>
+                    <inactive>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Window">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </inactive>
+                    <disabled>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Window">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </disabled>
+                   </palette>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::NoFrame</enum>
+                  </property>
+                  <property name="widgetResizable">
+                   <bool>true</bool>
+                  </property>
+                  <widget class="QWidget" name="scrollAreaWidgetContents_5">
+                   <property name="geometry">
+                    <rect>
+                     <x>0</x>
+                     <y>0</y>
+                     <width>374</width>
+                     <height>155</height>
+                    </rect>
+                   </property>
+                   <layout class="QFormLayout" name="formLayout_2">
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="moviingAverageLengthLabel">
+                      <property name="text">
+                       <string>Moving Average Length</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <widget class="QSpinBox" name="welch_mov_avg">
+                      <property name="maximum">
+                       <number>9999</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="overlapLabel">
+                      <property name="text">
+                       <string>Overlap</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QSpinBox" name="welch_overlap">
+                      <property name="minimum">
+                       <number>-1</number>
+                      </property>
+                      <property name="maximum">
+                       <number>32765</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="0">
+                     <widget class="QLabel" name="welch_win">
+                      <property name="text">
+                       <string>Window</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="1">
+                     <widget class="QComboBox" name="welch_window">
+                      <item>
+                       <property name="text">
+                        <string>Hann</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>Hamming</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>Kaiser</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>Blackman</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>Blackman-Harris</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>Rectangular</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item row="3" column="0">
+                     <widget class="QLabel" name="windowOptionLabel">
+                      <property name="text">
+                       <string>Window-Option</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="1">
+                     <widget class="QDoubleSpinBox" name="welch_window_option"/>
+                    </item>
+                    <item row="4" column="0">
+                     <widget class="QLabel" name="fFTSizeLabel">
+                      <property name="text">
+                       <string>FFT-Size</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="4" column="1">
+                     <widget class="QComboBox" name="welch_fft_size">
+                      <item>
+                       <property name="text">
+                        <string>16</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>32</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>64</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>128</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>256</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>512</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>1024</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>2048</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>4096</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>8192</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>16384</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>32768</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>65536</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QWidget" name="tab_welchsp">
+               <attribute name="title">
+                <string>Welch (SP)</string>
+               </attribute>
+               <widget class="QDoubleSpinBox" name="welchsp_window_option">
+                <property name="geometry">
+                 <rect>
+                  <x>124</x>
+                  <y>83</y>
+                  <width>53</width>
+                  <height>22</height>
+                 </rect>
+                </property>
+               </widget>
+               <widget class="QSpinBox" name="welchsp_overlap">
+                <property name="geometry">
+                 <rect>
+                  <x>124</x>
+                  <y>30</y>
+                  <width>56</width>
+                  <height>22</height>
+                 </rect>
+                </property>
+                <property name="minimum">
+                 <number>-1</number>
+                </property>
+                <property name="maximum">
+                 <number>32765</number>
+                </property>
+               </widget>
+               <widget class="QComboBox" name="welchsp_window">
+                <property name="geometry">
+                 <rect>
+                  <x>124</x>
+                  <y>56</y>
+                  <width>116</width>
+                  <height>23</height>
+                 </rect>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>Hann</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Hamming</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Kaiser</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Blackman</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Blackman-Harris</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Rectangular</string>
+                 </property>
+                </item>
+               </widget>
+               <widget class="QLabel" name="welchsp_win">
+                <property name="geometry">
+                 <rect>
+                  <x>81</x>
+                  <y>56</y>
+                  <width>38</width>
+                  <height>23</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>Window</string>
+                </property>
+               </widget>
+               <widget class="QLabel" name="fFTSizeLabel_7">
+                <property name="geometry">
+                 <rect>
+                  <x>79</x>
+                  <y>109</y>
+                  <width>40</width>
+                  <height>23</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>FFT-Size</string>
+                </property>
+               </widget>
+               <widget class="QDoubleSpinBox" name="welchsp_alpha">
+                <property name="geometry">
+                 <rect>
+                  <x>124</x>
+                  <y>4</y>
+                  <width>50</width>
+                  <height>22</height>
+                 </rect>
+                </property>
+                <property name="inputMethodHints">
+                 <set>Qt::ImhFormattedNumbersOnly</set>
+                </property>
+                <property name="minimum">
+                 <double>0.010000000000000</double>
+                </property>
+                <property name="maximum">
+                 <double>1.000000000000000</double>
+                </property>
+                <property name="singleStep">
+                 <double>0.010000000000000</double>
+                </property>
+                <property name="value">
+                 <double>0.100000000000000</double>
+                </property>
+               </widget>
+               <widget class="QLabel" name="overlapLabel_2">
+                <property name="geometry">
+                 <rect>
+                  <x>81</x>
+                  <y>30</y>
+                  <width>38</width>
+                  <height>22</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>Overlap</string>
+                </property>
+               </widget>
+               <widget class="QLabel" name="windowOptionLabel_2">
+                <property name="geometry">
+                 <rect>
+                  <x>41</x>
+                  <y>83</y>
+                  <width>78</width>
+                  <height>22</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>Window-Option</string>
+                </property>
+               </widget>
+               <widget class="QLabel" name="moviingAverageLengthLabel_2">
+                <property name="geometry">
+                 <rect>
+                  <x>40</x>
+                  <y>4</y>
+                  <width>81</width>
+                  <height>22</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>Averaging Alpha</string>
+                </property>
+               </widget>
+               <widget class="QComboBox" name="welchsp_fft_size">
+                <property name="geometry">
+                 <rect>
+                  <x>124</x>
+                  <y>109</y>
+                  <width>64</width>
+                  <height>23</height>
+                 </rect>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>16</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>32</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>64</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>128</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>256</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>512</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>1024</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>2048</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>4096</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>8192</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>16384</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>32768</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>65536</string>
+                 </property>
+                </item>
+               </widget>
+              </widget>
+              <widget class="QWidget" name="tab_2">
+               <attribute name="title">
+                <string>Burg</string>
+               </attribute>
+               <layout class="QVBoxLayout" name="verticalLayout_11">
+                <property name="margin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QScrollArea" name="scrollArea_6">
+                  <property name="palette">
+                   <palette>
+                    <active>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Window">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </active>
+                    <inactive>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Window">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </inactive>
+                    <disabled>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Window">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </disabled>
+                   </palette>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::NoFrame</enum>
+                  </property>
+                  <property name="widgetResizable">
+                   <bool>true</bool>
+                  </property>
+                  <widget class="QWidget" name="scrollAreaWidgetContents_6">
+                   <property name="geometry">
+                    <rect>
+                     <x>0</x>
+                     <y>0</y>
+                     <width>374</width>
+                     <height>155</height>
+                    </rect>
+                   </property>
+                   <layout class="QFormLayout" name="formLayout_3">
+                    <property name="fieldGrowthPolicy">
+                     <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+                    </property>
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="orderLabel">
+                      <property name="text">
+                       <string>Order</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QSpinBox" name="burg_order">
+                      <property name="minimum">
+                       <number>2</number>
+                      </property>
+                      <property name="maximum">
+                       <number>9999</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="0">
+                     <widget class="QLabel" name="fFTSizeLabel_2">
+                      <property name="text">
+                       <string>FFT-Size</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="1">
+                     <widget class="QComboBox" name="burg_fft_size">
+                      <item>
+                       <property name="text">
+                        <string>16</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>32</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>64</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>128</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>256</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>512</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>1024</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>2048</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>4096</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>8192</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>16384</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>32768</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>65536</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="blockLengthLabel">
+                      <property name="text">
+                       <string>Block Length</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <widget class="QSpinBox" name="burg_block_len">
+                      <property name="minimum">
+                       <number>4</number>
+                      </property>
+                      <property name="maximum">
+                       <number>65536</number>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QWidget" name="tab_3">
+               <attribute name="title">
+                <string>fcov</string>
+               </attribute>
+               <layout class="QVBoxLayout" name="verticalLayout_12">
+                <property name="margin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QScrollArea" name="scrollArea_7">
+                  <property name="palette">
+                   <palette>
+                    <active>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Window">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </active>
+                    <inactive>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Window">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </inactive>
+                    <disabled>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Window">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </disabled>
+                   </palette>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::NoFrame</enum>
+                  </property>
+                  <property name="widgetResizable">
+                   <bool>true</bool>
+                  </property>
+                  <widget class="QWidget" name="scrollAreaWidgetContents_7">
+                   <property name="geometry">
+                    <rect>
+                     <x>0</x>
+                     <y>0</y>
+                     <width>374</width>
+                     <height>155</height>
+                    </rect>
+                   </property>
+                   <layout class="QFormLayout" name="formLayout_4">
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="orderLabel_2">
+                      <property name="text">
+                       <string>Order</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QSpinBox" name="fcov_order">
+                      <property name="minimum">
+                       <number>2</number>
+                      </property>
+                      <property name="maximum">
+                       <number>9999</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="0">
+                     <widget class="QLabel" name="fFTSizeLabel_3">
+                      <property name="text">
+                       <string>FFT-Size</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="1">
+                     <widget class="QComboBox" name="fcov_fft_size">
+                      <item>
+                       <property name="text">
+                        <string>16</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>32</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>64</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>128</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>256</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>512</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>1024</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>2048</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>4096</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>8192</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>16384</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>32768</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>65536</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="blockLengthLabel_2">
+                      <property name="text">
+                       <string>Block Length</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <widget class="QSpinBox" name="fcov_block_len">
+                      <property name="minimum">
+                       <number>4</number>
+                      </property>
+                      <property name="maximum">
+                       <number>65536</number>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QWidget" name="tab_4">
+               <attribute name="title">
+                <string>fmcov</string>
+               </attribute>
+               <layout class="QVBoxLayout" name="verticalLayout_13">
+                <property name="margin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QScrollArea" name="scrollArea_8">
+                  <property name="palette">
+                   <palette>
+                    <active>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Window">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </active>
+                    <inactive>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Window">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </inactive>
+                    <disabled>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Window">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </disabled>
+                   </palette>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::NoFrame</enum>
+                  </property>
+                  <property name="widgetResizable">
+                   <bool>true</bool>
+                  </property>
+                  <widget class="QWidget" name="scrollAreaWidgetContents_8">
+                   <property name="geometry">
+                    <rect>
+                     <x>0</x>
+                     <y>0</y>
+                     <width>374</width>
+                     <height>155</height>
+                    </rect>
+                   </property>
+                   <layout class="QFormLayout" name="formLayout_5">
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="orderLabel_3">
+                      <property name="text">
+                       <string>Order</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QSpinBox" name="fmcov_order">
+                      <property name="minimum">
+                       <number>2</number>
+                      </property>
+                      <property name="maximum">
+                       <number>9999</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="0">
+                     <widget class="QLabel" name="fFTSizeLabel_4">
+                      <property name="text">
+                       <string>FFT-Size</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="1">
+                     <widget class="QComboBox" name="fmcov_fft_size">
+                      <item>
+                       <property name="text">
+                        <string>16</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>32</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>64</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>128</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>256</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>512</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>1024</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>2048</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>4096</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>8192</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>16384</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>32768</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>65536</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="blockLengthLabel_3">
+                      <property name="text">
+                       <string>Block Length</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <widget class="QSpinBox" name="fmcov_block_len">
+                      <property name="minimum">
+                       <number>4</number>
+                      </property>
+                      <property name="maximum">
+                       <number>65536</number>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QWidget" name="tab_5">
+               <attribute name="title">
+                <string>MTM</string>
+               </attribute>
+               <layout class="QVBoxLayout" name="verticalLayout_14">
+                <property name="margin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QScrollArea" name="scrollArea_9">
+                  <property name="palette">
+                   <palette>
+                    <active>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Window">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </active>
+                    <inactive>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Window">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </inactive>
+                    <disabled>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Window">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </disabled>
+                   </palette>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::NoFrame</enum>
+                  </property>
+                  <property name="widgetResizable">
+                   <bool>true</bool>
+                  </property>
+                  <widget class="QWidget" name="scrollAreaWidgetContents_9">
+                   <property name="geometry">
+                    <rect>
+                     <x>0</x>
+                     <y>0</y>
+                     <width>374</width>
+                     <height>155</height>
+                    </rect>
+                   </property>
+                   <layout class="QFormLayout" name="formLayout_6">
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="timeBandwithProductLabel">
+                      <property name="text">
+                       <string>Time-Bandwith Product</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="numberOfTapersLabel">
+                      <property name="text">
+                       <string>Number of Tapers</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QSpinBox" name="mtm_num_tap">
+                      <property name="maximum">
+                       <number>999</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="0">
+                     <widget class="QLabel" name="weightMethodLabel">
+                      <property name="text">
+                       <string>Weight Method</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="1">
+                     <widget class="QComboBox" name="mtm_weight_method">
+                      <item>
+                       <property name="text">
+                        <string>unity</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>eigenvalues</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>adaptive</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item row="3" column="0">
+                     <widget class="QLabel" name="dPSSLengthLabel">
+                      <property name="text">
+                       <string>DPSS Length</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <widget class="QDoubleSpinBox" name="mtm_tbp"/>
+                    </item>
+                    <item row="3" column="1">
+                     <widget class="QComboBox" name="mtm_dpss_len">
+                      <item>
+                       <property name="text">
+                        <string>16</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>32</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>64</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>128</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>256</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>512</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>1024</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>2048</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>4096</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>8192</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>16384</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>32768</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>65536</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QWidget" name="tab_6">
+               <attribute name="title">
+                <string>Music</string>
+               </attribute>
+               <layout class="QVBoxLayout" name="verticalLayout_15">
+                <property name="margin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QScrollArea" name="scrollArea_10">
+                  <property name="palette">
+                   <palette>
+                    <active>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Window">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </active>
+                    <inactive>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Window">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </inactive>
+                    <disabled>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Window">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </disabled>
+                   </palette>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::NoFrame</enum>
+                  </property>
+                  <property name="widgetResizable">
+                   <bool>true</bool>
+                  </property>
+                  <widget class="QWidget" name="scrollAreaWidgetContents_10">
+                   <property name="geometry">
+                    <rect>
+                     <x>0</x>
+                     <y>0</y>
+                     <width>374</width>
+                     <height>155</height>
+                    </rect>
+                   </property>
+                   <layout class="QFormLayout" name="formLayout_7">
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="correlationSizeLabel">
+                      <property name="text">
+                       <string>Correlation Size</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <widget class="QSpinBox" name="music_cor_size">
+                      <property name="maximum">
+                       <number>9999</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="sinusoidsCountLabel">
+                      <property name="text">
+                       <string>Sinusoids Count</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QSpinBox" name="music_sin_cnt">
+                      <property name="maximum">
+                       <number>9999</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="0">
+                     <widget class="QLabel" name="fFTSizeLabel_5">
+                      <property name="text">
+                       <string>FFT-Size</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="1">
+                     <widget class="QComboBox" name="music_fft_size">
+                      <item>
+                       <property name="text">
+                        <string>16</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>32</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>64</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>128</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>256</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>512</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>1024</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>2048</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>4096</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>8192</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>16384</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>32768</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>65536</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QWidget" name="tab_7">
+               <attribute name="title">
+                <string>Esprit</string>
+               </attribute>
+               <layout class="QVBoxLayout" name="verticalLayout_16">
+                <property name="margin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QScrollArea" name="scrollArea_11">
+                  <property name="palette">
+                   <palette>
+                    <active>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Window">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </active>
+                    <inactive>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Window">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </inactive>
+                    <disabled>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Window">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>222</red>
+                        <green>222</green>
+                        <blue>222</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </disabled>
+                   </palette>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::NoFrame</enum>
+                  </property>
+                  <property name="widgetResizable">
+                   <bool>true</bool>
+                  </property>
+                  <widget class="QWidget" name="scrollAreaWidgetContents_11">
+                   <property name="geometry">
+                    <rect>
+                     <x>0</x>
+                     <y>0</y>
+                     <width>374</width>
+                     <height>155</height>
+                    </rect>
+                   </property>
+                   <layout class="QFormLayout" name="formLayout_8">
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="correlationSizeLabel_2">
+                      <property name="text">
+                       <string>Correlation Size</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <widget class="QSpinBox" name="esprit_cor_size">
+                      <property name="maximum">
+                       <number>9999</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="sinusoidsCountLabel_2">
+                      <property name="text">
+                       <string>Sinusoids Count</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QSpinBox" name="esprit_sin_cnt">
+                      <property name="maximum">
+                       <number>999</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="0">
+                     <widget class="QLabel" name="fFTSizeLabel_6">
+                      <property name="text">
+                       <string>FFT-Size</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="1">
+                     <widget class="QComboBox" name="esprit_fft_size">
+                      <item>
+                       <property name="text">
+                        <string>16</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>32</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>64</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>128</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>256</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>512</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>1024</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>2048</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>4096</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>8192</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>16384</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>32768</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>65536</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1236</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionExit"/>
+   </widget>
+   <addaction name="menuFile"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionSettings">
+   <property name="text">
+    <string>Input Settings...</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QwtPlot</class>
+   <extends>QFrame</extends>
+   <header>qwt_plot.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QwtCounter</class>
+   <extends>QWidget</extends>
+   <header>qwt_counter.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>617</x>
+     <y>370</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>close_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>745</x>
+     <y>536</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>617</x>
+     <y>370</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
