@@ -28,5 +28,6 @@ install(FILES
     moving_average_vff.h
     adaptiveweighting_vff.h
     arfcov_algo.h
-    arfcov_vcc.h DESTINATION include/specest
+    arfcov_vcc.h
+    fcov.h DESTINATION include/specest
 )

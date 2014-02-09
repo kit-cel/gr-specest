@@ -14,6 +14,7 @@
 #include "specest/moving_average_vff.h"
 #include "specest/adaptiveweighting_vff.h"
 #include "specest/arfcov_vcc.h"
+#include "specest/fcov.h"
 %}
 
 
@@ -30,3 +31,5 @@ GR_SWIG_BLOCK_MAGIC2(specest, adaptiveweighting_vff);
 
 %include "specest/arfcov_vcc.h"
 GR_SWIG_BLOCK_MAGIC2(specest, arfcov_vcc);
+%include "specest/fcov.h"
+GR_SWIG_BLOCK_MAGIC2(specest, fcov);

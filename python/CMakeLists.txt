@@ -47,3 +47,4 @@ GR_ADD_TEST(qa_stream_to_vector_overlap ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOU
 GR_ADD_TEST(qa_moving_average_vff ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_moving_average_vff.py)
 GR_ADD_TEST(qa_adaptiveweighting_vff ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_adaptiveweighting_vff.py)
 GR_ADD_TEST(qa_arfcov_vcc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_arfcov_vcc.py)
+GR_ADD_TEST(qa_fcov ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_fcov.py)
