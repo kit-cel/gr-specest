@@ -27,5 +27,6 @@ install(FILES
     stream_to_vector_overlap.h
     moving_average_vff.h
     adaptiveweighting_vff.h
-    DESTINATION include/specest
+    arfcov_algo.h
+    arfcov_vcc.h DESTINATION include/specest
 )

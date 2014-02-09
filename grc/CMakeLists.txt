@@ -22,5 +22,5 @@ install(FILES
     specest_stream_to_vector_overlap.xml
     specest_moving_average_vff.xml
     specest_adaptiveweighting_vff.xml
-    DESTINATION share/gnuradio/grc/blocks
+    specest_arfcov_vcc.xml DESTINATION share/gnuradio/grc/blocks
 )
