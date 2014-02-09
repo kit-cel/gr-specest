@@ -21,7 +21,8 @@
 #include <stdexcept>
 #include <cstring>
 
-
+namespace gr {
+  namespace specest {
 
 arfcov_algo::arfcov_algo(unsigned blocklen, unsigned order)
 	: d_blocklen(blocklen), d_order(order)
@@ -216,4 +217,6 @@ arfcov_algo::calculate(const gr_complex *x, gr_complex *ar_coeff, int normalise)
   }
 
   return (float) (vf/(N-pmax));
+}
+}
 }

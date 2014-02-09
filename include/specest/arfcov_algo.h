@@ -26,6 +26,8 @@
 typedef std::complex<float>			gr_complex;
 typedef std::complex<double>			gr_complexd;*/
 
+namespace gr {
+  namespace specest {
 
 class SPECEST_API arfcov_algo
 {
@@ -67,3 +69,5 @@ class SPECEST_API arfcov_algo
 	void init_buffers();
 };
 
+}
+}
