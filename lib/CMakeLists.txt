@@ -24,14 +24,13 @@ include(GrPlatform) #define LIB_SUFFIX
 
 include_directories(${Boost_INCLUDE_DIR})
 link_directories(${Boost_LIBRARY_DIRS})
-
 list(APPEND specest_sources
     reciprocal_ff_impl.cc
     pad_vector_impl.cc
     stream_to_vector_overlap_impl.cc
     moving_average_vff_impl.cc
     adaptiveweighting_vff_impl.cc
-)
+    )
 
 add_library(gnuradio-specest SHARED ${specest_sources})
 target_link_libraries(gnuradio-specest ${Boost_LIBRARIES} ${GNURADIO_ALL_LIBRARIES})

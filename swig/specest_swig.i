@@ -26,3 +26,4 @@ GR_SWIG_BLOCK_MAGIC2(specest, stream_to_vector_overlap);
 GR_SWIG_BLOCK_MAGIC2(specest, moving_average_vff);
 %include "specest/adaptiveweighting_vff.h"
 GR_SWIG_BLOCK_MAGIC2(specest, adaptiveweighting_vff);
+

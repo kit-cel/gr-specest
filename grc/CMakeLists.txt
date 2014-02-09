@@ -16,11 +16,11 @@
 # along with GNU Radio; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
-
 install(FILES
     specest_reciprocal_ff.xml
     specest_pad_vector.xml
     specest_stream_to_vector_overlap.xml
     specest_moving_average_vff.xml
-    specest_adaptiveweighting_vff.xml DESTINATION share/gnuradio/grc/blocks
+    specest_adaptiveweighting_vff.xml
+    DESTINATION share/gnuradio/grc/blocks
 )

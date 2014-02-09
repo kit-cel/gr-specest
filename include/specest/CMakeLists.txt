@@ -26,5 +26,6 @@ install(FILES
     pad_vector.h
     stream_to_vector_overlap.h
     moving_average_vff.h
-    adaptiveweighting_vff.h DESTINATION include/specest
+    adaptiveweighting_vff.h
+    DESTINATION include/specest
 )
