@@ -25,5 +25,6 @@ install(FILES
     specest_arfcov_vcc.xml
     specest_fcov.xml
     specest_arfmcov_vcc.xml
-    specest_fmcov.xml DESTINATION share/gnuradio/grc/blocks
+    specest_fmcov.xml
+    specest_arburg_vcc.xml DESTINATION share/gnuradio/grc/blocks
 )

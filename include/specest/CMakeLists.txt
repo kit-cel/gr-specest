@@ -32,5 +32,7 @@ install(FILES
     #fcov.h
     arfmcov_algo.h
     arfmcov_vcc.h
-    fmcov.h DESTINATION include/specest
+    fmcov.h
+    arburg_algo.h
+    arburg_vcc.h DESTINATION include/specest
 )
