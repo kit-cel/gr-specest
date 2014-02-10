@@ -16,6 +16,7 @@
 //#include "specest/arfcov_vcc.h"
 //#include "specest/fcov.h"
 #include "specest/arfmcov_vcc.h"
+#include "specest/fmcov.h"
 %}
 
 
@@ -36,3 +37,5 @@ GR_SWIG_BLOCK_MAGIC2(specest, adaptiveweighting_vff);
 //GR_SWIG_BLOCK_MAGIC2(specest, fcov);
 %include "specest/arfmcov_vcc.h"
 GR_SWIG_BLOCK_MAGIC2(specest, arfmcov_vcc);
+%include "specest/fmcov.h"
+GR_SWIG_BLOCK_MAGIC2(specest, fmcov);

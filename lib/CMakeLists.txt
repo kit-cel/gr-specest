@@ -34,7 +34,8 @@ list(APPEND specest_sources
     #arfcov_vcc_impl.cc
     #fcov_impl.cc
     arfmcov_algo.cc
-    arfmcov_vcc_impl.cc )
+    arfmcov_vcc_impl.cc
+    fmcov_impl.cc )
 
 add_library(gnuradio-specest SHARED ${specest_sources})
 target_link_libraries(gnuradio-specest ${Boost_LIBRARIES} ${GNURADIO_ALL_LIBRARIES})
@@ -68,6 +69,10 @@ target_link_libraries(
   ${GNURADIO_RUNTIME_LIBRARIES}
   ${Boost_LIBRARIES}
   ${CPPUNIT_LIBRARIES}
+  ${GNURADIO_BLOCKS_LIBRARIES}
+  ${GNURADIO_FILTER_LIBRARIES}
+  ${GNURADIO_FFT_LIBRARIES}
+  ${FFTW3F_LIBRARIES}
   gnuradio-specest
 )
 

@@ -1,0 +1,33 @@
+<block>
+  <name>Fmcov</name>
+  <key>specest_fmcov</key>
+  <category>SPECEST</category>
+  <import>import specest</import>
+  <make>specest.fmcov($unsignedfft_len, $boolfftshift, $decimation)</make>
+  <param>
+    <name>Unsignedfft_len</name>
+    <key>unsignedfft_len</key>
+    <type>raw</type>
+  </param>
+  <param>
+    <name>Boolfftshift</name>
+    <key>boolfftshift</key>
+    <value> false</value>
+    <type>raw</type>
+  </param>
+  <param>
+    <name>Decimation</name>
+    <key>decimation</key>
+    <value> 1</value>
+    <type>int</type>
+  </param>
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+  </sink>
+  <source>
+    <name>out</name>
+    <type>float</type>
+    <vlen>$fft_len</vlen>
+  </source>
+</block>

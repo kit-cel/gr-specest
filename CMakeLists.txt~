@@ -111,6 +111,29 @@ if(NOT CPPUNIT_FOUND)
 endif()
 
 ########################################################################
+# Find specest build dependencies
+########################################################################
+find_package(BLAS REQUIRED)
+find_package(LAPACK REQUIRED)
+find_package(Armadillo)
+find_package(FFTW3f)
+include(Armadillo)
+IF (ARMADILLO_FOUND)
+	MESSAGE("-- Found Armadillo, building MUSIC")
+ELSE(ARMADILLO_FOUND)
+	MESSAGE("-- As armadillo wasn't found, the MUSIC algorithm will not be built")
+ENDIF(ARMADILLO_FOUND)
+
+set(GR_REQUIRED_MODULES RUNTIME BLOCKS FILTER FFT)
+find_package(Gnuradio 3.7.0)
+
+# Not sure if we still need this
+#IF(UNIX AND ("${CMAKE_SIZEOF_VOID_P}" EQUAL "8"))
+        #LIST(APPEND BOOST_LIBRARYDIR "/usr/lib64") #fedora 64-bit fix
+        #SET(LIB_POSTFIX 64)
+#ENDIF(UNIX AND ("${CMAKE_SIZEOF_VOID_P}" EQUAL "8"))
+
+########################################################################
 # Setup the include and linker paths
 ########################################################################
 include_directories(
@@ -121,13 +144,18 @@ include_directories(
     ${Boost_INCLUDE_DIRS}
     ${CPPUNIT_INCLUDE_DIRS}
     ${GNURADIO_ALL_INCLUDE_DIRS}
+    ${FFTW3F_INCLUDE_DIRS}
 )
 
 link_directories(
     ${Boost_LIBRARY_DIRS}
     ${CPPUNIT_LIBRARY_DIRS}
     ${GNURADIO_RUNTIME_LIBRARY_DIRS}
+    ${GNURADIO_BLOCKS_LIBRARY_DIRS}
+    ${GNURADIO_FILTER_LIBRARY_DIRS}
+    ${GNURADIO_FFT_LIBRARY_DIRS}
 )
+link_directories( ${FFTW3F_LIBRARY_DIRS} )
 
 # Set component parameters
 set(GR_SPECEST_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/include CACHE INTERNAL "" FORCE)
