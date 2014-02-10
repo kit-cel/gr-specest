@@ -34,5 +34,6 @@ install(FILES
     arfmcov_vcc.h
     fmcov.h
     arburg_algo.h
-    arburg_vcc.h DESTINATION include/specest
+    arburg_vcc.h
+    burg.h DESTINATION include/specest
 )
