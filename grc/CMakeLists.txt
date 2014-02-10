@@ -23,5 +23,6 @@ install(FILES
     specest_moving_average_vff.xml
     specest_adaptiveweighting_vff.xml
     specest_arfcov_vcc.xml
-    specest_fcov.xml DESTINATION share/gnuradio/grc/blocks
+    specest_fcov.xml
+    specest_arfmcov_vcc.xml DESTINATION share/gnuradio/grc/blocks
 )

@@ -30,9 +30,11 @@ list(APPEND specest_sources
     stream_to_vector_overlap_impl.cc
     moving_average_vff_impl.cc
     adaptiveweighting_vff_impl.cc
-    arfcov_algo.cc
-    arfcov_vcc_impl.cc
-    fcov_impl.cc )
+    #arfcov_algo.cc
+    #arfcov_vcc_impl.cc
+    #fcov_impl.cc
+    arfmcov_algo.cc
+    arfmcov_vcc_impl.cc )
 
 add_library(gnuradio-specest SHARED ${specest_sources})
 target_link_libraries(gnuradio-specest ${Boost_LIBRARIES} ${GNURADIO_ALL_LIBRARIES})
