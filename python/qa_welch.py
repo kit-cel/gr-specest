@@ -25,16 +25,12 @@ from numpy import *
 
 class test_specest_welch(gr_unittest.TestCase):
     def setUp (self):
-    	print("setup")
         self.tb = gr.top_block ()
 
     def tearDown (self):
-    	print("teardown")
         self.tb = None
-        print("teardown successful")
 
     def test_001(self):
-    	print("test1")
         """ Run test:
         - No overlap
         - Hamming window from Python
@@ -63,7 +59,6 @@ class test_specest_welch(gr_unittest.TestCase):
 
 
     def test_default_002(self):
-    	print("test2")
         """ Same test as before, but different parameters (FFT length, moving average and
         the window comes from C++). """
         fft_len = 1024
@@ -85,19 +80,18 @@ class test_specest_welch(gr_unittest.TestCase):
 
 
     def test_exception1_003(self):
-    	print("test3")
         """ Make sure an exception is thrown when an invalid overlap is chosen. """
         self.assertRaises(RuntimeError, specest.welch, 1024, -5)
 
 
     def test_exception2_004(self):
-    	print("test4")
-    	print "test exception2_004 creates a segfault when checking the arguments with specest_check_arguments_impl()! Make test pass to avoid this for the moment."
         """ Make sure an exception is thrown when an invalid window is given. """
         self.assertRaises(RuntimeError, specest.welch, 1025, 5, 5, False, (1,2,3))
 
 
 
 if __name__ == '__main__':
+    print("This test segfaults after the lest test method due to a double free, probably in a destructor.")
     gr_unittest.main ()
+    
 
