@@ -42,8 +42,9 @@ namespace gr {
        * @param lambdas: the different eigenvalues belonging to the eigenspectra
        */
       static sptr make(size_t vlen, const std::vector<float> &lambdas);
+      virtual const std::vector<float> lambdas () const = 0;
+      virtual void set_k (const std::vector<float> lambdas) = 0;
     };
-
   } // namespace specest
 } // namespace gr
 

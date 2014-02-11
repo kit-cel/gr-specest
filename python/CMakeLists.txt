@@ -57,3 +57,4 @@ GR_ADD_TEST(qa_welch ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_welch.p
 GR_ADD_TEST(qa_esprit_vcf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_esprit_vcf.py)
 GR_ADD_TEST(qa_esprit_spectrum_vcf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_esprit_spectrum_vcf.py)
 GR_ADD_TEST(qa_esprit ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_esprit.py)
+GR_ADD_TEST(qa_welchsp ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_welchsp.py)

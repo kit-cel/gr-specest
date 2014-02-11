@@ -33,6 +33,7 @@ install(FILES
     specest_welch.xml
     specest_esprit_vcf.xml
     #specest_esprit_spectrum_vcf.xml
-    #specest_esprit.xml 
+    #specest_esprit.xml
+    #specest_welchsp.xml 
     DESTINATION share/gnuradio/grc/blocks
 )

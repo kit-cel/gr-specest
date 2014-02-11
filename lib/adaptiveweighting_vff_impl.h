@@ -39,8 +39,8 @@ namespace gr {
       int work(int noutput_items,
 	       gr_vector_const_void_star &input_items,
 	       gr_vector_void_star &output_items);
-      const std::vector<float> lambdas () const { return d_lambdas; }
-      void set_k (const std::vector<float> lambdas) { d_lambdas = lambdas; }
+      const std::vector<float> lambdas () const { return d_lambdas; };
+      void set_k (const std::vector<float> lambdas) { d_lambdas = lambdas; };
     };
 
   } // namespace specest

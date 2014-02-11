@@ -58,7 +58,8 @@ list(APPEND specest_sources
     esprit_fortran_algo.cc
     esprit_vcf_impl.cc
     esprit_spectrum_vcf_impl.cc
-    esprit_impl.cc )
+    esprit_impl.cc
+    welchsp_impl.cc )
 
 add_library(gnuradio-specest SHARED ${specest_sources})
 target_link_libraries(gnuradio-specest gnuradio-specest-fortran 
