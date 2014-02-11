@@ -22,6 +22,21 @@
 ########################################################################
 include(GrPlatform) #define LIB_SUFFIX
 
+########################################################################
+# Fortran lib
+########################################################################
+add_library(gnuradio-specest-fortran SHARED
+    zcorrest_impl.f90
+    zesprit_common_impl.f90
+    zesprit_impl.f90
+    zesprit_spectrum_impl.f90
+    zmusic_spectrum_impl.f90
+)
+target_link_libraries(gnuradio-specest-fortran ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
+
+########################################################################
+# Main library
+########################################################################
 include_directories(${Boost_INCLUDE_DIR})
 link_directories(${Boost_LIBRARY_DIRS})
 list(APPEND specest_sources
@@ -30,9 +45,9 @@ list(APPEND specest_sources
     stream_to_vector_overlap_impl.cc
     moving_average_vff_impl.cc
     adaptiveweighting_vff_impl.cc
-    #arfcov_algo.cc
-    #arfcov_vcc_impl.cc
-    #fcov_impl.cc
+    arfcov_algo.cc
+    arfcov_vcc_impl.cc
+    fcov_impl.cc
     arfmcov_algo.cc
     arfmcov_vcc_impl.cc
     fmcov_impl.cc
@@ -42,13 +57,21 @@ list(APPEND specest_sources
     welch_impl.cc )
 
 add_library(gnuradio-specest SHARED ${specest_sources})
-target_link_libraries(gnuradio-specest ${Boost_LIBRARIES} ${GNURADIO_ALL_LIBRARIES})
+target_link_libraries(gnuradio-specest gnuradio-specest-fortran 
+    #${ARMADILLO_LIBRARIES}
+    ${Boost_LIBRARIES}
+    ${GNURADIO_RUNTIME_LIBRARIES}
+    ${GNURADIO_BLOCKS_LIBRARIES}
+    ${GNURADIO_FILTER_LIBRARIES}
+    ${GNURADIO_FFT_LIBRARIES}
+    ${FFTW3F_LIBRARIES}
+)
 set_target_properties(gnuradio-specest PROPERTIES DEFINE_SYMBOL "gnuradio_specest_EXPORTS")
 
 ########################################################################
 # Install built library files
 ########################################################################
-install(TARGETS gnuradio-specest
+install(TARGETS gnuradio-specest gnuradio-specest-fortran
     LIBRARY DESTINATION lib${LIB_SUFFIX} # .so/.dylib file
     ARCHIVE DESTINATION lib${LIB_SUFFIX} # .lib file
     RUNTIME DESTINATION bin              # .dll file

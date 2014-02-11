@@ -27,9 +27,9 @@ install(FILES
     stream_to_vector_overlap.h
     moving_average_vff.h
     adaptiveweighting_vff.h
-    #arfcov_algo.h
-    #arfcov_vcc.h
-    #fcov.h
+    arfcov_algo.h
+    arfcov_vcc.h
+    fcov.h
     arfmcov_algo.h
     arfmcov_vcc.h
     fmcov.h
