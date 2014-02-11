@@ -54,7 +54,9 @@ list(APPEND specest_sources
     arburg_algo.cc
     arburg_vcc_impl.cc
     burg_impl.cc
-    welch_impl.cc )
+    welch_impl.cc
+    esprit_fortran_algo.cc
+    esprit_vcf_impl.cc )
 
 add_library(gnuradio-specest SHARED ${specest_sources})
 target_link_libraries(gnuradio-specest gnuradio-specest-fortran 

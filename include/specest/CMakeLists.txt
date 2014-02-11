@@ -36,5 +36,8 @@ install(FILES
     arburg_algo.h
     arburg_vcc.h
     burg.h
-    welch.h DESTINATION include/specest
+    welch.h
+    esprit_algo.h
+    esprit_fortran_algo.h
+    esprit_vcf.h DESTINATION include/specest
 )

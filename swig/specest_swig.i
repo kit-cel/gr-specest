@@ -20,6 +20,7 @@
 #include "specest/arburg_vcc.h"
 #include "specest/burg.h"
 #include "specest/welch.h"
+#include "specest/esprit_vcf.h"
 %}
 
 
@@ -48,3 +49,5 @@ GR_SWIG_BLOCK_MAGIC2(specest, arburg_vcc);
 GR_SWIG_BLOCK_MAGIC2(specest, burg);
 %include "specest/welch.h"
 GR_SWIG_BLOCK_MAGIC2(specest, welch);
+%include "specest/esprit_vcf.h"
+GR_SWIG_BLOCK_MAGIC2(specest, esprit_vcf);

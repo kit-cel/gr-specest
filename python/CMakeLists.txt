@@ -31,6 +31,7 @@ endif()
 GR_PYTHON_INSTALL(
     FILES
     __init__.py
+    signal_generator.py
     DESTINATION ${GR_PYTHON_DIR}/specest
 )
 
@@ -53,3 +54,4 @@ GR_ADD_TEST(qa_fmcov ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_fmcov.p
 GR_ADD_TEST(qa_arburg_vcc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_arburg_vcc.py)
 GR_ADD_TEST(qa_burg ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_burg.py)
 GR_ADD_TEST(qa_welch ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_welch.py)
+GR_ADD_TEST(qa_esprit_vcf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_esprit_vcf.py)
