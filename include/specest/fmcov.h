@@ -64,7 +64,7 @@ namespace gr {
        * creating new instances.
        */
       static sptr make(unsigned block_len, unsigned fft_len, unsigned order, bool fftshift = false, int decimation = 1);
-      
+      virtual void set_decimation(int n) = 0; //!< Update the decimation rate at the input      
     };
 
   } // namespace specest

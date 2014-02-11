@@ -22,6 +22,7 @@
 #include "specest/welch.h"
 #include "specest/esprit_vcf.h"
 #include "specest/esprit_spectrum_vcf.h"
+#include "specest/esprit.h"
 %}
 
 
@@ -54,3 +55,5 @@ GR_SWIG_BLOCK_MAGIC2(specest, welch);
 GR_SWIG_BLOCK_MAGIC2(specest, esprit_vcf);
 %include "specest/esprit_spectrum_vcf.h"
 GR_SWIG_BLOCK_MAGIC2(specest, esprit_spectrum_vcf);
+%include "specest/esprit.h"
+GR_SWIG_BLOCK_MAGIC2(specest, esprit);

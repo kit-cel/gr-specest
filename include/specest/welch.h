@@ -64,6 +64,16 @@ namespace gr {
       static sptr make(unsigned fft_len, int overlap, int ma_len, bool fft_shift, const std::vector<float> &window);
       static sptr make(unsigned fft_len, int overlap = -1, int ma_len = 8, bool fft_shift = false, int window_type = (int) gr::filter::firdes::WIN_HAMMING, double beta = 6.76);
       // Declaring int instead of win_type makes it compatible with Python
+      
+		/**
+		 * \brief Set the window applied before FFT. Must have same length as FFT length.
+		 */
+	  virtual bool set_window(const std::vector<float> &window) = 0;
+
+		/**
+		 * \brief Sets the window to the default (a Hamming window).
+		 */
+	  virtual bool set_hamming() = 0;
     };
 
   } // namespace specest

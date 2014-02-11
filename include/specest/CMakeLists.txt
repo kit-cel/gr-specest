@@ -40,5 +40,6 @@ install(FILES
     esprit_algo.h
     esprit_fortran_algo.h
     esprit_vcf.h
-    esprit_spectrum_vcf.h DESTINATION include/specest
+    esprit_spectrum_vcf.h
+    esprit.h DESTINATION include/specest
 )

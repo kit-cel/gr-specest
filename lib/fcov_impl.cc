@@ -82,6 +82,11 @@ namespace gr {
     {
     }
 
+	void
+	fcov_impl::set_decimation(int n)
+	{
+		d_keep_one_in_n->set_n(n);
+	}
 
   } /* namespace specest */
 } /* namespace gr */
