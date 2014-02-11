@@ -1,0 +1,41 @@
+<block>
+  <name>Esprit</name>
+  <key>specest_esprit</key>
+  <category>SPECEST</category>
+  <import>import specest</import>
+  <make>specest.esprit($n, $m, $nsamples, $pspectrum_len, $decimation)</make>
+  <param>
+    <name>N</name>
+    <key>n</key>
+    <type>raw</type>
+  </param>
+  <param>
+    <name>M</name>
+    <key>m</key>
+    <type>raw</type>
+  </param>
+  <param>
+    <name>Nsamples</name>
+    <key>nsamples</key>
+    <type>raw</type>
+  </param>
+  <param>
+    <name>Pspectrum_len</name>
+    <key>pspectrum_len</key>
+    <type>raw</type>
+  </param>
+  <param>
+    <name>Decimation</name>
+    <key>decimation</key>
+    <type>raw</type>
+  </param>
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+  </sink>
+  <source>
+    <name>out</name>
+    <type>float</type>
+    <vlen>$pspectrum_len</vlen>
+  </source>
+</block>
