@@ -39,5 +39,6 @@ install(FILES
     welch.h
     esprit_algo.h
     esprit_fortran_algo.h
-    esprit_vcf.h DESTINATION include/specest
+    esprit_vcf.h
+    esprit_spectrum_vcf.h DESTINATION include/specest
 )

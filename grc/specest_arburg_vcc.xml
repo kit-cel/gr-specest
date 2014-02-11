@@ -1,7 +1,7 @@
 <block>
   <name>Arburg vcc</name>
   <key>specest_arburg_vcc</key>
-  <category>SPECEST</category>
+  <category>Spectrum Estimation</category>
   <import>import specest</import>
   <make>specest.arburg_vcc($unsignedorder, $normalise)</make>
   <param>

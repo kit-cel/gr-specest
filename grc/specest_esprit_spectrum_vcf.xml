@@ -1,0 +1,37 @@
+<block>
+  <name>Esprit spectrum vcf</name>
+  <key>specest_esprit_spectrum_vcf</key>
+  <category>SPECEST</category>
+  <import>import specest</import>
+  <make>specest.esprit_spectrum_vcf($n, $m, $nsamples, $pspectrum_len)</make>
+  <param>
+    <name>N</name>
+    <key>n</key>
+    <type>raw</type>
+  </param>
+  <param>
+    <name>M</name>
+    <key>m</key>
+    <type>raw</type>
+  </param>
+  <param>
+    <name>Nsamples</name>
+    <key>nsamples</key>
+    <type>raw</type>
+  </param>
+  <param>
+    <name>Pspectrum_len</name>
+    <key>pspectrum_len</key>
+    <type>raw</type>
+  </param>
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+    <vlen>$nsamples</vlen>
+  </sink>
+  <source>
+    <name>out</name>
+    <type>float</type>
+    <vlen>$pspectrum_len</vlen>
+  </source>
+</block>
