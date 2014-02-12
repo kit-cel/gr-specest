@@ -26,6 +26,7 @@
 #include "specest/welchsp.h"
 #include "specest/cyclo_fam_calcspectrum_vcf.h"
 #include "specest/cyclo_fam.h"
+#include "specest/music_vcf.h"
 %}
 
 
@@ -66,3 +67,5 @@ GR_SWIG_BLOCK_MAGIC2(specest, welchsp);
 GR_SWIG_BLOCK_MAGIC2(specest, cyclo_fam_calcspectrum_vcf);
 %include "specest/cyclo_fam.h"
 GR_SWIG_BLOCK_MAGIC2(specest, cyclo_fam);
+%include "specest/music_vcf.h"
+GR_SWIG_BLOCK_MAGIC2(specest, music_vcf);

@@ -26,13 +26,24 @@ include(GrPlatform) #define LIB_SUFFIX
 # Fortran lib
 ########################################################################
 add_library(gnuradio-specest-fortran SHARED
-    zcorrest_impl.f90
-    zesprit_common_impl.f90
-    zesprit_impl.f90
-    zesprit_spectrum_impl.f90
-    zmusic_spectrum_impl.f90
+    zcorrest_algo.f90
+    zesprit_common_algo.f90
+    zesprit_algo.f90
+    zesprit_spectrum_algo.f90
+    zmusic_spectrum_algo.f90
 )
 target_link_libraries(gnuradio-specest-fortran ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
+
+########################################################################
+# Configure Armadillo dependency
+########################################################################
+if(ARMADILLO_FOUND)
+	set(CXX_ARMADILLO_SRCS
+	)
+else()
+	set(CXX_ARMADILLO_SRCS)
+	set(ARMADILLO_LIBRARIES)
+endif()
 
 ########################################################################
 # Main library
@@ -62,11 +73,16 @@ list(APPEND specest_sources
     welchsp_impl.cc
     cyclo_fam_calcspectrum_algo.cc
     cyclo_fam_calcspectrum_vcf_impl.cc
-    cyclo_fam_impl.cc )
+    cyclo_fam_impl.cc
+    ${CXX_ARMADILLO_SRCS}
+    correst_algo.cc
+    music_armadillo_algo.cc
+    music_fortran_algo.cc
+    music_vcf_impl.cc)
 
 add_library(gnuradio-specest SHARED ${specest_sources})
 target_link_libraries(gnuradio-specest gnuradio-specest-fortran 
-    #${ARMADILLO_LIBRARIES}
+    ${ARMADILLO_LIBRARIES}
     ${Boost_LIBRARIES}
     ${GNURADIO_RUNTIME_LIBRARIES}
     ${GNURADIO_BLOCKS_LIBRARIES}

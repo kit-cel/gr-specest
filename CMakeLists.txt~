@@ -49,7 +49,7 @@ message("=======================================================================
 ########################################################################
 if(CMAKE_COMPILER_IS_GNUCXX AND NOT WIN32)
     #http://gcc.gnu.org/wiki/Visibility
-    add_definitions(-fvisibility=hidden)
+    #add_definitions(-fvisibility=hidden)
 endif()
 
 ########################################################################
@@ -100,7 +100,7 @@ find_package(CppUnit)
 # components required to the list of GR_REQUIRED_COMPONENTS (in all
 # caps such as FILTER or FFT) and change the version to the minimum
 # API compatible version required.
-set(GR_REQUIRED_COMPONENTS RUNTIME)
+set(GR_REQUIRED_COMPONENTS RUNTIME BLOCKS FFT FILTER)
 find_package(Gnuradio "3.7.2" REQUIRED)
 
 if(NOT GNURADIO_RUNTIME_FOUND)

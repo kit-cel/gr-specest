@@ -20,6 +20,13 @@
 ########################################################################
 # Install public header files
 ########################################################################
+if(ARMADILLO_FOUND)
+	set(CXX_ARMADILLO_HDRS
+	)
+else()
+	set(CXX_ARMADILLO_HDRS)
+endif()
+
 install(FILES
     api.h
     reciprocal_ff.h
@@ -45,5 +52,11 @@ install(FILES
     welchsp.h
     cyclo_fam_calcspectrum_algo.h
     cyclo_fam_calcspectrum_vcf.h
-    cyclo_fam.h DESTINATION include/specest
+    cyclo_fam.h 
+    ${CXX_ARMADILLO_HDRS}
+    correst_algo.h
+    music_armadillo_algo.h
+    music_fortran_algo.h
+    music_algo.h
+    music_vcf.h DESTINATION include/specest
 )

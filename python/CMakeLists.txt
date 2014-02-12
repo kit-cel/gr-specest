@@ -60,3 +60,4 @@ GR_ADD_TEST(qa_esprit ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_esprit
 GR_ADD_TEST(qa_welchsp ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_welchsp.py)
 GR_ADD_TEST(qa_cyclo_fam_calcspectrum_vcf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_cyclo_fam_calcspectrum_vcf.py)
 GR_ADD_TEST(qa_cyclo_fam ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_cyclo_fam.py)
+GR_ADD_TEST(qa_music_vcf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_music_vcf.py)

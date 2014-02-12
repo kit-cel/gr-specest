@@ -17,8 +17,8 @@
  * the Free Software Foundation, Inc., 51 Franklin Street,
  * Boston, MA 02110-1301, USA.
  */
-#ifndef INCLUDED_SPECESTI_ESPRIT_H
-#define INCLUDED_SPECESTI_ESPRIT_H
+#ifndef INCLUDED_SPECESTI_MUSIC_H
+#define INCLUDED_SPECESTI_MUSIC_H
 
 #include <gnuradio/gr_complex.h>
 #include <specest/api.h>
@@ -26,15 +26,15 @@
 namespace gr {
   namespace specest {
 
-	class SPECEST_API esprit_algo
+	class SPECEST_API music_algo
 	{
-			public:
+		public:
 			/*!
 			 * \brief Calculate the estimates for the frequencies normalised to [-pi,pi]
 			 * \param data complex samples / input data
 			 * \param data_len size of the complex sample array we're working on
 			 * \param omegas estimated frequencies
-			*/
+			 */
 			virtual void calculate(const gr_complexd *data, unsigned int data_len,
 				                   double* omegas) = 0;
 			/*!
@@ -46,10 +46,9 @@ namespace gr {
 			 */
 			virtual void calculate_pseudospectrum(const gr_complexd* data, unsigned int data_len,
 				                                  double* pspectrum, unsigned int pspectrum_len) = 0;
-
 	};
+	
+  } // namespace specest
+} // namespace gr
 
-  } /* namespace specest */
-} /* namespace gr */
-
-#endif /* INCLUDED_SPECESTI_ESPRIT_H */
+#endif /* INCLUDED_SPECESTI_MUSIC_H */
