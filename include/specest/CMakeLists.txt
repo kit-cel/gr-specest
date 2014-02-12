@@ -42,5 +42,7 @@ install(FILES
     esprit_vcf.h
     esprit_spectrum_vcf.h
     esprit.h
-    welchsp.h DESTINATION include/specest
+    welchsp.h
+    cyclo_fam_calcspectrum_algo.h
+    cyclo_fam_calcspectrum_vcf.h DESTINATION include/specest
 )
