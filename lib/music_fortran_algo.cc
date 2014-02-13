@@ -29,21 +29,12 @@
 #define ZMUSIC_SPECTRUM_FC FC_FUNC(zmusic_spectrum,ZMUSIC_SPECTRUM)
 extern "C"
 {
-	// the commented code won't compile on my system. Not knowing anything about Fortran
-	// integration in C++, I copied the calling convention from esprit.
-	/*void ZMUSIC_FC(const gr_complexd* samples, unsigned int* ldata,
+	void ZMUSIC_FC(const gr_complexd* samples, unsigned int* ldata,
 	                unsigned int* n, unsigned int* m,
 	                double* omegas);
 	void ZMUSIC_SPECTRUM_FC(const gr_complexd* samples, unsigned int* ldata,
 	                         unsigned int* n, unsigned int* m,
-	                         double* pspectrum, unsigned int* lpspectrum);*/
-	
-	//void zmusic_(const gr_complexd* samples, unsigned int* ldata,
-	//                unsigned int* n, unsigned int* m,
-	//                double* omegas);	                         
-	void zmusic_spectrum_(const gr_complexd* samples, unsigned int* ldata,
-	                         unsigned int* n, unsigned int* m,
-	                         double* pspectrum, unsigned int* lpspectrum);	                         
+	                         double* pspectrum, unsigned int* lpspectrum);                  
 }
 
 namespace gr {
@@ -62,14 +53,12 @@ namespace gr {
 	void music_fortran_algo::calculate(const gr_complexd *data, unsigned int data_len,
 		                                    double* omegas)
 	{
-		//zmusic_(data, &data_len, &d_n, &d_m, omegas);
-		//ZMUSIC_FC(data, &data_len, &d_n, &d_m, omegas);
+		ZMUSIC_FC(data, &data_len, &d_n, &d_m, omegas);
 	}
 
 	void music_fortran_algo::calculate_pseudospectrum(const gr_complexd *data, unsigned int data_len,
 															  double* pspectrum, unsigned int pspectrum_len)
 	{
-		//zmusic_spectrum_(data, &data_len, &d_n, &d_m, pspectrum, &pspectrum_len);
 		//ZMUSIC_SPECTRUM_FC(data, &data_len, &d_n, &d_m, pspectrum, &pspectrum_len);
 	}
   } /* namespace specest */
