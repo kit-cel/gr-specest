@@ -10,7 +10,7 @@ import pylab
 from PyQt4 import QtGui, QtCore
 import PyQt4.Qt as Qt
 import PyQt4.Qwt5 as Qwt
-from gnuradio import gr, uhd
+from gnuradio import gr, uhd, filter, blocks
 import specest
 
 try:
@@ -27,12 +27,12 @@ FFT_SIZE_INDEX = {16: 0, 32: 1, 64: 2, 128: 3, 256: 4, 512: 5, 1024: 6,
 
 WINDOW_INDEX = {'Hann': 0, 'Hamming': 1, 'Kaiser': 2, 'Blackman': 3,
                 'Blackman-Harris': 4, 'Rectangular': 5}
-WIN_TYPE_IDX = {'Hann': gr.firdes.WIN_HANN,
-                'Hamming': gr.firdes.WIN_HAMMING,
-                'Kaiser': gr.firdes.WIN_KAISER,
-                'Blackman': gr.firdes.WIN_BLACKMAN,
-                'Blackman-Harris': gr.firdes.WIN_BLACKMAN_hARRIS,
-                'Rectangular': gr.firdes.WIN_RECTANGULAR}
+WIN_TYPE_IDX = {'Hann': filter.firdes.WIN_HANN,
+                'Hamming': filter.firdes.WIN_HAMMING,
+                'Kaiser': filter.firdes.WIN_KAISER,
+                'Blackman': filter.firdes.WIN_BLACKMAN,
+                'Blackman-Harris': filter.firdes.WIN_BLACKMAN_hARRIS,
+                'Rectangular': filter.firdes.WIN_RECTANGULAR}
 ESTIM_TAB_NAMES = {'Welch': 0, 'Welch (SP)': 1, 'Burg': 2, 'fcov': 3, 'fmcov': 4, 'MTM': 5, 'Music': 6, 'Esprit': 7}
 ### Estimator Definitions ####################################################
 class EstimatorBase(object):
@@ -967,7 +967,7 @@ class TopBlock(gr.top_block):
                               numpy.float32, self.samp_rate, self.center_f)
         if(self.scale == "Logarithmic"):
             try:
-                self.foot = gr.nlog10_ff(10, self.fft_size)
+                self.foot = blocks.nlog10_ff(10, self.fft_size)
             except RuntimeError:
                 print "Wrong sink-data!"
             self.connect((self.foot, 0), (self.sink,  0))
@@ -1122,7 +1122,7 @@ class head(gr.hier_block2):
 
         if(src_type == "File"):
             try:
-                self.head_src = gr.file_source(file_samp_type, file_to_open, True)
+                self.head_src = blocks.file_source(file_samp_type, file_to_open, True)
                 fg.set_samp_rate(file_rec_samp_rate)
                 fg.uhd_src_active = False
                 if fg.cpu_watcher is not None:
@@ -1166,9 +1166,9 @@ class decimator(gr.hier_block2):
                 gr.io_signature(1, 1, gr.sizeof_gr_complex))
 
         if(uhd_src_active == True):
-            self.stv = gr.stream_to_vector(gr.sizeof_gr_complex, block_len)
-            self.decim = gr.keep_one_in_n(block_len * gr.sizeof_gr_complex, n)
-            self. vts = gr.vector_to_stream(gr.sizeof_gr_complex, block_len)
+            self.stv = blocks.stream_to_vector(gr.sizeof_gr_complex, block_len)
+            self.decim = blocks.keep_one_in_n(block_len * gr.sizeof_gr_complex, n)
+            self. vts = blocks.vector_to_stream(gr.sizeof_gr_complex, block_len)
 
             self.connect(self, self.stv)
             self.connect(self.stv, self.decim)
@@ -1176,7 +1176,7 @@ class decimator(gr.hier_block2):
             self.connect(self.vts, self)
 
         else:
-            self.throttle = gr.throttle(gr.sizeof_gr_complex, file_rec_samp_rate)
+            self.throttle = blocks.throttle(gr.sizeof_gr_complex, file_rec_samp_rate)
             self.connect(self, self.throttle)
             self.connect(self.throttle, self)
 
@@ -1187,7 +1187,7 @@ class plot_sink(gr.hier_block2):
                 gr.io_signature(1, 1, d_type * d_len),
                 gr.io_signature(0, 0, 0))
         self.msgq = gr.msg_queue(1)
-        self.snk = gr.message_sink(d_type * d_len, self.msgq, True)
+        self.snk = blocks.message_sink(d_type * d_len, self.msgq, True)
         self.connect(self, self.snk)
         self.watcher = QueueWatcherThread(self.msgq, d_len, d_type_numpy, samp_rate, center_f)
         qt_box.connect(self.watcher,

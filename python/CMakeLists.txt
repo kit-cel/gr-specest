@@ -31,9 +31,17 @@ endif()
 GR_PYTHON_INSTALL(
     FILES
     __init__.py
+    fam_matplotlib.py
+    logpwrspectrum.py
     signal_generator.py
+    specest_gendpss.py
+    specest_mtm.py
+    specest_window.py
+    spectrum_sink_gl.py
     DESTINATION ${GR_PYTHON_DIR}/specest
 )
+
+message(STATUS "GR_PYTHON_DIR: ${GR_PYTHON_DIR}")
 
 ########################################################################
 # Handle the unit tests
@@ -60,6 +68,7 @@ GR_ADD_TEST(qa_esprit ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_esprit
 GR_ADD_TEST(qa_welchsp ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_welchsp.py)
 GR_ADD_TEST(qa_cyclo_fam_calcspectrum_vcf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_cyclo_fam_calcspectrum_vcf.py)
 GR_ADD_TEST(qa_cyclo_fam ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_cyclo_fam.py)
-GR_ADD_TEST(qa_music ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_music.py)
-GR_ADD_TEST(qa_music ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_music.py)
-GR_ADD_TEST(qa_music_spectrum_vcf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_music_spectrum_vcf.py)
+if(ARMADILLO_FOUND)
+    GR_ADD_TEST(qa_music ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_music.py)
+	GR_ADD_TEST(qa_music_spectrum_vcf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_music_spectrum_vcf.py)
+endif()
