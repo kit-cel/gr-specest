@@ -27,6 +27,8 @@
 #include "specest/cyclo_fam_calcspectrum_vcf.h"
 #include "specest/cyclo_fam.h"
 #include "specest/music_vcf.h"
+#include "specest/music.h"
+#include "specest/music_spectrum_vcf.h"
 %}
 
 
@@ -69,3 +71,8 @@ GR_SWIG_BLOCK_MAGIC2(specest, cyclo_fam_calcspectrum_vcf);
 GR_SWIG_BLOCK_MAGIC2(specest, cyclo_fam);
 %include "specest/music_vcf.h"
 GR_SWIG_BLOCK_MAGIC2(specest, music_vcf);
+
+%include "specest/music.h"
+GR_SWIG_BLOCK_MAGIC2(specest, music);
+%include "specest/music_spectrum_vcf.h"
+GR_SWIG_BLOCK_MAGIC2(specest, music_spectrum_vcf);

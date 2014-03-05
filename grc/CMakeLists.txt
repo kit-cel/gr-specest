@@ -37,5 +37,7 @@ install(FILES
     #specest_welchsp.xml
     #specest_cyclo_fam_calcspectrum_vcf.xml
     specest_cyclo_fam.xml
-    specest_music_vcf.xml DESTINATION share/gnuradio/grc/blocks
+    specest_music_vcf.xml
+    specest_music.xml
+    specest_music_spectrum_vcf.xml DESTINATION share/gnuradio/grc/blocks
 )
