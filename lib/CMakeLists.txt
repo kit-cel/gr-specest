@@ -39,6 +39,10 @@ target_link_libraries(gnuradio-specest-fortran ${LAPACK_LIBRARIES} ${BLAS_LIBRAR
 ########################################################################
 if(ARMADILLO_FOUND)
 	set(CXX_ARMADILLO_SRCS
+	    correst_algo.cc
+    	music_armadillo_algo.cc
+    	music_fortran_algo.cc
+    	music_vcf_impl.cc
 	)
 else()
 	set(CXX_ARMADILLO_SRCS)
@@ -75,10 +79,7 @@ list(APPEND specest_sources
     cyclo_fam_calcspectrum_vcf_impl.cc
     cyclo_fam_impl.cc
     ${CXX_ARMADILLO_SRCS}
-    correst_algo.cc
-    music_armadillo_algo.cc
-    music_fortran_algo.cc
-    music_vcf_impl.cc)
+)
 
 add_library(gnuradio-specest SHARED ${specest_sources})
 target_link_libraries(gnuradio-specest gnuradio-specest-fortran 
