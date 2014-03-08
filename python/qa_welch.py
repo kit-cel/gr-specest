@@ -91,7 +91,6 @@ class test_specest_welch(gr_unittest.TestCase):
 
 
 if __name__ == '__main__':
-    print("This test segfaults after the lest test method due to a double free, probably in a destructor.")
     gr_unittest.main ()
-    
+
 

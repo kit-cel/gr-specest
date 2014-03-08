@@ -89,7 +89,6 @@ class test_specest_welchsp(gr_unittest.TestCase):
         self.assertRaises(RuntimeError, specest.welchsp, 1024, 5, .1, False, (1,2,3))
 
 
-
 if __name__ == '__main__':
     gr_unittest.main ()
 

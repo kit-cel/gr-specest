@@ -25,11 +25,9 @@
 #include <gnuradio/io_signature.h>
 #include "welch_impl.h"
 
-#include <iostream>
-
 namespace gr {
   namespace specest {
-  
+
 	/**
 	 * \brief Calculate the correct normalisation factor
 	 *
@@ -55,7 +53,7 @@ namespace gr {
 
 		return scale / window_power;
 	}
-	
+
 	// I'd prefer doing this in the specest constructor, but for some reason throwing
 	// exceptions in the constructor ends up in seg faults in the Python domain
 	inline void
@@ -68,7 +66,7 @@ namespace gr {
 			throw std::invalid_argument("specest_welch: overlap can not be negative.");
 		}
 	}
-	
+
     welch::sptr
     welch::make(unsigned fft_len, int overlap, int ma_len, bool fft_shift, const std::vector<float> &window)
     {
@@ -76,25 +74,23 @@ namespace gr {
       return gnuradio::get_initial_sptr
         (new welch_impl(fft_len, overlap, ma_len, fft_shift, window));
     }
-    
+
     welch::sptr
     welch::make(unsigned fft_len, int overlap, int ma_len, bool fft_shift, int window_type, double beta)
     {
-		std::vector<float> window;
-		if (window_type != filter::firdes::WIN_RECTANGULAR) {
-			std::vector<float> window = filter::firdes::window((filter::firdes::win_type)window_type, fft_len, beta);
-		}
-		return gnuradio::get_initial_sptr
-			(new welch_impl(fft_len, overlap, ma_len, fft_shift, window));
-    }   
+      std::vector<float> window;
+      if (window_type != filter::firdes::WIN_RECTANGULAR) {
+	std::vector<float> window = filter::firdes::window((filter::firdes::win_type)window_type, fft_len, beta);
+      }
+      specest_check_arguments_impl(fft_len, overlap, window);
+      return gnuradio::get_initial_sptr
+	(new welch_impl(fft_len, overlap, ma_len, fft_shift, window));
+    }
 
-    /*
-     * The private constructor
-     */
     welch_impl::welch_impl(unsigned fft_len, int overlap, int ma_len, bool fft_shift, const std::vector<float> &window)
       : gr::hier_block2("welch",
-              gr::io_signature::make(1, 1, sizeof(gr_complex)),
-              gr::io_signature::make(1, 1, sizeof(float) * fft_len)),
+	    gr::io_signature::make(1, 1, sizeof(gr_complex)),
+	    gr::io_signature::make(1, 1, sizeof(float) * fft_len)),
 		d_fft_len(fft_len),
 		d_stream_to_vector(stream_to_vector_overlap::make(sizeof(gr_complex), fft_len, (overlap == -1) ? fft_len/2 : overlap)),
 		d_fft(fft::fft_vcc::make(fft_len, true, window, fft_shift)),
@@ -102,20 +98,16 @@ namespace gr {
 		d_moving_average(moving_average_vff::make(ma_len, fft_len,
 		specest_calculate_ma_scale_impl(fft_len, ma_len, window)))
     {
-		connect(self(), 0, d_stream_to_vector, 0);
-		connect(d_stream_to_vector, 0, d_fft, 0);
-		connect(d_fft, 0, d_mag_square, 0);
-		connect(d_mag_square, 0, d_moving_average, 0);
-		connect(d_moving_average, 0, self(), 0);
+      connect(self(), 0, d_stream_to_vector, 0);
+      connect(d_stream_to_vector, 0, d_fft, 0);
+      connect(d_fft, 0, d_mag_square, 0);
+      connect(d_mag_square, 0, d_moving_average, 0);
+      connect(d_moving_average, 0, self(), 0);
     }
 
-    /*
-     * Our virtual destructor.
-     */
     welch_impl::~welch_impl()
     {
     }
-
 
   } /* namespace specest */
 } /* namespace gr */
