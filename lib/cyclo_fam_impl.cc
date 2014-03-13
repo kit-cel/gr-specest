@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
-/* 
+/*
  * Copyright 2014 Communications Engineering Lab, KIT
- * 
+ *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -28,7 +28,7 @@
 
 namespace gr {
   namespace specest {
-  
+
 	inline int
 	specest_round_to_even_impl(float x)
 	{
@@ -69,7 +69,7 @@ namespace gr {
 		specest_check_arguments_impl(Np,P,L);
 		return gnuradio::get_initial_sptr (new cyclo_fam_impl (Np, P, L));
     }
-    
+
     cyclo_fam::sptr
     cyclo_fam::make(float fs, float df, float dalpha, float q)
     {
@@ -111,7 +111,7 @@ namespace gr {
 		connect(d_Np_fft, 0, d_calcspectrum, 0);
 		connect(d_calcspectrum, 0, self(), 0);
 	}
-	
+
 	cyclo_fam_impl::cyclo_fam_impl (int Np, int P, int L, float fs)
 		: gr::hier_block2 ("cyclo_fam",
 				     gr::io_signature::make (1, 1, sizeof(gr_complex)),

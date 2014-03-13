@@ -47,7 +47,7 @@ namespace gr {
 			virtual void calculate_pseudospectrum(const gr_complexd* data, unsigned int data_len,
 				                                  double* pspectrum, unsigned int pspectrum_len) = 0;
 	};
-	
+
   } // namespace specest
 } // namespace gr
 

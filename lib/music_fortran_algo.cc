@@ -34,7 +34,7 @@ extern "C"
 	                double* omegas);
 	void ZMUSIC_SPECTRUM_FC(const gr_complexd* samples, unsigned int* ldata,
 	                         unsigned int* n, unsigned int* m,
-	                         double* pspectrum, unsigned int* lpspectrum);                  
+	                         double* pspectrum, unsigned int* lpspectrum);
 }
 */
 
@@ -45,7 +45,7 @@ extern "C"
 	                double* omegas);
 	void zmusic_spectrum_(const gr_complexd* samples, unsigned int* ldata,
 	                         unsigned int* n, unsigned int* m,
-	                         double* pspectrum, unsigned int* lpspectrum);                  
+	                         double* pspectrum, unsigned int* lpspectrum);
 }
 
 namespace gr {

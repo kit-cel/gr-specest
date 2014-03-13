@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
-/* 
+/*
  * Copyright 2014 Communications Engineering Lab, KIT
- * 
+ *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -76,7 +76,7 @@ namespace gr {
     {
      public:
       typedef boost::shared_ptr<cyclo_fam> sptr;
-       
+
 	/*
 	 * \brief Create a FAM spectrum estimator with sample frequency independent parameters
 	 */
@@ -97,7 +97,7 @@ namespace gr {
 	 * \param overlap Overlap of the complex demodulates in percent. Should be between 75%...100% (maximum overlap)
 	 */
       static sptr make(float sample_frequency, float delta_f, float delta_alpha, float overlap);
-    
+
 	  virtual int get_Np() = 0;
 	  virtual int get_N() = 0;
       virtual int get_P() = 0;

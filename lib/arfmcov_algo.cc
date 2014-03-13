@@ -185,7 +185,7 @@ namespace gr {
 
 		return (float) ((var/(N-pmax))/2.0);
 	}
-	
+
   } // namespace specest
 } // namespace gr
 

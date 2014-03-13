@@ -26,7 +26,7 @@ if(ARMADILLO_FOUND)
     music_armadillo_algo.h
     music_vcf.h
     music.h
-    music_spectrum_vcf.h 
+    music_spectrum_vcf.h
 	)
 else()
 	set(CXX_ARMADILLO_HDRS)
@@ -56,7 +56,7 @@ install(FILES
     welchsp.h
     cyclo_fam_calcspectrum_algo.h
     cyclo_fam_calcspectrum_vcf.h
-    cyclo_fam.h 
+    cyclo_fam.h
     music_fortran_algo.h
     music_algo.h
     ${CXX_ARMADILLO_HDRS}

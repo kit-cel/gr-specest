@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
-/* 
+/*
  * Copyright 2014 Communications Engineering Lab, KIT
- * 
+ *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -39,7 +39,7 @@ namespace gr {
 	 * \ingroup specest
 	 *
 	 */
-	 
+
 	/*!
 	 * \param n How many sinusoids does your model have?
 	 * \param m use a correlation matrix of dimension m x m
@@ -47,7 +47,7 @@ namespace gr {
 	 * \param pspectrum_len length of the generated pseudospectrum
 	 * \param decimation process only one in \p decimation vectors of length \p nsamples. Can be used to win some time for calculations.
 	 */
-	 
+
     class SPECEST_API esprit : virtual public gr::hier_block2
     {
      public:

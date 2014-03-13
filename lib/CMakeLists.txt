@@ -85,7 +85,7 @@ list(APPEND specest_sources
     )
 
 add_library(gnuradio-specest SHARED ${specest_sources})
-target_link_libraries(gnuradio-specest gnuradio-specest-fortran 
+target_link_libraries(gnuradio-specest gnuradio-specest-fortran
     ${ARMADILLO_LIBRARIES}
     ${Boost_LIBRARIES}
     ${GNURADIO_RUNTIME_LIBRARIES}

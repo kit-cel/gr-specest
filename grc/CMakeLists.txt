@@ -23,7 +23,7 @@ install(FILES
     specest_pad_vector.xml
     specest_stream_to_vector_overlap.xml
     specest_moving_average_vff.xml
-    #specest_adaptiveweighting_vff.xml 
+    #specest_adaptiveweighting_vff.xml
     #specest_arfcov_vcc.xml
     #specest_fcov.xml
     #specest_arfmcov_vcc.xml

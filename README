@@ -59,7 +59,7 @@ Adding a new Fortran file:
 
 Adding a new Python file:
 --------------------------
-* As stated above, gr_modtool handles this for blocks. 
+* As stated above, gr_modtool handles this for blocks.
 * If you want to add other Python files, put them in the python folder and add the files in the CMakeLists.txt there.
 
 Swig integration:

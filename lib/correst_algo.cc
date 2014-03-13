@@ -2,7 +2,7 @@
 
 //namespace gr {
 //  namespace specest {
-  
+
 	void
 	specest_correst::correst(const gr_complexd* data, unsigned int data_len, unsigned int m, arma::cx_mat* R)
 	{

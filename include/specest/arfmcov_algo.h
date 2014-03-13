@@ -16,7 +16,7 @@
  * the Free Software Foundation, Inc., 51 Franklin Street,
  * Boston, MA 02110-1301, USA.
  */
- 
+
 #ifndef INCLUDED_SPECEST_ARFMCOV_ALGO_H
 #define INCLUDED_SPECEST_ARFMCOV_ALGO_H
 

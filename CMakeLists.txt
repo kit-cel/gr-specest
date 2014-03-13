@@ -187,6 +187,6 @@ add_subdirectory(docs)
 ########################################################################
 # Install cmake search helper for this library
 ########################################################################
-install(FILES cmake/Modules/specestConfig.cmake        
+install(FILES cmake/Modules/specestConfig.cmake
     DESTINATION lib/cmake/specest
 )

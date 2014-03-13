@@ -37,7 +37,7 @@ extern "C"
 
 namespace gr {
   namespace specest {
-  
+
 	esprit_fortran_algo::esprit_fortran_algo(unsigned n, unsigned m) : d_n(n), d_m(m)
 	{
 		if (n > m)
