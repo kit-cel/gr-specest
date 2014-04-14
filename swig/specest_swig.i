@@ -7,6 +7,8 @@
 //load generated python docstrings
 %include "specest_swig_doc.i"
 
+%include "../lib/config.h"
+
 %{
 #include "specest/reciprocal_ff.h"
 #include "specest/pad_vector.h"
@@ -26,10 +28,15 @@
 #include "specest/welchsp.h"
 #include "specest/cyclo_fam_calcspectrum_vcf.h"
 #include "specest/cyclo_fam.h"
+%}
+
+#ifdef ARMADILLO_FOUND
+%{
 #include "specest/music_vcf.h"
 #include "specest/music.h"
 #include "specest/music_spectrum_vcf.h"
 %}
+#endif
 
 
 %include "specest/reciprocal_ff.h"
@@ -69,10 +76,12 @@ GR_SWIG_BLOCK_MAGIC2(specest, welchsp);
 GR_SWIG_BLOCK_MAGIC2(specest, cyclo_fam_calcspectrum_vcf);
 %include "specest/cyclo_fam.h"
 GR_SWIG_BLOCK_MAGIC2(specest, cyclo_fam);
+
+#ifdef ARMADILLO_FOUND
 %include "specest/music_vcf.h"
 GR_SWIG_BLOCK_MAGIC2(specest, music_vcf);
-
 %include "specest/music.h"
 GR_SWIG_BLOCK_MAGIC2(specest, music);
 %include "specest/music_spectrum_vcf.h"
 GR_SWIG_BLOCK_MAGIC2(specest, music_spectrum_vcf);
+#endif

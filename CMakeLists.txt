@@ -190,3 +190,11 @@ add_subdirectory(docs)
 install(FILES cmake/Modules/specestConfig.cmake
     DESTINATION lib/cmake/specest
 )
+
+########################################################################
+# Add custom configure file for handling the ARMADILLO dependency 
+########################################################################
+configure_file(
+	${CMAKE_SOURCE_DIR}/lib/config.h.in
+    ${CMAKE_CURRENT_BINARY_DIR}/lib/config.h
+@ONLY)
