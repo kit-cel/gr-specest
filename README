@@ -1,3 +1,14 @@
+IMPORTANT NOTICE
+~~~~~~~~~~~~~~~~
+
+The information stated below refers to a pre-3.7 GNU Radio installation,
+but is still correct to a large part. The only notable difference is, that
+libgnuradio-core does no longer exist and instead the components runtime, 
+blocks, fft, and filter are needed. All these dependencies should be satisfied
+with a standard GNU Radio (>=3.7) installation.
+However, the current master branch is based on a GNU Radio version >=3.7.
+The GR3.6 version of gr-specest can be found on the 'GR36' branch. 
+
 Howto build:
 ~~~~~~~~~~~~
 In order to sucessfully build the gr-specest modules you will need:
