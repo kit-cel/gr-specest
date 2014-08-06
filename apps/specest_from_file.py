@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# coding=utf-8
+# vim: set fileencoding=utf-8 :
 #
 # Copyright 2009,2010,2013 Communications Engineering Lab, KIT
 #
