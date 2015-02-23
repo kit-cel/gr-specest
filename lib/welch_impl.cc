@@ -80,7 +80,7 @@ namespace gr {
     {
       std::vector<float> window;
       if (window_type != filter::firdes::WIN_RECTANGULAR) {
-	std::vector<float> window = filter::firdes::window((filter::firdes::win_type)window_type, fft_len, beta);
+        window = filter::firdes::window((filter::firdes::win_type)window_type, fft_len, beta);
       }
       specest_check_arguments_impl(fft_len, overlap, window);
       return gnuradio::get_initial_sptr
