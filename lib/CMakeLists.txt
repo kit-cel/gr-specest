@@ -42,7 +42,6 @@ if(ARMADILLO_FOUND)
 	set(CXX_ARMADILLO_SRCS
 	    correst_algo.cc
     	music_armadillo_algo.cc
-    	music_fortran_algo.cc
     	music_vcf_impl.cc
     	music_impl.cc
     	music_spectrum_vcf_impl.cc
@@ -77,6 +76,7 @@ list(APPEND specest_sources
     esprit_vcf_impl.cc
     esprit_spectrum_vcf_impl.cc
     esprit_impl.cc
+    music_fortran_algo.cc
     welchsp_impl.cc
     cyclo_fam_calcspectrum_algo.cc
     cyclo_fam_calcspectrum_vcf_impl.cc

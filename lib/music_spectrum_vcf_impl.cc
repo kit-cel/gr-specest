@@ -24,7 +24,11 @@
 
 #include <gnuradio/io_signature.h>
 #include "music_spectrum_vcf_impl.h"
+#ifdef ARMADILLO_FOUND 
 #include <specest/music_armadillo_algo.h>
+#else
+#include <specest/music_fortran_algo.h>
+#endif
 
 namespace gr {
   namespace specest {
@@ -36,8 +40,10 @@ namespace gr {
         (new music_spectrum_vcf_impl(n, m, nsamples, pspectrum_len));
     }
 
+#ifdef ARMADILLO_FOUND 
+#warning "ARMADILLO_FOUND defined"
     /*
-     * The private constructor
+     * The private constructor, ARMADILLO
      */
     music_spectrum_vcf_impl::music_spectrum_vcf_impl(unsigned int n, unsigned int m, unsigned int nsamples, unsigned int pspectrum_len)
 	: gr::sync_block ("music_spectrum_vcf",
@@ -50,6 +56,23 @@ namespace gr {
 		d_algo(new music_armadillo_algo(n,m))
 {
 }
+#else
+#warning "ARMADILLO_FOUND not defined"
+    /*
+     * The private constructor, FORTRAN
+     */
+    music_spectrum_vcf_impl::music_spectrum_vcf_impl(unsigned int n, unsigned int m, unsigned int nsamples, unsigned int pspectrum_len)
+	: gr::sync_block ("music_spectrum_vcf",
+		gr::io_signature::make (1, 1, sizeof (gr_complex) * nsamples),
+		gr::io_signature::make (1, 1, sizeof (float) * pspectrum_len)),
+		d_m(m),
+		d_n(n),
+		d_nsamples(nsamples),
+		d_pspectrum_len(pspectrum_len),
+		d_algo(new music_fortran_algo(n,m))
+{
+}
+#endif
 
     /*
      * Our virtual destructor.
