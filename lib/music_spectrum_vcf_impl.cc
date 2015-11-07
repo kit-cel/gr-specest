@@ -41,7 +41,6 @@ namespace gr {
     }
 
 #ifdef ARMADILLO_FOUND 
-#warning "ARMADILLO_FOUND defined"
     /*
      * The private constructor, ARMADILLO
      */
@@ -57,7 +56,6 @@ namespace gr {
 {
 }
 #else
-#warning "ARMADILLO_FOUND not defined"
     /*
      * The private constructor, FORTRAN
      */

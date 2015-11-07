@@ -30,6 +30,7 @@ add_library(gnuradio-specest-fortran SHARED
     zesprit_common_algo.f90
     zesprit_algo.f90
     zesprit_spectrum_algo.f90
+    zmusic_common_algo.f90
     zmusic_spectrum_algo.f90
     zmusic_algo.f90
 )
