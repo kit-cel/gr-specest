@@ -8,7 +8,7 @@
 	<name>SpecEst Pseudospectrum Sink</name>
 	<key>specest_spectrum_sink</key>
 	<category>Spectrum Estimation</category>
-	<import>from gnuradio import window</import>
+	<import>from gnuradio.filter import window</import>
 	<import>from specest import spectrum_sink_c</import>
 	<make>#set $parent = $notebook() and 'self.%s.GetPage(%s)'%$notebook() or 'self'
 spectrum_sink_c ($(parent).GetWin(), title=$title, pspectrum_len=$pspectrum_len,
