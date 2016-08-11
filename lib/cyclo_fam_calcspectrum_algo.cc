@@ -93,10 +93,10 @@ namespace gr {
 
 		 // Copy input stream to d_complex_demodulates and do the phase shifting
 		 for(int m = 0; m < d_P*d_Np; m++) {
-		    d_complex_demodulates[p][i].real() = in[m].real()*cos(2*M_PI*i*(p*d_L)/d_Np)+
-		                                         in[m].imag()*sin(2*M_PI*i*(p*d_L)/d_Np);
-		    d_complex_demodulates[p][i].imag() = in[m].imag()*cos(2*M_PI*i*(p*d_L)/d_Np)-
-		                                         in[m].real()*sin(2*M_PI*i*(p*d_L)/d_Np);
+		    d_complex_demodulates[p][i].real(in[m].real()*cos(2*M_PI*i*(p*d_L)/d_Np)+
+		                                         in[m].imag()*sin(2*M_PI*i*(p*d_L)/d_Np));
+		    d_complex_demodulates[p][i].imag(in[m].imag()*cos(2*M_PI*i*(p*d_L)/d_Np)-
+		                                         in[m].real()*sin(2*M_PI*i*(p*d_L)/d_Np));
 		    i++;
 
 		    if((m+1)%d_Np==0){ // End of vector length Np
