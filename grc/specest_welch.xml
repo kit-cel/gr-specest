@@ -4,7 +4,8 @@
 	<key>specest_welch</key>
 	<category>Spectrum Estimation</category>
 	<import>import specest</import>
-	<make>specest.welch($fftlen, $overlap, $malen, $fftshift)</make>
+	<import>from gnuradio.filter import firdes</import>
+	<make>specest.welch($fftlen, $overlap, $malen, $fftshift, $wintype, $beta)</make>
 	<!--<make>specest.welch($fftlen, $overlap, $malen, $fftshift, $wintype, $beta)</make>-->
 	<param>
 		<name>FFT Length</name>
@@ -38,41 +39,41 @@
 		</option>
 	</param>
 	<!--FIXME: Window Type selection does not work-->
-	<!--<param>-->
-		<!--<name>Window type</name>-->
-		<!--<key>wintype</key>-->
-		<!--<type>enum</type>-->
-		<!--<option>-->
-			<!--<name>Hamming</name>-->
-			<!--<key>gr.firdes.WIN_HAMMING</key>-->
-		<!--</option>-->
-		<!--<option>-->
-			<!--<name>Hann</name>-->
-			<!--<key>gr.firdes.WIN_HANN</key>-->
-		<!--</option>-->
-		<!--<option>-->
-			<!--<name>Blackman</name>-->
-			<!--<key>gr.firdes.WIN_BLACKMAN</key>-->
-		<!--</option>-->
-		<!--<option>-->
-			<!--<name>Rectangular</name>-->
-			<!--<key>gr.firdes.WIN_RECTANGULAR</key>-->
-		<!--</option>-->
-		<!--<option>-->
-			<!--<name>Kaiser</name>-->
-			<!--<key>gr.firdes.WIN_KAISER</key>-->
-		<!--</option>-->
-		<!--<option>-->
-			<!--<name>Hamming</name>-->
-			<!--<key>gr.firdes.WIN_BLACKMAN_hARRIS</key>-->
-		<!--</option>-->
-	<!--</param>-->
-	<!--<param>-->
-		<!--<name>Beta</name>-->
-		<!--<key>beta</key>-->
-		<!--<value>6.76</value>-->
-		<!--<type>real</type>-->
-	<!--</param>-->
+	<param>
+		<name>Window type</name>
+		<key>wintype</key>
+		<type>enum</type>
+		<option>
+			<name>Hamming</name>
+			<key>firdes.WIN_HAMMING</key>
+		</option>
+		<option>
+			<name>Hann</name>
+			<key>firdes.WIN_HANN</key>
+		</option>
+		<option>
+			<name>Blackman</name>
+			<key>firdes.WIN_BLACKMAN</key>
+		</option>
+		<option>
+			<name>Rectangular</name>
+			<key>firdes.WIN_RECTANGULAR</key>
+		</option>
+		<option>
+			<name>Kaiser</name>
+			<key>firdes.WIN_KAISER</key>
+		</option>
+		<option>
+			<name>Hamming</name>
+			<key>firdes.WIN_BLACKMAN_hARRIS</key>
+		</option>
+	</param>
+	<param>
+		<name>Beta</name>
+		<key>beta</key>
+		<value>6.76</value>
+		<type>real</type>
+	</param>
 
 	<sink>
 		<name>in</name>
