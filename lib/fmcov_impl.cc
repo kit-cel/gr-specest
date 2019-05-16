@@ -22,75 +22,79 @@
 #include "config.h"
 #endif
 
-#include <stdexcept>
-#include <cmath>
-#include <gnuradio/io_signature.h>
 #include "fmcov_impl.h"
+#include <gnuradio/io_signature.h>
+#include <cmath>
+#include <stdexcept>
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-	inline void
-	specest_check_arguments_impl(unsigned int fft_len, unsigned int num_samples, unsigned int order)
-	{
-		if (fft_len < 2) {
-			throw std::invalid_argument("specest_fmcov: The length of FFT window should be greater than or equal to 2.");
-		}
-		if (num_samples < 2) {
-			throw std::invalid_argument("specest_fmcov: The number of samples should be greater than or equal to 2.");
-		}
-		if (order < 2) {
-			throw std::invalid_argument("specest_fmcov: The order of AR filter should be greater than or equal to 2.");
-		}
-	}
-
-    fmcov::sptr
-    fmcov::make(unsigned block_len, unsigned fft_len, unsigned order, bool fftshift, int decimation)
-    {
-      specest_check_arguments_impl(fft_len, block_len, order);
-      return gnuradio::get_initial_sptr
-        (new fmcov_impl(block_len, fft_len, order, fftshift, decimation));
+inline void specest_check_arguments_impl(unsigned int fft_len,
+                                         unsigned int num_samples,
+                                         unsigned int order)
+{
+    if (fft_len < 2) {
+        throw std::invalid_argument("specest_fmcov: The length of FFT window should be "
+                                    "greater than or equal to 2.");
     }
-
-    /*
-     * The private constructor
-     */
-    fmcov_impl::fmcov_impl(unsigned block_len, unsigned fft_len, unsigned order, bool fftshift, int decimation)
-      : gr::hier_block2("fmcov",
-              gr::io_signature::make(1, 1, sizeof(gr_complex)),
-              gr::io_signature::make(1, 1, sizeof(float)*fft_len)),
-		d_stream_to_vector(stream_to_vector_overlap::make(sizeof(gr_complex), block_len, 0)),
-		d_keep_one_in_n(blocks::keep_one_in_n::make(sizeof(gr_complex) * block_len, decimation)),
-		d_arfmcov(arfmcov_vcc::make(block_len, order, fft_len)),
-		d_pad_vector(pad_vector::make(sizeof(gr_complex), order+1, fft_len)),
-		d_fft(fft::fft_vcc::make(fft_len, true, filter::firdes::window(filter::firdes::WIN_RECTANGULAR, fft_len, 1), fftshift)),
-		d_mag_square(blocks::complex_to_mag_squared::make(fft_len)),
-		d_divide(reciprocal_ff::make(fft_len))
-    {
-		connect(self(), 0, d_stream_to_vector, 0);
-		connect(d_stream_to_vector, 0, d_keep_one_in_n, 0);
-		connect(d_keep_one_in_n, 0, d_arfmcov, 0);
-		connect(d_arfmcov, 0, d_pad_vector, 0);
-		connect(d_pad_vector, 0, d_fft, 0);
-		connect(d_fft, 0, d_mag_square, 0);
-		connect(d_mag_square, 0, d_divide, 0);
-		connect(d_divide, 0, self(), 0);
+    if (num_samples < 2) {
+        throw std::invalid_argument(
+            "specest_fmcov: The number of samples should be greater than or equal to 2.");
     }
-
-    /*
-     * Our virtual destructor.
-     */
-    fmcov_impl::~fmcov_impl()
-    {
+    if (order < 2) {
+        throw std::invalid_argument("specest_fmcov: The order of AR filter should be "
+                                    "greater than or equal to 2.");
     }
+}
 
-    void
-	fmcov_impl::set_decimation(int n)
-	{
-		d_keep_one_in_n->set_n(n);
-	}
+fmcov::sptr fmcov::make(
+    unsigned block_len, unsigned fft_len, unsigned order, bool fftshift, int decimation)
+{
+    specest_check_arguments_impl(fft_len, block_len, order);
+    return gnuradio::get_initial_sptr(
+        new fmcov_impl(block_len, fft_len, order, fftshift, decimation));
+}
+
+/*
+ * The private constructor
+ */
+fmcov_impl::fmcov_impl(
+    unsigned block_len, unsigned fft_len, unsigned order, bool fftshift, int decimation)
+    : gr::hier_block2("fmcov",
+                      gr::io_signature::make(1, 1, sizeof(gr_complex)),
+                      gr::io_signature::make(1, 1, sizeof(float) * fft_len)),
+      d_stream_to_vector(
+          stream_to_vector_overlap::make(sizeof(gr_complex), block_len, 0)),
+      d_keep_one_in_n(
+          blocks::keep_one_in_n::make(sizeof(gr_complex) * block_len, decimation)),
+      d_arfmcov(arfmcov_vcc::make(block_len, order, fft_len)),
+      d_pad_vector(pad_vector::make(sizeof(gr_complex), order + 1, fft_len)),
+      d_fft(fft::fft_vcc::make(
+          fft_len,
+          true,
+          filter::firdes::window(filter::firdes::WIN_RECTANGULAR, fft_len, 1),
+          fftshift)),
+      d_mag_square(blocks::complex_to_mag_squared::make(fft_len)),
+      d_divide(reciprocal_ff::make(fft_len))
+{
+    connect(self(), 0, d_stream_to_vector, 0);
+    connect(d_stream_to_vector, 0, d_keep_one_in_n, 0);
+    connect(d_keep_one_in_n, 0, d_arfmcov, 0);
+    connect(d_arfmcov, 0, d_pad_vector, 0);
+    connect(d_pad_vector, 0, d_fft, 0);
+    connect(d_fft, 0, d_mag_square, 0);
+    connect(d_mag_square, 0, d_divide, 0);
+    connect(d_divide, 0, self(), 0);
+}
+
+/*
+ * Our virtual destructor.
+ */
+fmcov_impl::~fmcov_impl() {}
+
+void fmcov_impl::set_decimation(int n) { d_keep_one_in_n->set_n(n); }
 
 
-  } /* namespace specest */
+} /* namespace specest */
 } /* namespace gr */
-

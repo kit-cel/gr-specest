@@ -24,32 +24,33 @@
 #include <specest/api.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-	class SPECEST_API esprit_algo
-	{
-			public:
-			/*!
-			 * \brief Calculate the estimates for the frequencies normalised to [-pi,pi]
-			 * \param data complex samples / input data
-			 * \param data_len size of the complex sample array we're working on
-			 * \param omegas estimated frequencies
-			*/
-			virtual void calculate(const gr_complexd *data, unsigned int data_len,
-				                   double* omegas) = 0;
-			/*!
-			 * \brief Calculate the pseudospectrum normalized to [-pi,pi]
-			 * \param data complex samples / input data
-			 * \param data_len size of the complex sample array we're working on
-			 * \param pspectrum the resulting pseudospectrum will end up here
-			 * \param pspectrum_len size of the pseudopectrum output we're looking for
-			 */
-			virtual void calculate_pseudospectrum(const gr_complexd* data, unsigned int data_len,
-				                                  double* pspectrum, unsigned int pspectrum_len) = 0;
+class SPECEST_API esprit_algo
+{
+public:
+    /*!
+     * \brief Calculate the estimates for the frequencies normalised to [-pi,pi]
+     * \param data complex samples / input data
+     * \param data_len size of the complex sample array we're working on
+     * \param omegas estimated frequencies
+     */
+    virtual void
+    calculate(const gr_complexd* data, unsigned int data_len, double* omegas) = 0;
+    /*!
+     * \brief Calculate the pseudospectrum normalized to [-pi,pi]
+     * \param data complex samples / input data
+     * \param data_len size of the complex sample array we're working on
+     * \param pspectrum the resulting pseudospectrum will end up here
+     * \param pspectrum_len size of the pseudopectrum output we're looking for
+     */
+    virtual void calculate_pseudospectrum(const gr_complexd* data,
+                                          unsigned int data_len,
+                                          double* pspectrum,
+                                          unsigned int pspectrum_len) = 0;
+};
 
-	};
-
-  } /* namespace specest */
+} /* namespace specest */
 } /* namespace gr */
 
 #endif /* INCLUDED_SPECESTI_ESPRIT_H */

@@ -21,35 +21,34 @@
 #ifndef INCLUDED_SPECEST_PAD_VECTOR_H
 #define INCLUDED_SPECEST_PAD_VECTOR_H
 
-#include <specest/api.h>
 #include <gnuradio/sync_block.h>
+#include <specest/api.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
+
+/*!
+ * \brief Increases or decreases the length of vectors.
+ *
+ * If the output length is smaller than the input length, vectors will be truncated.
+ * Otherwise, vectors will be zero-padded.
+ *
+ * \ingroup specest
+ */
+class SPECEST_API pad_vector : virtual public gr::sync_block
+{
+public:
+    typedef boost::shared_ptr<pad_vector> sptr;
 
     /*!
-     * \brief Increases or decreases the length of vectors.
-     *
-     * If the output length is smaller than the input length, vectors will be truncated.
-     * Otherwise, vectors will be zero-padded.
-     *
-     * \ingroup specest
+     * \param item_size Item size
+     * \param vlen_in Length of incoming vectors
+     * \param vlen_out New length of vectors (output signature)
      */
-    class SPECEST_API pad_vector : virtual public gr::sync_block
-    {
-     public:
-      typedef boost::shared_ptr<pad_vector> sptr;
+    static sptr make(size_t item_size, unsigned vlen_in, unsigned vlen_out);
+};
 
-      /*!
-       * \param item_size Item size
-       * \param vlen_in Length of incoming vectors
-       * \param vlen_out New length of vectors (output signature)
-       */
-      static sptr make(size_t item_size, unsigned vlen_in, unsigned vlen_out);
-    };
-
-  } // namespace specest
+} // namespace specest
 } // namespace gr
 
 #endif /* INCLUDED_SPECEST_PAD_VECTOR_H */
-

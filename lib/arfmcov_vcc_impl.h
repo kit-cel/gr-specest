@@ -21,32 +21,31 @@
 #ifndef INCLUDED_SPECEST_ARFMCOV_VCC_IMPL_H
 #define INCLUDED_SPECEST_ARFMCOV_VCC_IMPL_H
 
-#include <specest/arfmcov_vcc.h>
 #include <specest/arfmcov_algo.h>
+#include <specest/arfmcov_vcc.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-    class arfmcov_vcc_impl : public arfmcov_vcc
-    {
-     private:
-      unsigned d_blocklen; //!< Number of input samples per calculation
-      unsigned d_order;    //!< Order of the AR model
-      int d_normalise;
-      arfmcov_algo *d_fmcov;
+class arfmcov_vcc_impl : public arfmcov_vcc
+{
+private:
+    unsigned d_blocklen; //!< Number of input samples per calculation
+    unsigned d_order;    //!< Order of the AR model
+    int d_normalise;
+    arfmcov_algo* d_fmcov;
 
-     public:
-      arfmcov_vcc_impl(unsigned blocklen, unsigned order, int normalise);
-      ~arfmcov_vcc_impl();
+public:
+    arfmcov_vcc_impl(unsigned blocklen, unsigned order, int normalise);
+    ~arfmcov_vcc_impl();
 
-      // Where all the action really happens
-      int work(int noutput_items,
-	       gr_vector_const_void_star &input_items,
-	       gr_vector_void_star &output_items);
-    };
+    // Where all the action really happens
+    int work(int noutput_items,
+             gr_vector_const_void_star& input_items,
+             gr_vector_void_star& output_items);
+};
 
-  } // namespace specest
+} // namespace specest
 } // namespace gr
 
 #endif /* INCLUDED_SPECEST_ARFMCOV_VCC_IMPL_H */
-

@@ -26,27 +26,28 @@
 #include <armadillo>
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-	class SPECEST_API music_armadillo_algo : virtual public music_algo
-	{
-		public:
-			music_armadillo_algo(unsigned int n, unsigned int m);
-			~music_armadillo_algo();
+class SPECEST_API music_armadillo_algo : virtual public music_algo
+{
+public:
+    music_armadillo_algo(unsigned int n, unsigned int m);
+    ~music_armadillo_algo();
 
-			void calculate(const gr_complexd *data, unsigned int data_len,
-				           double* omegas);
-			void calculate_pseudospectrum(const gr_complexd* data, unsigned int data_len,
-				                          double* pspectrum, unsigned int pspectrum_len);
+    void calculate(const gr_complexd* data, unsigned int data_len, double* omegas);
+    void calculate_pseudospectrum(const gr_complexd* data,
+                                  unsigned int data_len,
+                                  double* pspectrum,
+                                  unsigned int pspectrum_len);
 
-		private:
-			unsigned int d_n;
-			unsigned int d_m;
-			arma::cx_mat diag(arma::cx_colvec c, int k);
-			arma::cx_mat roots(arma::cx_rowvec c);
-	};
+private:
+    unsigned int d_n;
+    unsigned int d_m;
+    arma::cx_mat diag(arma::cx_colvec c, int k);
+    arma::cx_mat roots(arma::cx_rowvec c);
+};
 
-  } // namespace specest
+} // namespace specest
 } // namespace gr
 
 #endif

@@ -22,46 +22,40 @@
 #include "config.h"
 #endif
 
-#include <gnuradio/io_signature.h>
 #include "reciprocal_ff_impl.h"
+#include <gnuradio/io_signature.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-    reciprocal_ff::sptr
-    reciprocal_ff::make(int vlen)
-    {
-      return gnuradio::get_initial_sptr
-        (new reciprocal_ff_impl(vlen));
+reciprocal_ff::sptr reciprocal_ff::make(int vlen)
+{
+    return gnuradio::get_initial_sptr(new reciprocal_ff_impl(vlen));
+}
+
+reciprocal_ff_impl::reciprocal_ff_impl(int vlen)
+    : gr::sync_block("reciprocal_ff",
+                     gr::io_signature::make(1, 1, sizeof(float) * vlen),
+                     gr::io_signature::make(1, 1, sizeof(float) * vlen)),
+      d_vlen(vlen)
+{
+}
+
+reciprocal_ff_impl::~reciprocal_ff_impl() {}
+
+int reciprocal_ff_impl::work(int noutput_items,
+                             gr_vector_const_void_star& input_items,
+                             gr_vector_void_star& output_items)
+{
+    const float* in = (const float*)input_items[0];
+    float* out = (float*)output_items[0];
+
+    for (int i = 0; i < noutput_items * d_vlen; i++) {
+        out[i] = 1.0 / in[i];
     }
 
-    reciprocal_ff_impl::reciprocal_ff_impl(int vlen)
-      : gr::sync_block("reciprocal_ff",
-              gr::io_signature::make(1, 1, sizeof(float) * vlen),
-              gr::io_signature::make(1, 1, sizeof(float) * vlen)),
-	d_vlen(vlen)
-    {
-    }
+    return noutput_items;
+}
 
-    reciprocal_ff_impl::~reciprocal_ff_impl()
-    {
-    }
-
-    int
-    reciprocal_ff_impl::work(int noutput_items,
-			  gr_vector_const_void_star &input_items,
-			  gr_vector_void_star &output_items)
-    {
-      const float *in = (const float *) input_items[0];
-      float *out = (float *) output_items[0];
-
-      for (int i = 0; i < noutput_items * d_vlen; i++) {
-	      out[i] = 1.0/in[i];
-      }
-
-      return noutput_items;
-    }
-
-  } /* namespace specest */
+} /* namespace specest */
 } /* namespace gr */
-

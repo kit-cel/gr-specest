@@ -23,35 +23,35 @@
 #ifndef INCLUDED_SPECEST_STREAM_TO_VECTOR_OVERLAP_H
 #define INCLUDED_SPECEST_STREAM_TO_VECTOR_OVERLAP_H
 
-#include <specest/api.h>
 #include <gnuradio/sync_decimator.h>
+#include <specest/api.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
+
+/*!
+ * \brief Convert a stream of items into a stream of overlapping blocks containing
+ * nitems_per_block.
+ *
+ * The i-th block will start with the same \p overlap items as the i-1-th block ended. The
+ * first block is prepended with \p overlap zeros to ensure synchronicity. \ingroup
+ * converter
+ */
+class SPECEST_API stream_to_vector_overlap : virtual public gr::sync_decimator
+{
+public:
+    typedef boost::shared_ptr<stream_to_vector_overlap> sptr;
 
     /*!
-     * \brief Convert a stream of items into a stream of overlapping blocks containing nitems_per_block.
-     *
-     * The i-th block will start with the same \p overlap items as the i-1-th block ended. The first
-     * block is prepended with \p overlap zeros to ensure synchronicity.
-     * \ingroup converter
+     * \param item_size Item size
+     * \param nitems_per_block Output vector length
+     * \param overlap Number of overlapping items between blocks
      */
-    class SPECEST_API stream_to_vector_overlap : virtual public gr::sync_decimator
-    {
-     public:
-      typedef boost::shared_ptr<stream_to_vector_overlap> sptr;
+    static sptr make(size_t item_size, size_t nitems_per_block, unsigned overlap);
+    virtual unsigned overlap() = 0;
+};
 
-      /*!
-       * \param item_size Item size
-       * \param nitems_per_block Output vector length
-       * \param overlap Number of overlapping items between blocks
-       */
-      static sptr make(size_t item_size, size_t nitems_per_block, unsigned overlap);
-      virtual unsigned overlap() = 0;
-    };
-
-  } // namespace specest
+} // namespace specest
 } // namespace gr
 
 #endif /* INCLUDED_SPECEST_STREAM_TO_VECTOR_OVERLAP_H */
-

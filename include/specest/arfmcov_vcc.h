@@ -22,35 +22,34 @@
 #ifndef INCLUDED_SPECEST_ARFMCOV_VCC_H
 #define INCLUDED_SPECEST_ARFMCOV_VCC_H
 
-#include <specest/api.h>
 #include <gnuradio/sync_block.h>
+#include <specest/api.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
+
+/*!
+ * \brief <+description of block+>
+ * \ingroup specest
+ *
+ */
+class SPECEST_API arfmcov_vcc : virtual public gr::sync_block
+{
+public:
+    typedef boost::shared_ptr<arfmcov_vcc> sptr;
 
     /*!
-     * \brief <+description of block+>
-     * \ingroup specest
+     * \brief Return a shared_ptr to a new instance of specest::arfmcov_vcc.
      *
+     * To avoid accidental use of raw pointers, specest::arfmcov_vcc's
+     * constructor is in a private implementation
+     * class. specest::arfmcov_vcc::make is the public interface for
+     * creating new instances.
      */
-    class SPECEST_API arfmcov_vcc : virtual public gr::sync_block
-    {
-     public:
-      typedef boost::shared_ptr<arfmcov_vcc> sptr;
+    static sptr make(unsigned blocklen, unsigned order, int normalise = -1);
+};
 
-      /*!
-       * \brief Return a shared_ptr to a new instance of specest::arfmcov_vcc.
-       *
-       * To avoid accidental use of raw pointers, specest::arfmcov_vcc's
-       * constructor is in a private implementation
-       * class. specest::arfmcov_vcc::make is the public interface for
-       * creating new instances.
-       */
-      static sptr make(unsigned blocklen, unsigned order, int normalise = -1);
-    };
-
-  } // namespace specest
+} // namespace specest
 } // namespace gr
 
 #endif /* INCLUDED_SPECEST_ARFMCOV_VCC_H */
-

@@ -21,27 +21,26 @@
 #ifndef INCLUDED_SPECEST_RECIPROCAL_FF_H
 #define INCLUDED_SPECEST_RECIPROCAL_FF_H
 
-#include <specest/api.h>
 #include <gnuradio/sync_block.h>
+#include <specest/api.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-    /*!
-     * \brief Calculate the reciprocal of the input (y = 1/x)
-     *
-     * \ingroup specest
-     */
-    class SPECEST_API reciprocal_ff : virtual public gr::sync_block
-    {
-     public:
-      typedef boost::shared_ptr<reciprocal_ff> sptr;
+/*!
+ * \brief Calculate the reciprocal of the input (y = 1/x)
+ *
+ * \ingroup specest
+ */
+class SPECEST_API reciprocal_ff : virtual public gr::sync_block
+{
+public:
+    typedef boost::shared_ptr<reciprocal_ff> sptr;
 
-      static sptr make(int vlen=1);
-    };
+    static sptr make(int vlen = 1);
+};
 
-  } // namespace specest
+} // namespace specest
 } // namespace gr
 
 #endif /* INCLUDED_SPECEST_RECIPROCAL_FF_H */
-

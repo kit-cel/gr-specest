@@ -21,32 +21,35 @@
 #ifndef INCLUDED_SPECEST_MUSIC_SPECTRUM_VCF_IMPL_H
 #define INCLUDED_SPECEST_MUSIC_SPECTRUM_VCF_IMPL_H
 
-#include <specest/music_spectrum_vcf.h>
 #include <specest/music_algo.h>
+#include <specest/music_spectrum_vcf.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-    class music_spectrum_vcf_impl : public music_spectrum_vcf
-    {
-     private:
-		music_algo* d_algo;
-		unsigned int d_n;
-		unsigned int d_m;
-		unsigned int d_nsamples;
-		unsigned int d_pspectrum_len;
-     public:
-      music_spectrum_vcf_impl(unsigned int n, unsigned int m, unsigned int nsamples, unsigned int pspectrum_len);
-      ~music_spectrum_vcf_impl();
+class music_spectrum_vcf_impl : public music_spectrum_vcf
+{
+private:
+    music_algo* d_algo;
+    unsigned int d_n;
+    unsigned int d_m;
+    unsigned int d_nsamples;
+    unsigned int d_pspectrum_len;
 
-      // Where all the action really happens
-      int work(int noutput_items,
-	       gr_vector_const_void_star &input_items,
-	       gr_vector_void_star &output_items);
-    };
+public:
+    music_spectrum_vcf_impl(unsigned int n,
+                            unsigned int m,
+                            unsigned int nsamples,
+                            unsigned int pspectrum_len);
+    ~music_spectrum_vcf_impl();
 
-  } // namespace specest
+    // Where all the action really happens
+    int work(int noutput_items,
+             gr_vector_const_void_star& input_items,
+             gr_vector_void_star& output_items);
+};
+
+} // namespace specest
 } // namespace gr
 
 #endif /* INCLUDED_SPECEST_MUSIC_SPECTRUM_VCF_IMPL_H */
-

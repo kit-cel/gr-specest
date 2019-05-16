@@ -21,33 +21,36 @@
 #ifndef INCLUDED_SPECEST_ESPRIT_IMPL_H
 #define INCLUDED_SPECEST_ESPRIT_IMPL_H
 
-#include <specest/esprit.h>
-#include <gnuradio/blocks/stream_to_vector.h>
 #include <gnuradio/blocks/keep_one_in_n.h>
+#include <gnuradio/blocks/stream_to_vector.h>
+#include <specest/esprit.h>
 #include <specest/esprit_spectrum_vcf.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-    class esprit_impl : public esprit
-    {
-     private:
-		unsigned int d_decimation;
-      	gr::blocks::keep_one_in_n::sptr d_decimate;
-		gr::blocks::stream_to_vector::sptr d_s2v;
-		esprit_spectrum_vcf::sptr d_esprit;
+class esprit_impl : public esprit
+{
+private:
+    unsigned int d_decimation;
+    gr::blocks::keep_one_in_n::sptr d_decimate;
+    gr::blocks::stream_to_vector::sptr d_s2v;
+    esprit_spectrum_vcf::sptr d_esprit;
 
-     public:
-      esprit_impl(unsigned int n, unsigned int m, unsigned int nsamples, unsigned int pspectrum_len, unsigned int decimation);
-      ~esprit_impl();
-	  unsigned int decimation();
-	  void set_decimation(unsigned int n);
+public:
+    esprit_impl(unsigned int n,
+                unsigned int m,
+                unsigned int nsamples,
+                unsigned int pspectrum_len,
+                unsigned int decimation);
+    ~esprit_impl();
+    unsigned int decimation();
+    void set_decimation(unsigned int n);
 
-      // Where all the action really happens
-    };
+    // Where all the action really happens
+};
 
-  } // namespace specest
+} // namespace specest
 } // namespace gr
 
 #endif /* INCLUDED_SPECEST_ESPRIT_IMPL_H */
-

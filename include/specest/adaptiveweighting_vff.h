@@ -22,31 +22,31 @@
 #ifndef INCLUDED_SPECEST_ADAPTIVEWEIGHTING_VFF_H
 #define INCLUDED_SPECEST_ADAPTIVEWEIGHTING_VFF_H
 
-#include <specest/api.h>
 #include <gnuradio/sync_block.h>
+#include <specest/api.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
+
+/*!
+ * @brief Output is the PSD computed by Thomson's Multitaper Method. Adaptive weighting is
+ * used on the eigenspectra. [1] "Spectral Analysis for Physical Applications" D.B.
+ * Percival and Andrew T. Walden 1993
+ */
+class SPECEST_API adaptiveweighting_vff : virtual public gr::sync_block
+{
+public:
+    typedef boost::shared_ptr<adaptiveweighting_vff> sptr;
 
     /*!
-     * @brief Output is the PSD computed by Thomson's Multitaper Method. Adaptive weighting is used on the eigenspectra.
-     * [1] "Spectral Analysis for Physical Applications" D.B. Percival and Andrew T. Walden 1993
+     * @param vlen: length of the eigenspectra which are connected by GNU Radio
+     * @param lambdas: the different eigenvalues belonging to the eigenspectra
      */
-    class SPECEST_API adaptiveweighting_vff : virtual public gr::sync_block
-    {
-     public:
-      typedef boost::shared_ptr<adaptiveweighting_vff> sptr;
-
-      /*!
-       * @param vlen: length of the eigenspectra which are connected by GNU Radio
-       * @param lambdas: the different eigenvalues belonging to the eigenspectra
-       */
-      static sptr make(size_t vlen, const std::vector<float> &lambdas);
-      virtual const std::vector<float> lambdas () const = 0;
-      virtual void set_k (const std::vector<float> lambdas) = 0;
-    };
-  } // namespace specest
+    static sptr make(size_t vlen, const std::vector<float>& lambdas);
+    virtual const std::vector<float> lambdas() const = 0;
+    virtual void set_k(const std::vector<float> lambdas) = 0;
+};
+} // namespace specest
 } // namespace gr
 
 #endif /* INCLUDED_SPECEST_ADAPTIVEWEIGHTING_VFF_H */
-

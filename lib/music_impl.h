@@ -21,32 +21,35 @@
 #ifndef INCLUDED_SPECEST_MUSIC_IMPL_H
 #define INCLUDED_SPECEST_MUSIC_IMPL_H
 
-#include <specest/music.h>
-#include <gnuradio/blocks/stream_to_vector.h>
 #include <gnuradio/blocks/keep_one_in_n.h>
+#include <gnuradio/blocks/stream_to_vector.h>
+#include <specest/music.h>
 #include <specest/music_spectrum_vcf.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-    class music_impl : public music
-    {
-     private:
-		gr::blocks::stream_to_vector::sptr d_s2v;
-		gr::blocks::keep_one_in_n::sptr d_decimate;
-		gr::specest::music_spectrum_vcf::sptr d_music;
-		unsigned int d_decimation;
+class music_impl : public music
+{
+private:
+    gr::blocks::stream_to_vector::sptr d_s2v;
+    gr::blocks::keep_one_in_n::sptr d_decimate;
+    gr::specest::music_spectrum_vcf::sptr d_music;
+    unsigned int d_decimation;
 
-     public:
-      music_impl(unsigned int n, unsigned int m, unsigned int nsamples, unsigned int pspectrum_len, unsigned int decimation);
-      ~music_impl();
+public:
+    music_impl(unsigned int n,
+               unsigned int m,
+               unsigned int nsamples,
+               unsigned int pspectrum_len,
+               unsigned int decimation);
+    ~music_impl();
 
-      unsigned int decimation();
-	  void set_decimation(unsigned int n);
-    };
+    unsigned int decimation();
+    void set_decimation(unsigned int n);
+};
 
-  } // namespace specest
+} // namespace specest
 } // namespace gr
 
 #endif /* INCLUDED_SPECEST_MUSIC_IMPL_H */
-

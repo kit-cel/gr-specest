@@ -21,43 +21,41 @@
 #ifndef INCLUDED_SPECESTI_CYCLO_FAM_CALCSPECTRUM_H
 #define INCLUDED_SPECESTI_CYCLO_FAM_CALCSPECTRUM_H
 
-#include <complex>
-#include <fftw3.h>
-#include <gnuradio/gr_complex.h>
 #include <gnuradio/filter/firdes.h>
+#include <gnuradio/gr_complex.h>
+#include <fftw3.h>
 #include <specest/api.h>
+#include <complex>
 
 namespace gr {
-  namespace specest {
-	class SPECEST_API cyclo_fam_calcspectrum_algo
-	{
-	 public:
-		cyclo_fam_calcspectrum_algo(int Np, int P, int L);
-		~cyclo_fam_calcspectrum_algo();
-		void calc(const gr_complex *in);
-		const std::vector<std::vector<float> >  &get_outputs() { return d_result; };
-		float get_value(int row, int column){ return d_result[row][column]; };
+namespace specest {
+class SPECEST_API cyclo_fam_calcspectrum_algo
+{
+public:
+    cyclo_fam_calcspectrum_algo(int Np, int P, int L);
+    ~cyclo_fam_calcspectrum_algo();
+    void calc(const gr_complex* in);
+    const std::vector<std::vector<float>>& get_outputs() { return d_result; };
+    float get_value(int row, int column) { return d_result[row][column]; };
 
-	 private:
-		int d_Np;
-		int d_P;
-		int d_L;
-		int d_N;
+private:
+    int d_Np;
+    int d_P;
+    int d_L;
+    int d_N;
 
-		float d_scale;
+    float d_scale;
 
-		std::vector<std::vector<gr_complex> >  d_complex_demodulates;
-		std::vector<std::vector<float> >       d_result;
+    std::vector<std::vector<gr_complex>> d_complex_demodulates;
+    std::vector<std::vector<float>> d_result;
 
-		std::vector<gr_complex>  d_fft_in_buffer;
-		fftwf_complex           *d_fft_in;
-		fftwf_complex           *d_fft_out;
-		fftwf_plan               d_fft_p;
+    std::vector<gr_complex> d_fft_in_buffer;
+    fftwf_complex* d_fft_in;
+    fftwf_complex* d_fft_out;
+    fftwf_plan d_fft_p;
 
-		void fft(int f_k, int f_l);
-
-	};
-  } /* namespace specest */
+    void fft(int f_k, int f_l);
+};
+} /* namespace specest */
 } /* namespace gr */
 #endif /* INCLUDED_SPECESTI_CYCLO_FAM_CALCSPECTRUM_H */
-

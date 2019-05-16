@@ -25,27 +25,26 @@
 #include <specest/arburg_vcc.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-    class arburg_vcc_impl : public arburg_vcc
-    {
-     private:
-      unsigned d_blocklen; //!< Number of input samples per calculation
-      unsigned d_order;    //!< Order of the AR model
-      int d_normalise;
-      arburg_algo *d_burg;
+class arburg_vcc_impl : public arburg_vcc
+{
+private:
+    unsigned d_blocklen; //!< Number of input samples per calculation
+    unsigned d_order;    //!< Order of the AR model
+    int d_normalise;
+    arburg_algo* d_burg;
 
-     public:
-      arburg_vcc_impl(unsigned blocklen, unsigned order, int normalise);
-      ~arburg_vcc_impl();
+public:
+    arburg_vcc_impl(unsigned blocklen, unsigned order, int normalise);
+    ~arburg_vcc_impl();
 
-      int work(int noutput_items,
-	       gr_vector_const_void_star &input_items,
-	       gr_vector_void_star &output_items);
-    };
+    int work(int noutput_items,
+             gr_vector_const_void_star& input_items,
+             gr_vector_void_star& output_items);
+};
 
-  } // namespace specest
+} // namespace specest
 } // namespace gr
 
 #endif /* INCLUDED_SPECEST_ARBURG_VCC_IMPL_H */
-

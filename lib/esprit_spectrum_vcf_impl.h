@@ -21,35 +21,38 @@
 #ifndef INCLUDED_SPECEST_ESPRIT_SPECTRUM_VCF_IMPL_H
 #define INCLUDED_SPECEST_ESPRIT_SPECTRUM_VCF_IMPL_H
 
-#include <specest/esprit_spectrum_vcf.h>
 #include <specest/esprit_algo.h>
+#include <specest/esprit_spectrum_vcf.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-    class esprit_spectrum_vcf_impl : public esprit_spectrum_vcf
-    {
-     private:
-		esprit_algo* d_algo;
-		unsigned int d_n;
-		unsigned int d_m;
-		unsigned int d_nsamples;
-		unsigned int d_pspectrum_len;
+class esprit_spectrum_vcf_impl : public esprit_spectrum_vcf
+{
+private:
+    esprit_algo* d_algo;
+    unsigned int d_n;
+    unsigned int d_m;
+    unsigned int d_nsamples;
+    unsigned int d_pspectrum_len;
 
-		std::vector<gr_complexd> d_in_buf;
-		std::vector<double> d_out_buf;
-     public:
-      esprit_spectrum_vcf_impl(unsigned int n, unsigned int m, unsigned int nsamples, unsigned int pspectrum_len);
-      ~esprit_spectrum_vcf_impl();
+    std::vector<gr_complexd> d_in_buf;
+    std::vector<double> d_out_buf;
 
-      // Where all the action really happens
-      int work(int noutput_items,
-	       gr_vector_const_void_star &input_items,
-	       gr_vector_void_star &output_items);
-    };
+public:
+    esprit_spectrum_vcf_impl(unsigned int n,
+                             unsigned int m,
+                             unsigned int nsamples,
+                             unsigned int pspectrum_len);
+    ~esprit_spectrum_vcf_impl();
 
-  } // namespace specest
+    // Where all the action really happens
+    int work(int noutput_items,
+             gr_vector_const_void_star& input_items,
+             gr_vector_void_star& output_items);
+};
+
+} // namespace specest
 } // namespace gr
 
 #endif /* INCLUDED_SPECEST_ESPRIT_SPECTRUM_VCF_IMPL_H */
-

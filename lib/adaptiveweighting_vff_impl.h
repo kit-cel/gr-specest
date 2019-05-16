@@ -24,27 +24,26 @@
 #include <specest/adaptiveweighting_vff.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-    class adaptiveweighting_vff_impl : public adaptiveweighting_vff
-    {
-     private:
-      std::vector<float> d_lambdas; // the eigenvalues
-      size_t d_vlen;
+class adaptiveweighting_vff_impl : public adaptiveweighting_vff
+{
+private:
+    std::vector<float> d_lambdas; // the eigenvalues
+    size_t d_vlen;
 
-     public:
-      adaptiveweighting_vff_impl(size_t vlen, const std::vector<float> &lambdas);
-      ~adaptiveweighting_vff_impl();
+public:
+    adaptiveweighting_vff_impl(size_t vlen, const std::vector<float>& lambdas);
+    ~adaptiveweighting_vff_impl();
 
-      int work(int noutput_items,
-	       gr_vector_const_void_star &input_items,
-	       gr_vector_void_star &output_items);
-      const std::vector<float> lambdas () const { return d_lambdas; };
-      void set_k (const std::vector<float> lambdas) { d_lambdas = lambdas; };
-    };
+    int work(int noutput_items,
+             gr_vector_const_void_star& input_items,
+             gr_vector_void_star& output_items);
+    const std::vector<float> lambdas() const { return d_lambdas; };
+    void set_k(const std::vector<float> lambdas) { d_lambdas = lambdas; };
+};
 
-  } // namespace specest
+} // namespace specest
 } // namespace gr
 
 #endif /* INCLUDED_SPECEST_ADAPTIVEWEIGHTING_VFF_IMPL_H */
-

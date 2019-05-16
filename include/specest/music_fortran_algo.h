@@ -20,26 +20,28 @@
 #ifndef INCLUDED_SPECESTI_MUSIC_FORTRAN_H
 #define INCLUDED_SPECESTI_MUSIC_FORTRAN_H
 
-#include <specest/music_algo.h>
 #include <specest/api.h>
+#include <specest/music_algo.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-	class SPECEST_API music_fortran_algo : virtual public music_algo
-	{
-		public:
-			music_fortran_algo(unsigned n, unsigned m);
-			void calculate(const gr_complexd *data, unsigned int data_len,
-				           double* omegas);
-		void calculate_pseudospectrum(const gr_complexd* data, unsigned int data_len,
-																	double* pspectrum, unsigned int pspectrum_len);
-			~music_fortran_algo();
-		private:
-			unsigned int d_n;
-			unsigned int d_m;
-	};
+class SPECEST_API music_fortran_algo : virtual public music_algo
+{
+public:
+    music_fortran_algo(unsigned n, unsigned m);
+    void calculate(const gr_complexd* data, unsigned int data_len, double* omegas);
+    void calculate_pseudospectrum(const gr_complexd* data,
+                                  unsigned int data_len,
+                                  double* pspectrum,
+                                  unsigned int pspectrum_len);
+    ~music_fortran_algo();
 
-  } // namespace specest
+private:
+    unsigned int d_n;
+    unsigned int d_m;
+};
+
+} // namespace specest
 } // namespace gr
 #endif /* INCLUDED_SPECESTI_MUSIC_FORTRAN_H */

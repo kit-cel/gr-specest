@@ -22,27 +22,26 @@
 #ifndef INCLUDED_SPECEST_ESPRIT_VCF_H
 #define INCLUDED_SPECEST_ESPRIT_VCF_H
 
-#include <specest/api.h>
 #include <gnuradio/sync_block.h>
+#include <specest/api.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-    /*!
-     * \brief ESPRIT
-     * \ingroup specest
-     *
-     */
-    class SPECEST_API esprit_vcf : virtual public gr::sync_block
-    {
-     public:
-      typedef boost::shared_ptr<esprit_vcf> sptr;
+/*!
+ * \brief ESPRIT
+ * \ingroup specest
+ *
+ */
+class SPECEST_API esprit_vcf : virtual public gr::sync_block
+{
+public:
+    typedef boost::shared_ptr<esprit_vcf> sptr;
 
-      static sptr make(unsigned int n, unsigned int m, unsigned int nsamples);
-    };
+    static sptr make(unsigned int n, unsigned int m, unsigned int nsamples);
+};
 
-  } // namespace specest
+} // namespace specest
 } // namespace gr
 
 #endif /* INCLUDED_SPECEST_ESPRIT_VCF_H */
-

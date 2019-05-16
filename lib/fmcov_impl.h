@@ -25,36 +25,39 @@
 
 #include <gnuradio/blocks/complex_to_mag_squared.h>
 #include <gnuradio/blocks/keep_one_in_n.h>
-#include <gnuradio/filter/firdes.h>
 #include <gnuradio/fft/fft_vcc.h>
-#include <specest/reciprocal_ff.h>
+#include <gnuradio/filter/firdes.h>
 #include <specest/arfmcov_vcc.h>
-#include <specest/stream_to_vector_overlap.h>
 #include <specest/pad_vector.h>
+#include <specest/reciprocal_ff.h>
+#include <specest/stream_to_vector_overlap.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-    class fmcov_impl : public fmcov
-    {
-     private:
-		stream_to_vector_overlap::sptr d_stream_to_vector;
-		blocks::keep_one_in_n::sptr d_keep_one_in_n;
-		arfmcov_vcc::sptr d_arfmcov;
-		pad_vector::sptr d_pad_vector;
-		fft::fft_vcc::sptr d_fft;
-		blocks::complex_to_mag_squared::sptr d_mag_square;
-		reciprocal_ff::sptr d_divide;
+class fmcov_impl : public fmcov
+{
+private:
+    stream_to_vector_overlap::sptr d_stream_to_vector;
+    blocks::keep_one_in_n::sptr d_keep_one_in_n;
+    arfmcov_vcc::sptr d_arfmcov;
+    pad_vector::sptr d_pad_vector;
+    fft::fft_vcc::sptr d_fft;
+    blocks::complex_to_mag_squared::sptr d_mag_square;
+    reciprocal_ff::sptr d_divide;
 
-     public:
-      fmcov_impl(unsigned block_len, unsigned fft_len, unsigned order, bool fftshift, int decimation);
-      ~fmcov_impl();
+public:
+    fmcov_impl(unsigned block_len,
+               unsigned fft_len,
+               unsigned order,
+               bool fftshift,
+               int decimation);
+    ~fmcov_impl();
 
-      void set_decimation(int n); //!< Update the decimation rate at the input
-    };
+    void set_decimation(int n); //!< Update the decimation rate at the input
+};
 
-  } // namespace specest
+} // namespace specest
 } // namespace gr
 
 #endif /* INCLUDED_SPECEST_FMCOV_IMPL_H */
-

@@ -22,58 +22,57 @@
 #include "config.h"
 #endif
 
-#include <gnuradio/io_signature.h>
 #include "esprit_impl.h"
+#include <gnuradio/io_signature.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-    esprit::sptr
-    esprit::make(unsigned int n, unsigned int m, unsigned int nsamples, unsigned int pspectrum_len, unsigned int decimation)
-    {
-      return gnuradio::get_initial_sptr
-        (new esprit_impl(n, m, nsamples, pspectrum_len, decimation));
-    }
+esprit::sptr esprit::make(unsigned int n,
+                          unsigned int m,
+                          unsigned int nsamples,
+                          unsigned int pspectrum_len,
+                          unsigned int decimation)
+{
+    return gnuradio::get_initial_sptr(
+        new esprit_impl(n, m, nsamples, pspectrum_len, decimation));
+}
 
-    /*
-     * The private constructor
-     */
-    esprit_impl::esprit_impl(unsigned int n, unsigned int m, unsigned int nsamples, unsigned int pspectrum_len, unsigned int decimation)
-      : gr::hier_block2("esprit",
-              gr::io_signature::make(1, 1, sizeof (gr_complex)),
-              gr::io_signature::make(1, 1,  pspectrum_len * sizeof (float))),
-			d_decimation(decimation),
-			d_s2v(blocks::stream_to_vector::make(sizeof(gr_complex),nsamples)),
-			d_decimate(blocks::keep_one_in_n::make(nsamples * sizeof(gr_complex), decimation)),
-			d_esprit(esprit_spectrum_vcf::make(n,m,nsamples,pspectrum_len))
-    {
-		connect(self(), 0, d_s2v, 0);
-		connect(d_s2v, 0, d_decimate, 0);
-		connect(d_decimate, 0, d_esprit, 0);
-		connect(d_esprit, 0, self(), 0);
-    }
+/*
+ * The private constructor
+ */
+esprit_impl::esprit_impl(unsigned int n,
+                         unsigned int m,
+                         unsigned int nsamples,
+                         unsigned int pspectrum_len,
+                         unsigned int decimation)
+    : gr::hier_block2("esprit",
+                      gr::io_signature::make(1, 1, sizeof(gr_complex)),
+                      gr::io_signature::make(1, 1, pspectrum_len * sizeof(float))),
+      d_decimation(decimation),
+      d_s2v(blocks::stream_to_vector::make(sizeof(gr_complex), nsamples)),
+      d_decimate(blocks::keep_one_in_n::make(nsamples * sizeof(gr_complex), decimation)),
+      d_esprit(esprit_spectrum_vcf::make(n, m, nsamples, pspectrum_len))
+{
+    connect(self(), 0, d_s2v, 0);
+    connect(d_s2v, 0, d_decimate, 0);
+    connect(d_decimate, 0, d_esprit, 0);
+    connect(d_esprit, 0, self(), 0);
+}
 
-    /*
-     * Our virtual destructor.
-     */
-    esprit_impl::~esprit_impl()
-    {
-    }
+/*
+ * Our virtual destructor.
+ */
+esprit_impl::~esprit_impl() {}
 
-	unsigned int
-	esprit_impl::decimation()
-	{
-		return d_decimation;
-	}
+unsigned int esprit_impl::decimation() { return d_decimation; }
 
-	void
-	esprit_impl::set_decimation(unsigned int n)
-	{
-		d_decimate->set_n(n);
-		d_decimation = n;
-	}
+void esprit_impl::set_decimation(unsigned int n)
+{
+    d_decimate->set_n(n);
+    d_decimation = n;
+}
 
 
-  } /* namespace specest */
+} /* namespace specest */
 } /* namespace gr */
-

@@ -21,44 +21,46 @@
 #ifndef INCLUDED_SPECEST_CYCLO_FAM_CALCSPECTRUM_VCF_IMPL_H
 #define INCLUDED_SPECEST_CYCLO_FAM_CALCSPECTRUM_VCF_IMPL_H
 
-#include <specest/cyclo_fam_calcspectrum_vcf.h>
 #include <specest/cyclo_fam_calcspectrum_algo.h>
+#include <specest/cyclo_fam_calcspectrum_vcf.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-    class cyclo_fam_calcspectrum_vcf_impl : public cyclo_fam_calcspectrum_vcf
+class cyclo_fam_calcspectrum_vcf_impl : public cyclo_fam_calcspectrum_vcf
+{
+private:
+    cyclo_fam_calcspectrum_algo* d_calcspectrum;
+
+    int d_Np;
+    int d_P;
+    int d_N;
+    int d_L;
+    unsigned d_p_index;
+    int d_K; // Interpolation Factor
+
+    float const* d_outbuffer;
+
+public:
+    cyclo_fam_calcspectrum_vcf_impl(int Np, int P, int L);
+    ~cyclo_fam_calcspectrum_vcf_impl();
+
+    // Where all the action really happens
+    int work(int noutput_items,
+             gr_vector_const_void_star& input_items,
+             gr_vector_void_star& output_items);
+
+    int get_Np() { return d_Np; };
+    int get_N() { return d_N; };
+    int get_P() { return d_P; };
+    int get_L() { return d_L; };
+    const std::vector<std::vector<float>>& get_estimate()
     {
-     private:
-		cyclo_fam_calcspectrum_algo *d_calcspectrum;
-
-		int      d_Np;
-		int      d_P;
-		int      d_N;
-		int      d_L;
-		unsigned d_p_index;
-		int      d_K;            // Interpolation Factor
-
-		float const *d_outbuffer;
-
-     public:
-      cyclo_fam_calcspectrum_vcf_impl(int Np, int P, int L);
-      ~cyclo_fam_calcspectrum_vcf_impl();
-
-      // Where all the action really happens
-      int work(int noutput_items,
-	       gr_vector_const_void_star &input_items,
-	       gr_vector_void_star &output_items);
-
-	  int get_Np(){ return d_Np; };
-	  int get_N(){ return d_N; };
-	  int get_P(){ return d_P; };
-      int get_L(){ return d_L; };
-      const std::vector<std::vector<float> > &get_estimate(){return d_calcspectrum->get_outputs();};
+        return d_calcspectrum->get_outputs();
     };
+};
 
-  } // namespace specest
+} // namespace specest
 } // namespace gr
 
 #endif /* INCLUDED_SPECEST_CYCLO_FAM_CALCSPECTRUM_VCF_IMPL_H */
-

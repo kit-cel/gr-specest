@@ -21,32 +21,31 @@
 #ifndef INCLUDED_SPECEST_MUSIC_VCF_IMPL_H
 #define INCLUDED_SPECEST_MUSIC_VCF_IMPL_H
 
-#include <specest/music_vcf.h>
 #include <specest/music_algo.h>
+#include <specest/music_vcf.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-    class music_vcf_impl : public music_vcf
-    {
-     private:
-		music_algo* d_algo;
-		unsigned int d_n;
-		unsigned int d_m;
-		unsigned int d_nsamples;
+class music_vcf_impl : public music_vcf
+{
+private:
+    music_algo* d_algo;
+    unsigned int d_n;
+    unsigned int d_m;
+    unsigned int d_nsamples;
 
-     public:
-      music_vcf_impl(unsigned int n, unsigned int m, unsigned int nsamples);
-      ~music_vcf_impl();
+public:
+    music_vcf_impl(unsigned int n, unsigned int m, unsigned int nsamples);
+    ~music_vcf_impl();
 
-      // Where all the action really happens
-      int work(int noutput_items,
-	       gr_vector_const_void_star &input_items,
-	       gr_vector_void_star &output_items);
-    };
+    // Where all the action really happens
+    int work(int noutput_items,
+             gr_vector_const_void_star& input_items,
+             gr_vector_void_star& output_items);
+};
 
-  } // namespace specest
+} // namespace specest
 } // namespace gr
 
 #endif /* INCLUDED_SPECEST_MUSIC_VCF_IMPL_H */
-

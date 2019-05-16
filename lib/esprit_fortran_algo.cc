@@ -25,41 +25,46 @@
 #include <specest/esprit_fortran_algo.h>
 #include <stdexcept>
 
-extern "C"
-{
-	void zesprit_(const gr_complexd* samples, unsigned int* ldata,
-	                unsigned int* n, unsigned int* m,
-	                double* omegas);
-	void zesprit_spectrum_(const gr_complexd* samples, unsigned int* ldata,
-	                         unsigned int* n, unsigned int* m,
-	                         double* pspectrum, unsigned int* lpspectrum);
+extern "C" {
+void zesprit_(const gr_complexd* samples,
+              unsigned int* ldata,
+              unsigned int* n,
+              unsigned int* m,
+              double* omegas);
+void zesprit_spectrum_(const gr_complexd* samples,
+                       unsigned int* ldata,
+                       unsigned int* n,
+                       unsigned int* m,
+                       double* pspectrum,
+                       unsigned int* lpspectrum);
 }
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-	esprit_fortran_algo::esprit_fortran_algo(unsigned n, unsigned m) : d_n(n), d_m(m)
-	{
-		if (n > m)
-			throw std::invalid_argument("esprit_fortran_algo: n cannot exceed m in length.");
-	}
+esprit_fortran_algo::esprit_fortran_algo(unsigned n, unsigned m) : d_n(n), d_m(m)
+{
+    if (n > m)
+        throw std::invalid_argument("esprit_fortran_algo: n cannot exceed m in length.");
+}
 
 
-	esprit_fortran_algo::~esprit_fortran_algo()
-	{
-	}
+esprit_fortran_algo::~esprit_fortran_algo() {}
 
-	void esprit_fortran_algo::calculate(const gr_complexd *data, unsigned int data_len,
-		                                    double* omegas)
-	{
-		zesprit_(data, &data_len, &d_n, &d_m, omegas);
-	}
+void esprit_fortran_algo::calculate(const gr_complexd* data,
+                                    unsigned int data_len,
+                                    double* omegas)
+{
+    zesprit_(data, &data_len, &d_n, &d_m, omegas);
+}
 
-	void esprit_fortran_algo::calculate_pseudospectrum(const gr_complexd *data, unsigned int data_len,
-		                                                   double* pspectrum, unsigned int pspectrum_len)
-	{
-		zesprit_spectrum_(data, &data_len, &d_n, &d_m, pspectrum, &pspectrum_len);
-	}
+void esprit_fortran_algo::calculate_pseudospectrum(const gr_complexd* data,
+                                                   unsigned int data_len,
+                                                   double* pspectrum,
+                                                   unsigned int pspectrum_len)
+{
+    zesprit_spectrum_(data, &data_len, &d_n, &d_m, pspectrum, &pspectrum_len);
+}
 
-  } /* namespace specest */
+} /* namespace specest */
 } /* namespace gr */

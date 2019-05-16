@@ -22,35 +22,34 @@
 #ifndef INCLUDED_SPECEST_MUSIC_VCF_H
 #define INCLUDED_SPECEST_MUSIC_VCF_H
 
-#include <specest/api.h>
 #include <gnuradio/sync_block.h>
+#include <specest/api.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
+
+/*!
+ * \brief
+ * \ingroup specest
+ *
+ */
+class SPECEST_API music_vcf : virtual public gr::sync_block
+{
+public:
+    typedef boost::shared_ptr<music_vcf> sptr;
 
     /*!
-     * \brief
-     * \ingroup specest
+     * \brief Return a shared_ptr to a new instance of specest::music_vcf.
      *
+     * To avoid accidental use of raw pointers, specest::music_vcf's
+     * constructor is in a private implementation
+     * class. specest::music_vcf::make is the public interface for
+     * creating new instances.
      */
-    class SPECEST_API music_vcf : virtual public gr::sync_block
-    {
-     public:
-      typedef boost::shared_ptr<music_vcf> sptr;
+    static sptr make(unsigned int n, unsigned int m, unsigned int nsamples);
+};
 
-      /*!
-       * \brief Return a shared_ptr to a new instance of specest::music_vcf.
-       *
-       * To avoid accidental use of raw pointers, specest::music_vcf's
-       * constructor is in a private implementation
-       * class. specest::music_vcf::make is the public interface for
-       * creating new instances.
-       */
-      static sptr make(unsigned int n, unsigned int m, unsigned int nsamples);
-    };
-
-  } // namespace specest
+} // namespace specest
 } // namespace gr
 
 #endif /* INCLUDED_SPECEST_MUSIC_VCF_H */
-

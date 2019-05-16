@@ -24,27 +24,26 @@
 #include <specest/pad_vector.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-    class pad_vector_impl : public pad_vector
-    {
-     private:
-      unsigned  d_copylen;
-      unsigned  d_padlen;
-      unsigned  d_vlen_in;
-      unsigned  d_vlen_out;
+class pad_vector_impl : public pad_vector
+{
+private:
+    unsigned d_copylen;
+    unsigned d_padlen;
+    unsigned d_vlen_in;
+    unsigned d_vlen_out;
 
-     public:
-      pad_vector_impl(size_t item_size, unsigned vlen_in, unsigned vlen_out);
-      ~pad_vector_impl();
+public:
+    pad_vector_impl(size_t item_size, unsigned vlen_in, unsigned vlen_out);
+    ~pad_vector_impl();
 
-      int work(int noutput_items,
-	       gr_vector_const_void_star &input_items,
-	       gr_vector_void_star &output_items);
-    };
+    int work(int noutput_items,
+             gr_vector_const_void_star& input_items,
+             gr_vector_void_star& output_items);
+};
 
-  } // namespace specest
+} // namespace specest
 } // namespace gr
 
 #endif /* INCLUDED_SPECEST_PAD_VECTOR_IMPL_H */
-

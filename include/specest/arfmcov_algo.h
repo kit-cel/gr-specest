@@ -20,53 +20,54 @@
 #ifndef INCLUDED_SPECEST_ARFMCOV_ALGO_H
 #define INCLUDED_SPECEST_ARFMCOV_ALGO_H
 
-#include <specest/api.h>
 #include <gnuradio/gr_complex.h>
+#include <specest/api.h>
 #include <vector>
 
 namespace gr {
-  namespace specest {
-	class SPECEST_API arfmcov_algo
-	{
-	 public:
-		arfmcov_algo(unsigned blocklen, unsigned order);
-		~arfmcov_algo();
+namespace specest {
+class SPECEST_API arfmcov_algo
+{
+public:
+    arfmcov_algo(unsigned blocklen, unsigned order);
+    ~arfmcov_algo();
 
-		/** \brief Calculate the AR model coefficients from the the given input data.
-		 * This class uses the fast modified covariance algorith from
-		 * S.L. Marple, Jr.: "Digital Spectral Analysis and Applications", page 251-260
-		 *
-		 * \p normalise determines whether the coefficients are normalised to the power
-		 *  of the equivalent noise source. If normalise is of an other value than 1,
-		 *  the coefficients are additionally normalised by the square root of \p normalise.
-		 *
-		 * \param[in] data Pointer to \p blocklen complex signal values. \p ar_coeff
-		 * \param[out] ar_coeff Points to preallocated space for \p order+1 (!) complex coefficients.
-		 * \param[in] normalise Normalisation factor, normalise == 0 means no normalisation.
-		 */
-		float calculate(const gr_complex *data, gr_complex *ar_coeff, int normalise);
+    /** \brief Calculate the AR model coefficients from the the given input data.
+     * This class uses the fast modified covariance algorith from
+     * S.L. Marple, Jr.: "Digital Spectral Analysis and Applications", page 251-260
+     *
+     * \p normalise determines whether the coefficients are normalised to the power
+     *  of the equivalent noise source. If normalise is of an other value than 1,
+     *  the coefficients are additionally normalised by the square root of \p normalise.
+     *
+     * \param[in] data Pointer to \p blocklen complex signal values. \p ar_coeff
+     * \param[out] ar_coeff Points to preallocated space for \p order+1 (!) complex
+     * coefficients. \param[in] normalise Normalisation factor, normalise == 0 means no
+     * normalisation.
+     */
+    float calculate(const gr_complex* data, gr_complex* ar_coeff, int normalise);
 
-		void set_order(unsigned order);
-		void set_blocklen(unsigned blocklen);
-		unsigned get_order() { return d_order; };
-		unsigned get_blocklen() { return d_blocklen; };
+    void set_order(unsigned order);
+    void set_blocklen(unsigned blocklen);
+    unsigned get_order() { return d_order; };
+    unsigned get_blocklen() { return d_blocklen; };
 
-	 private:
-		unsigned d_blocklen; //!< Block length of input sample vectors
-		unsigned d_order; //!< The order of the AR model which is estimated
+private:
+    unsigned d_blocklen; //!< Block length of input sample vectors
+    unsigned d_order;    //!< The order of the AR model which is estimated
 
-		std::vector<gr_complexd> d_a; //!< AR coefficients
-		std::vector<gr_complexd> d_ai; //!< auxiliary vectors
-		std::vector<gr_complexd> d_c;
-		std::vector<gr_complexd> d_d;
-		std::vector<gr_complexd> d_ci;
-		std::vector<gr_complexd> d_di;
-		std::vector<gr_complexd> d_r;
+    std::vector<gr_complexd> d_a;  //!< AR coefficients
+    std::vector<gr_complexd> d_ai; //!< auxiliary vectors
+    std::vector<gr_complexd> d_c;
+    std::vector<gr_complexd> d_d;
+    std::vector<gr_complexd> d_ci;
+    std::vector<gr_complexd> d_di;
+    std::vector<gr_complexd> d_r;
 
-		void init_buffers();
-	};
+    void init_buffers();
+};
 
-  } // namespace specest
+} // namespace specest
 } // namespace gr
 
 #endif

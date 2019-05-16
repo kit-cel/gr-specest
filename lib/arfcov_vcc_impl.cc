@@ -22,71 +22,67 @@
 #include "config.h"
 #endif
 
-#include <gnuradio/io_signature.h>
 #include "arfcov_vcc_impl.h"
+#include <gnuradio/io_signature.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-    arfcov_vcc::sptr
-    arfcov_vcc::make(unsigned blocklen, unsigned order, int normalise)
-    {
-      return gnuradio::get_initial_sptr
-        (new arfcov_vcc_impl(blocklen, order, normalise));
+arfcov_vcc::sptr arfcov_vcc::make(unsigned blocklen, unsigned order, int normalise)
+{
+    return gnuradio::get_initial_sptr(new arfcov_vcc_impl(blocklen, order, normalise));
+}
+
+/*
+ * The private constructor
+ */
+arfcov_vcc_impl::arfcov_vcc_impl(unsigned blocklen, unsigned order, int normalise)
+    : gr::sync_block(
+          "arfcov_vcc",
+          gr::io_signature::make(1, 1, blocklen * sizeof(gr_complex)),
+          gr::io_signature::make2(1, 2, (order + 1) * sizeof(gr_complex), sizeof(float))),
+      d_blocklen(blocklen),
+      d_order(order),
+      d_normalise(normalise)
+{
+    // TODO catch?
+    d_fcov = new arfcov_algo(blocklen, order);
+}
+
+arfcov_vcc_impl::~arfcov_vcc_impl() { delete d_fcov; }
+
+int arfcov_vcc_impl::work(int noutput_items,
+                          gr_vector_const_void_star& input_items,
+                          gr_vector_void_star& output_items)
+{
+    const gr_complex* in = (const gr_complex*)input_items[0];
+    gr_complex* out_coeff = (gr_complex*)output_items[0];
+    float* out_var;
+    float var;
+    int normalise;
+    bool export_var = false;
+
+    if (output_items.size() == 2) {
+        export_var = true;
+        out_var = (float*)output_items[1];
+    }
+    if (d_normalise == -1) {
+        normalise = (output_items.size() == 1);
+    } else {
+        normalise = d_normalise;
     }
 
-    /*
-     * The private constructor
-     */
-    arfcov_vcc_impl::arfcov_vcc_impl(unsigned blocklen, unsigned order, int normalise)
-	: gr::sync_block ("arfcov_vcc",
-			gr::io_signature::make (1, 1, blocklen * sizeof(gr_complex)),
-			gr::io_signature::make2 (1, 2, (order+1) * sizeof(gr_complex), sizeof(float))),
-	d_blocklen(blocklen), d_order(order), d_normalise(normalise)
-    {
-	// TODO catch?
-	d_fcov = new arfcov_algo(blocklen, order);
+    for (int i = 0; i < noutput_items; i++) {
+        var = d_fcov->calculate(in, out_coeff, normalise);
+        if (export_var) {
+            out_var[i] = var;
+        }
+        out_coeff += d_order + 1;
+        in += d_blocklen;
     }
 
-    arfcov_vcc_impl::~arfcov_vcc_impl()
-    {
-	delete d_fcov;
-    }
+    return noutput_items;
+}
 
-    int
-    arfcov_vcc_impl::work(int noutput_items,
-			  gr_vector_const_void_star &input_items,
-			  gr_vector_void_star &output_items)
-    {
-      const gr_complex *in = (const gr_complex *) input_items[0];
-      gr_complex *out_coeff = (gr_complex *) output_items[0];
-      float *out_var;
-      float var;
-      int normalise;
-      bool export_var = false;
-
-      if (output_items.size() == 2) {
-	export_var = true;
-	out_var = (float *) output_items[1];
-      }
-      if (d_normalise == -1) {
-	normalise = (output_items.size() == 1);
-      } else {
-	normalise = d_normalise;
-      }
-
-      for (int i = 0; i < noutput_items; i++) {
-	var = d_fcov->calculate(in, out_coeff, normalise);
-	if (export_var) {
-	  out_var[i] = var;
-	}
-	out_coeff += d_order+1;
-	in += d_blocklen;
-      }
-
-      return noutput_items;
-    }
-
-  } /* namespace specest */
+} /* namespace specest */
 } /* namespace gr */
-

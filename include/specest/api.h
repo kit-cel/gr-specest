@@ -26,9 +26,9 @@
 #include <gnuradio/attributes.h>
 
 #ifdef gnuradio_specest_EXPORTS
-#  define SPECEST_API __GR_ATTR_EXPORT
+#define SPECEST_API __GR_ATTR_EXPORT
 #else
-#  define SPECEST_API __GR_ATTR_IMPORT
+#define SPECEST_API __GR_ATTR_IMPORT
 #endif
 
 #endif /* INCLUDED_SPECEST_API_H */

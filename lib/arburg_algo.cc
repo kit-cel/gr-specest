@@ -18,135 +18,129 @@
  */
 
 #include <specest/arburg_algo.h>
-#include <stdexcept>
 #include <cstring>
+#include <stdexcept>
 
 
-inline double
-mag_square(gr_complexd c)
+inline double mag_square(gr_complexd c)
 {
-	return c.real()*c.real() + c.imag()*c.imag();
+    return c.real() * c.real() + c.imag() * c.imag();
 }
 
 
 arburg_algo::arburg_algo(unsigned blocklen, unsigned order)
-	: d_blocklen(blocklen), d_order(order)
+    : d_blocklen(blocklen), d_order(order)
 {
-	if (order > blocklen) {
-		throw std::invalid_argument("arburg_algo: order cannot exceed block length.");
-	}
-	if(!blocklen || !order) {
-		throw std::invalid_argument("arburg_algo: block length and order must be at least 1.");
-	}
+    if (order > blocklen) {
+        throw std::invalid_argument("arburg_algo: order cannot exceed block length.");
+    }
+    if (!blocklen || !order) {
+        throw std::invalid_argument(
+            "arburg_algo: block length and order must be at least 1.");
+    }
 
-	d_ef = new gr_complexd[d_blocklen];
-	d_eb = new gr_complexd[d_blocklen];
-	d_efp = new gr_complexd[d_blocklen];
-	d_arcoeff = new gr_complexd[d_order+1];
-	d_arcoeff2 = new gr_complexd[d_order+1];
+    d_ef = new gr_complexd[d_blocklen];
+    d_eb = new gr_complexd[d_blocklen];
+    d_efp = new gr_complexd[d_blocklen];
+    d_arcoeff = new gr_complexd[d_order + 1];
+    d_arcoeff2 = new gr_complexd[d_order + 1];
 }
 
 
 arburg_algo::~arburg_algo()
 {
-	delete[] d_ef;
-	delete[] d_eb;
-	delete[] d_efp;
-	delete[] d_arcoeff;
-	delete[] d_arcoeff2;
+    delete[] d_ef;
+    delete[] d_eb;
+    delete[] d_efp;
+    delete[] d_arcoeff;
+    delete[] d_arcoeff2;
 }
 
 
-void
-arburg_algo::set_order(unsigned order)
+void arburg_algo::set_order(unsigned order)
 {
-	d_order = order;
-	delete[] d_arcoeff;
-	delete[] d_arcoeff2;
-	d_arcoeff = new gr_complexd[d_order+1];
-	d_arcoeff2 = new gr_complexd[d_order+1];
+    d_order = order;
+    delete[] d_arcoeff;
+    delete[] d_arcoeff2;
+    d_arcoeff = new gr_complexd[d_order + 1];
+    d_arcoeff2 = new gr_complexd[d_order + 1];
 }
 
 
-void
-arburg_algo::set_blocklen(unsigned blocklen)
+void arburg_algo::set_blocklen(unsigned blocklen)
 {
-	d_blocklen = blocklen;
-	delete[] d_ef;
-	delete[] d_eb;
-	delete[] d_efp;
-	d_ef = new gr_complexd[d_blocklen];
-	d_eb = new gr_complexd[d_blocklen];
-	d_efp = new gr_complexd[d_blocklen];
+    d_blocklen = blocklen;
+    delete[] d_ef;
+    delete[] d_eb;
+    delete[] d_efp;
+    d_ef = new gr_complexd[d_blocklen];
+    d_eb = new gr_complexd[d_blocklen];
+    d_efp = new gr_complexd[d_blocklen];
 }
 
 
-void
-arburg_algo::init_buffers(const gr_complex *data, double &var)
+void arburg_algo::init_buffers(const gr_complex* data, double& var)
 {
-	var = 0;
+    var = 0;
 
-	for(unsigned i = 0; i < d_blocklen; i++) {
-		d_ef[i] = d_eb[i] = gr_complexd(data[i]);
-		var += mag_square(data[i]);
-	}
+    for (unsigned i = 0; i < d_blocklen; i++) {
+        d_ef[i] = d_eb[i] = gr_complexd(data[i]);
+        var += mag_square(data[i]);
+    }
 }
 
 
 // The variable names in this function follow those in "Spectral analysis of signals",
 // P. Stoica and R. Moses, Chapter 3.9.3.
-float
-arburg_algo::calculate(const gr_complex *data, gr_complex *ar_coeff, int normalise)
+float arburg_algo::calculate(const gr_complex* data, gr_complex* ar_coeff, int normalise)
 {
-	double var;
-	gr_complexd k;
-	init_buffers(data, var);
+    double var;
+    gr_complexd k;
+    init_buffers(data, var);
 
-	d_arcoeff[0] = 1;
-	for(unsigned p = 0; p < d_order; p++) {
-		k = calc_k(p);
+    d_arcoeff[0] = 1;
+    for (unsigned p = 0; p < d_order; p++) {
+        k = calc_k(p);
 
-		for(unsigned t = 0; t < d_blocklen-p-1; t++) {
-			d_efp[t] = d_ef[t+1] + k * d_eb[t];
-			d_eb[t] = d_eb[t] + conj(k) * d_ef[t+1];
-			d_ef[t] = d_efp[t];
-		}
-		var *= (1 - mag_square(k));
+        for (unsigned t = 0; t < d_blocklen - p - 1; t++) {
+            d_efp[t] = d_ef[t + 1] + k * d_eb[t];
+            d_eb[t] = d_eb[t] + conj(k) * d_ef[t + 1];
+            d_ef[t] = d_efp[t];
+        }
+        var *= (1 - mag_square(k));
 
-		memcpy(d_arcoeff2+1, d_arcoeff+1, sizeof(gr_complexd) * p);
-		for(unsigned r = 1; r <= p; r++)
-			d_arcoeff[r] += conj(d_arcoeff2[p+1-r]) * k;
-		d_arcoeff[p+1] = k;
-	}
-	var = var/d_blocklen;
+        memcpy(d_arcoeff2 + 1, d_arcoeff + 1, sizeof(gr_complexd) * p);
+        for (unsigned r = 1; r <= p; r++)
+            d_arcoeff[r] += conj(d_arcoeff2[p + 1 - r]) * k;
+        d_arcoeff[p + 1] = k;
+    }
+    var = var / d_blocklen;
 
-	// Copy to output buffer
-	if (normalise) {
-		gr_complexd norm = (gr_complexd) (sqrt(var/ normalise));
-		for(unsigned p = 0; p < d_order+1; p++)
-			ar_coeff[p] = gr_complex((d_arcoeff[p]) / norm);
-	} else {
-		for(unsigned p = 0; p < d_order+1; p++) {
-			ar_coeff[p] = gr_complex(d_arcoeff[p]);
-		}
-	}
+    // Copy to output buffer
+    if (normalise) {
+        gr_complexd norm = (gr_complexd)(sqrt(var / normalise));
+        for (unsigned p = 0; p < d_order + 1; p++)
+            ar_coeff[p] = gr_complex((d_arcoeff[p]) / norm);
+    } else {
+        for (unsigned p = 0; p < d_order + 1; p++) {
+            ar_coeff[p] = gr_complex(d_arcoeff[p]);
+        }
+    }
 
-	return (float) var;
+    return (float)var;
 }
 
 
 // Calculates \hat{k}_p (the p-th PARCOR coefficient)
-gr_complexd
-arburg_algo::calc_k(int p)
+gr_complexd arburg_algo::calc_k(int p)
 {
-	gr_complexd k_num = 0;
-	gr_complexd k_den = 0;
+    gr_complexd k_num = 0;
+    gr_complexd k_den = 0;
 
-	for(unsigned t = 1; t < d_blocklen-p; t++) {
-		k_num += d_ef[t] * conj(d_eb[t-1]);
-		k_den += d_ef[t] * conj(d_ef[t]) + d_eb[t-1] * conj(d_eb[t-1]);
-	}
+    for (unsigned t = 1; t < d_blocklen - p; t++) {
+        k_num += d_ef[t] * conj(d_eb[t - 1]);
+        k_den += d_ef[t] * conj(d_ef[t]) + d_eb[t - 1] * conj(d_eb[t - 1]);
+    }
 
-	return -2.0 * k_num / k_den;
+    return -2.0 * k_num / k_den;
 }
-

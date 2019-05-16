@@ -22,36 +22,36 @@
 #ifndef INCLUDED_SPECEST_ARFCOV_VCC_H
 #define INCLUDED_SPECEST_ARFCOV_VCC_H
 
-#include <specest/api.h>
 #include <gnuradio/sync_block.h>
+#include <specest/api.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-    /*!
-     * \brief Takes an input vector and outputs the AR model coefficients using Covariance method.
-     *
-     * Output is a complex vector of length \p order+1. An optional, second output gives the power
-     * (variance) of an equivalent noise source (when modeling the spectrum by use of white noise
-     * plus the coefficients as a filter).
-     *
-     * The coefficients can also be normalised by the noise power which is useful when this block
-     * is used for spectral analysis by passing a Boolean value to \p normalise. This default to
-     * true (normalise) if only one output is connected and to false (don't normalise) if two output
-     * are connected, but can be overriden by \p normalise.
-     *
-     * \ingroup specest
-     */
-    class SPECEST_API arfcov_vcc : virtual public gr::sync_block
-    {
-     public:
-      typedef boost::shared_ptr<arfcov_vcc> sptr;
+/*!
+ * \brief Takes an input vector and outputs the AR model coefficients using Covariance
+ * method.
+ *
+ * Output is a complex vector of length \p order+1. An optional, second output gives the
+ * power (variance) of an equivalent noise source (when modeling the spectrum by use of
+ * white noise plus the coefficients as a filter).
+ *
+ * The coefficients can also be normalised by the noise power which is useful when this
+ * block is used for spectral analysis by passing a Boolean value to \p normalise. This
+ * default to true (normalise) if only one output is connected and to false (don't
+ * normalise) if two output are connected, but can be overriden by \p normalise.
+ *
+ * \ingroup specest
+ */
+class SPECEST_API arfcov_vcc : virtual public gr::sync_block
+{
+public:
+    typedef boost::shared_ptr<arfcov_vcc> sptr;
 
-      static sptr make(unsigned blocklen, unsigned order, int normalise = -1);
-    };
+    static sptr make(unsigned blocklen, unsigned order, int normalise = -1);
+};
 
-  } // namespace specest
+} // namespace specest
 } // namespace gr
 
 #endif /* INCLUDED_SPECEST_ARFCOV_VCC_H */
-

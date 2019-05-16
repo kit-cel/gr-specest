@@ -24,25 +24,26 @@
 #include <specest/stream_to_vector_overlap.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-    class stream_to_vector_overlap_impl : public stream_to_vector_overlap
-    {
-     private:
-      int d_bytes_overlap;
+class stream_to_vector_overlap_impl : public stream_to_vector_overlap
+{
+private:
+    int d_bytes_overlap;
 
-     public:
-      stream_to_vector_overlap_impl(size_t item_size, size_t nitems_per_block, unsigned overlap);
-      ~stream_to_vector_overlap_impl();
+public:
+    stream_to_vector_overlap_impl(size_t item_size,
+                                  size_t nitems_per_block,
+                                  unsigned overlap);
+    ~stream_to_vector_overlap_impl();
 
-      int work(int noutput_items,
-	       gr_vector_const_void_star &input_items,
-	       gr_vector_void_star &output_items);
-      unsigned overlap() { return history() - 1; };
-    };
+    int work(int noutput_items,
+             gr_vector_const_void_star& input_items,
+             gr_vector_void_star& output_items);
+    unsigned overlap() { return history() - 1; };
+};
 
-  } // namespace specest
+} // namespace specest
 } // namespace gr
 
 #endif /* INCLUDED_SPECEST_STREAM_TO_VECTOR_OVERLAP_IMPL_H */
-

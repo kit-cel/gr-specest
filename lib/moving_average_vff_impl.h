@@ -24,27 +24,26 @@
 #include <specest/moving_average_vff.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-    class moving_average_vff_impl : public moving_average_vff
-    {
-     private:
-      int d_length;
-      int d_vlen;
-      float d_scale;
-      int d_max_iter;
+class moving_average_vff_impl : public moving_average_vff
+{
+private:
+    int d_length;
+    int d_vlen;
+    float d_scale;
+    int d_max_iter;
 
-     public:
-      moving_average_vff_impl(int length, int vlen, float scale, int max_iter);
-      ~moving_average_vff_impl();
+public:
+    moving_average_vff_impl(int length, int vlen, float scale, int max_iter);
+    ~moving_average_vff_impl();
 
-      int work(int noutput_items,
-	       gr_vector_const_void_star &input_items,
-	       gr_vector_void_star &output_items);
-    };
+    int work(int noutput_items,
+             gr_vector_const_void_star& input_items,
+             gr_vector_void_star& output_items);
+};
 
-  } // namespace specest
+} // namespace specest
 } // namespace gr
 
 #endif /* INCLUDED_SPECEST_MOVING_AVERAGE_VFF_IMPL_H */
-

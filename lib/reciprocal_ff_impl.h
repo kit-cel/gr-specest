@@ -24,24 +24,23 @@
 #include <specest/reciprocal_ff.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-    class reciprocal_ff_impl : public reciprocal_ff
-    {
-     private:
-      int d_vlen;
+class reciprocal_ff_impl : public reciprocal_ff
+{
+private:
+    int d_vlen;
 
-     public:
-      reciprocal_ff_impl(int vlen);
-      ~reciprocal_ff_impl();
+public:
+    reciprocal_ff_impl(int vlen);
+    ~reciprocal_ff_impl();
 
-      int work(int noutput_items,
-	       gr_vector_const_void_star &input_items,
-	       gr_vector_void_star &output_items);
-    };
+    int work(int noutput_items,
+             gr_vector_const_void_star& input_items,
+             gr_vector_void_star& output_items);
+};
 
-  } // namespace specest
+} // namespace specest
 } // namespace gr
 
 #endif /* INCLUDED_SPECEST_RECIPROCAL_FF_IMPL_H */
-

@@ -22,55 +22,58 @@
 #ifndef INCLUDED_SPECEST_BURG_H
 #define INCLUDED_SPECEST_BURG_H
 
-#include <specest/api.h>
 #include <gnuradio/hier_block2.h>
+#include <specest/api.h>
 
 namespace gr {
-  namespace specest {
+namespace specest {
 
-	/**
-	 * \brief Estimate PSD using Burg's method.
-	 *
-	 * Split the input stream into chunks, and performs the following operation on
-	 * each chunk:
-	 * - Calculate the AR coefficients of the given order by Burg's algorithm
-	 * - Use an FFT on the coefficients to calculate the spectral estimate
-	 *
-	 * No averaging in time is performed. To do this, append a moving_average_vff or
-	 * single_pole_iir_filter_ff.
-	 *
-	 * \ingroup specest
-	 */
+/**
+ * \brief Estimate PSD using Burg's method.
+ *
+ * Split the input stream into chunks, and performs the following operation on
+ * each chunk:
+ * - Calculate the AR coefficients of the given order by Burg's algorithm
+ * - Use an FFT on the coefficients to calculate the spectral estimate
+ *
+ * No averaging in time is performed. To do this, append a moving_average_vff or
+ * single_pole_iir_filter_ff.
+ *
+ * \ingroup specest
+ */
 
-	/**
-	 * \param block_len Number of input samples to be analysed for one output vector
-	 * \param fft_len Number of points in FFT (equal to the output vector length)
-	 * \param order The order of the AR model
-	 * \param fftshift True means DC is shifted to the middle
-	 * \param decimation Only process every n-th block. Results in less
-	 *                   operations per input sample, but results in a lower
-	 *                   update rate of the spectrum estimate.
-	 */
+/**
+ * \param block_len Number of input samples to be analysed for one output vector
+ * \param fft_len Number of points in FFT (equal to the output vector length)
+ * \param order The order of the AR model
+ * \param fftshift True means DC is shifted to the middle
+ * \param decimation Only process every n-th block. Results in less
+ *                   operations per input sample, but results in a lower
+ *                   update rate of the spectrum estimate.
+ */
 
-    class SPECEST_API burg : virtual public gr::hier_block2
-    {
-     public:
-      typedef boost::shared_ptr<burg> sptr;
+class SPECEST_API burg : virtual public gr::hier_block2
+{
+public:
+    typedef boost::shared_ptr<burg> sptr;
 
-      /*!
-       * \brief Return a shared_ptr to a new instance of specest::burg.
-       *
-       * To avoid accidental use of raw pointers, specest::burg's
-       * constructor is in a private implementation
-       * class. specest::burg::make is the public interface for
-       * creating new instances.
-       */
-      static sptr make(unsigned block_len, unsigned fft_len, unsigned order, bool fftshift = false, int decimation = 1);
-      virtual void set_decimation(int n) = 0; //!< Update the decimation rate at the input
-    };
+    /*!
+     * \brief Return a shared_ptr to a new instance of specest::burg.
+     *
+     * To avoid accidental use of raw pointers, specest::burg's
+     * constructor is in a private implementation
+     * class. specest::burg::make is the public interface for
+     * creating new instances.
+     */
+    static sptr make(unsigned block_len,
+                     unsigned fft_len,
+                     unsigned order,
+                     bool fftshift = false,
+                     int decimation = 1);
+    virtual void set_decimation(int n) = 0; //!< Update the decimation rate at the input
+};
 
-  } // namespace specest
+} // namespace specest
 } // namespace gr
 
 #endif /* INCLUDED_SPECEST_BURG_H */
-
