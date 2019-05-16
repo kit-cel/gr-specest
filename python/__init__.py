@@ -23,41 +23,19 @@ This is the GNU Radio SPECEST module. Place your Python package
 description here (python/__init__.py).
 '''
 
-# ----------------------------------------------------------------
-# Temporary workaround for ticket:181 (swig+python problem)
-import sys
-_RTLD_GLOBAL = 0
-try:
-    from dl import RTLD_GLOBAL as _RTLD_GLOBAL
-except ImportError:
-    try:
-	from DLFCN import RTLD_GLOBAL as _RTLD_GLOBAL
-    except ImportError:
-	pass
-
-if _RTLD_GLOBAL != 0:
-    _dlopenflags = sys.getdlopenflags()
-    sys.setdlopenflags(_dlopenflags|_RTLD_GLOBAL)
-# ----------------------------------------------------------------
 
 
 # import swig generated symbols into the specest namespace
-from specest_swig import *
+from .specest_swig import *
 
 # import any pure python here
 #
-from specest_mtm import mtm
-from specest_gendpss import gendpss
+from .specest_mtm import mtm
+from .specest_gendpss import gendpss
 
 try:
-    from spectrum_sink_gl import spectrum_sink_c
-    from spectrum_sink_gl import spectrum_sink_f
-except ImportError as e:
-    print "couldn't import graphical sinks:"
-    print e
-
-# ----------------------------------------------------------------
-# Tail of workaround
-if _RTLD_GLOBAL != 0:
-    sys.setdlopenflags(_dlopenflags)      # Restore original flags
-# ----------------------------------------------------------------
+    from .spectrum_sink_gl import spectrum_sink_c
+    from .spectrum_sink_gl import spectrum_sink_f
+except ImportError as ex:
+    print("couldn't import graphical sinks:")
+    print(ex)

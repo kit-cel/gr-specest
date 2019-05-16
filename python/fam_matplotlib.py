@@ -22,8 +22,9 @@
 Provides functionality to run the FAM on-line with Matplotlib output.
 """
 
-import numpy
+import specest
 import time
+import numpy
 import gobject
 import matplotlib
 matplotlib.use('GTKAgg')
@@ -31,7 +32,6 @@ import matplotlib.pylab as plt
 from gnuradio import gr
 from gnuradio import analog
 from gnuradio import blocks
-import specest
 
 class FAMProcessor(gr.top_block):
     """ Simple flow graph: run file through FAM.
@@ -42,7 +42,7 @@ class FAMProcessor(gr.top_block):
         if filename is None:
             src = analog.noise_source_c(analog.GR_GAUSSIAN, 1)
             if verbose:
-                print "Using Gaussian noise source."
+                print("Using Gaussian noise source.")
         else:
             if sample_type == 'complex':
                 src = blocks.file_source(gr.sizeof_gr_complex, filename, True)
@@ -51,12 +51,12 @@ class FAMProcessor(gr.top_block):
                 src = blocks.float_to_complex()
                 self.connect(fsrc, src)
             if verbose:
-                print "Reading data from %s" % filename
+                print(("Reading data from %s" % filename))
         if verbose:
-            print "FAM configuration:"
-            print "N'   = %d" % Np
-            print "P    = %d" % P
-            print "L    = %d" % L
+            print("FAM configuration:")
+            print(("N'   = %d" % Np))
+            print(("P    = %d" % P))
+            print(("L    = %d" % L))
             #print "Δf   = %f" % asfd
         sink = blocks.null_sink(gr.sizeof_float * 2 * Np)
         self.cyclo_fam = specest.cyclo_fam(Np, P, L)
@@ -66,7 +66,7 @@ def animate(fam_block, image, cbar):
     """ Read the data from the running block and shove it onto
     the Matplotlib widget.
     """
-    while(True):
+    while True:
         raw = fam_block.get_estimate()
         data = numpy.array(raw)
         image.set_data(data)
@@ -90,9 +90,9 @@ def setup_fam_matplotlib(Np, P, L, filename, sample_type, verbose,
     raw = mytb.cyclo_fam.get_estimate()
     data = numpy.array(raw)
     image = plt.imshow(data,
-                        interpolation='nearest',
-                        animated=True,
-                        extent=(-0.5, 0.5-1.0/Np, -1.0, 1.0-1.0/(P*L)))
+                       interpolation='nearest',
+                       animated=True,
+                       extent=(-0.5, 0.5-1.0/Np, -1.0, 1.0-1.0/(P*L)))
     cbar = plt.colorbar(image)
     plt.xlabel('frequency / fs')
     plt.ylabel('cycle frequency / fs')
@@ -102,6 +102,5 @@ def setup_fam_matplotlib(Np, P, L, filename, sample_type, verbose,
     # optional:
     # pylab.axhline(linewidth=1, color='w')
     # pylab.axvline(linewidth=1, color='w')
-    gobject.idle_add(lambda iter=animate_func(mytb.cyclo_fam, image, cbar): iter.next())
+    gobject.idle_add(lambda iter=animate_func(mytb.cyclo_fam, image, cbar): next(iter))
     plt.show()
-

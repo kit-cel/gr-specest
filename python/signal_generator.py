@@ -17,11 +17,11 @@
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
 
+import os
+import numpy
 from gnuradio import gr
 from gnuradio import blocks
 from gnuradio import analog
-import numpy
-import os
 
 class signal_generator(gr.hier_block2):
     """
@@ -39,7 +39,7 @@ class signal_generator(gr.hier_block2):
     @param nsamples: Number of samples that will be generated before the block stops
     @type nsamples: number
     """
-    def __init__(self, n_sinusoids = 1, SNR = 10, samp_rate = 32e3, nsamples = 2048):
+    def __init__(self, n_sinusoids=1, SNR=10, samp_rate=32e3, nsamples=2048):
         gr.hier_block2.__init__(self, "ESPRIT/MUSIC signal generator",
                                 gr.io_signature(0, 0, gr.sizeof_float),
                                 gr.io_signature(1, 1, gr.sizeof_gr_complex))
@@ -49,9 +49,11 @@ class signal_generator(gr.hier_block2):
         self.samp_rate = samp_rate
         # create our signals ...
         for s in range(n_sinusoids):
-            self.srcs.append(analog.sig_source_c(samp_rate,
-                analog.GR_SIN_WAVE, 1000 * s + 2000,
-                numpy.sqrt(sigampl/n_sinusoids)))
+            self.srcs.append(
+                analog.sig_source_c(
+                    samp_rate,
+                    analog.GR_SIN_WAVE, 1000 * s + 2000,
+                    numpy.sqrt(sigampl/n_sinusoids)))
         seed = ord(os.urandom(1))
         self.noise = analog.noise_source_c(analog.GR_GAUSSIAN, 1, seed)
         self.add = blocks.add_cc()
@@ -72,4 +74,3 @@ class signal_generator(gr.hier_block2):
         for s in self.srcs:
             omegas.append(s.frequency() / (0.5*self.samp_rate) * numpy.pi)
         return sorted(omegas)
-

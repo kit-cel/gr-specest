@@ -73,4 +73,4 @@ class qa_music (gr_unittest.TestCase):
 
 
 if __name__ == '__main__':
-    gr_unittest.main ()
+    gr_unittest.main()

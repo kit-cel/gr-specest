@@ -17,7 +17,7 @@
 # Boston, MA 02110-1301, USA.
 #
 
-from __future__ import division
+
 
 ##################################################
 # Imports
@@ -29,8 +29,8 @@ from gnuradio.wxgui import common
 from gnuradio.wxgui.pubsub import pubsub
 from gnuradio.wxgui import constants
 import math
-from logpwrspectrum import logpwrspectrum_f, logpwrspectrum_c
-import specest_window
+from .logpwrspectrum import logpwrspectrum_f, logpwrspectrum_c
+from . import specest_window
 
 ##################################################
 # FFT sink block (wrapper for old wxgui)

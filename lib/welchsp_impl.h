@@ -26,7 +26,7 @@
 #include <gnuradio/fft/fft_vcc.h>
 #include <gnuradio/blocks/complex_to_mag_squared.h>
 #include <gnuradio/filter/single_pole_iir_filter_ff.h>
-#include <gnuradio/blocks/multiply_const_vff.h>
+#include <gnuradio/blocks/multiply_const_v.h>
 #include <specest/stream_to_vector_overlap.h>
 
 namespace gr {

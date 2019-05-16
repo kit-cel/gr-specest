@@ -21,27 +21,28 @@
 from gnuradio import gr
 from gnuradio import blocks
 from gnuradio import fft
-import specest_gendpss
+from . import specest_gendpss
 import specest_swig
 
 ## Estimates PSD using Thomson's multitaper method
 # @param[in] N: Length of the FFT
 # @param[in] NW: Time Bandwidth Product usually is of value 2, 2.5, 3.0, 3.5, or 4
 # @param[in] K: Numbers of Tapers to use. K should be smaller than 2*NW
-# @param[in] weighting: Which type of weighting to use for the eigenspectra. Choices can be 'unity','eigenvalues' or adaptive
+# @param[in] weighting: Which type of weighting to use for the eigenspectra.
+#                       Choices can be 'unity','eigenvalues' or adaptive
 class mtm(gr.hier_block2):
     """ Estimates PSD using Thomson's multitaper method. """
     def __init__(self, N=512 , NW=3 , K=5, weighting='adaptive', fftshift=False):
         gr.hier_block2.__init__(self, "mtm",
-                gr.io_signature(1, 1, gr.sizeof_gr_complex),
-                gr.io_signature(1, 1, gr.sizeof_float*N))
+                                gr.io_signature(1, 1, gr.sizeof_gr_complex),
+                                gr.io_signature(1, 1, gr.sizeof_float*N))
         self.check_parameters(N, NW, K)
 
         self.s2v = blocks.stream_to_vector(gr.sizeof_gr_complex, N)
         self.connect(self, self.s2v)
 
         dpss = specest_gendpss.gendpss(N=N, NW=NW, K=K)
-        self.mtm = [eigenspectrum(dpss.dpssarray[i], fftshift) for i in xrange(K)]
+        self.mtm = [eigenspectrum(dpss.dpssarray[i], fftshift) for i in range(K)]
         if weighting == 'adaptive':
             self.sum = specest_swig.adaptiveweighting_vff(N, dpss.lambdas)
             self.connect_mtm(K)
@@ -54,7 +55,7 @@ class mtm(gr.hier_block2):
         elif weighting == 'eigenvalues':
             self.eigvalmulti = []
             self.lambdasum = 0
-            for i in xrange(K):
+            for i in range(K):
                 self.eigvalmulti.append(blocks.multiply_const_vff([dpss.lambdas[i]]*N))
                 self.lambdasum += dpss.lambdas[i]
             self.divide = blocks.multiply_const_vff([1./self.lambdasum]*N)
@@ -62,12 +63,12 @@ class mtm(gr.hier_block2):
             self.connect_mtm(K)
             self.connect(self.sum, self.divide, self)
         else:
-            raise ValueError, 'weighting-type should be: adaptive, unity or eigenvalues'
+            raise ValueError('weighting-type should be: adaptive, unity or eigenvalues')
 
 
     def connect_mtm(self, K):
         """ Connects up all the eigenspectrum calculators. """
-        for i in xrange(K):
+        for i in range(K):
             self.connect(self.s2v, self.mtm[i])
             self.connect(self.mtm[i], (self.sum, i))
 
@@ -78,10 +79,14 @@ class mtm(gr.hier_block2):
     # @param[in] K: Numbers of Tapers to used
     def check_parameters(self, N, NW, K):
         """ Checks the validity of parameters. """
-        if NW < 1: raise ValueError, 'NW must be greater than or equal to 1'
-        if K < 2:  raise ValueError, 'K must be greater than or equal to 2'
-        if (N % 1): raise TypeError, 'N has to be an integer'
-        if N < 1:  raise ValueError, 'N has to be greater than 1'
+        if NW < 1:
+            raise ValueError('NW must be greater than or equal to 1')
+        if K < 2:
+            raise ValueError('K must be greater than or equal to 2')
+        if N % 1:
+            raise TypeError('N has to be an integer')
+        if N < 1:
+            raise ValueError('N has to be greater than 1')
 
 
 ## Computes the eigenspectra for the multitaper spectrum estimator:
@@ -92,10 +97,9 @@ class eigenspectrum(gr.hier_block2):
     data --> multiplication dpss --> FFT --> mag-square --> output eigenspectrum """
     def __init__(self, dpss, fftshift=False):
         gr.hier_block2.__init__(self, "eigenspectrum",
-                gr.io_signature(1, 1, gr.sizeof_gr_complex*len(dpss)),
-                gr.io_signature(1, 1, gr.sizeof_float*len(dpss)))
+                                gr.io_signature(1, 1, gr.sizeof_gr_complex*len(dpss)),
+                                gr.io_signature(1, 1, gr.sizeof_float*len(dpss)))
         self.window = dpss
         self.fft = fft.fft_vcc(len(dpss), True, self.window, fftshift)
         self.c2mag = blocks.complex_to_mag_squared(len(dpss))
         self.connect(self, self.fft, self.c2mag, self)
-

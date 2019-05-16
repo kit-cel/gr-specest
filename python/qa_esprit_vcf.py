@@ -16,13 +16,12 @@
 # along with this software; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
-
 #
 
+import numpy
 from gnuradio import gr, gr_unittest, eng_notation
 from gnuradio import blocks
 import specest_swig as specest
-import numpy
 import signal_generator as siggen
 
 class qa_esprit_vcf (gr_unittest.TestCase):
@@ -79,15 +78,15 @@ class qa_esprit_vcf (gr_unittest.TestCase):
         omega = self.siggen.omegas()[0]
         for i in range(n_trials):
             MSE += (omega - self.sink.data()[i])**2.0
-        print '\n' + 70*'-'
-        print 'Testing specest_esprit_vcf ...'
-        print 'Ran %u trials to estimate the frequency' % n_trials
-        print 'Used %u samples to estimate the frequency' % nsamples
-        print 'Sampling rate %s' % eng_notation.num_to_str(samp_rate)
-        print 'SNR of %u dB' % SNR
-        print 'Root mean square error %g' % numpy.sqrt(MSE/n_trials)
-        print 'Cramer-Rao Bound %g' % numpy.sqrt(6/10**(SNR/10.0)/nsamples**3)
-        print 70*'-'
+        print('\n' + 70*'-')
+        print('Testing specest_esprit_vcf ...')
+        print('Ran %u trials to estimate the frequency' % n_trials)
+        print('Used %u samples to estimate the frequency' % nsamples)
+        print('Sampling rate %s' % eng_notation.num_to_str(samp_rate))
+        print('SNR of %u dB' % SNR)
+        print('Root mean square error %g' % numpy.sqrt(MSE/n_trials))
+        print('Cramer-Rao Bound %g' % numpy.sqrt(6/10**(SNR/10.0)/nsamples**3))
+        print(70*'-')
 
 if __name__ == '__main__':
     gr_unittest.main ()

@@ -18,10 +18,10 @@
 # Boston, MA 02110-1301, USA.
 #
 
+from numpy import *
+import specest_swig as specest
 from gnuradio import gr, gr_unittest
 from gnuradio import blocks
-import specest_swig as specest
-from numpy import *
 
 class test_specest_welch(gr_unittest.TestCase):
     def setUp (self):
@@ -51,7 +51,7 @@ class test_specest_welch(gr_unittest.TestCase):
         self.tb.connect(src, welch, sink)
         self.tb.run()
 
-        dst_data =  sink.data()
+        dst_data = sink.data()
         dst_data = array(dst_data[-fft_len:])
         power_est = sum(dst_data) * 2 * pi / fft_len
 
@@ -64,7 +64,7 @@ class test_specest_welch(gr_unittest.TestCase):
         fft_len = 1024
         ma_len = 8
 
-        src_data = (1,) * ((ma_len/2 + 1) * fft_len)
+        src_data = (1,) * (int(ma_len/2 + 1) * fft_len)
         src = blocks.vector_source_c(src_data, False)
         welch = specest.welch(fft_len)
         sink = blocks.vector_sink_f(fft_len)
@@ -72,7 +72,7 @@ class test_specest_welch(gr_unittest.TestCase):
         self.tb.connect(src, welch, sink)
         self.tb.run()
 
-        dst_data =  sink.data()
+        dst_data = sink.data()
         dst_data = array(dst_data[-fft_len:])
         power_est = sum(dst_data) * 2 * pi / fft_len
 

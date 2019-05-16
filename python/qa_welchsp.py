@@ -54,7 +54,7 @@ class test_specest_welchsp(gr_unittest.TestCase):
         dst_data =  sink.data()
         dst_data = array(dst_data[-fft_len:])
         power_est = sum(dst_data) * 2 * pi / fft_len
-        print power_est
+        print(power_est)
 
         self.assertAlmostEqual(power_est, 1, 3)
 
