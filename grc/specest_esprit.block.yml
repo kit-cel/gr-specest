@@ -1,26 +1,26 @@
 id: specest_esprit
-label: Esprit
+label: ESPRIT Pseudospectrum Generator
 category: SPECEST
 
 parameters:
 -   id: n
     label: Number of Sinusoids
     dtype: int
-    hide: ${ 'part' if vlen == 1 else 'none' }
+    default: 1
 -   id: m
     label: Dimension of Correlation Matrix
     dtype: int
-    hide: ${ 'part' if vlen == 1 else 'none' }
+    default: 32
 -   id: nsamples
     label: Number of samples per correlation Matrix
     dtype: int
 -   id: pspectrum_len
     label: Length of generated Pseudospectrum
     dtype: int
-    hide: ${ 'part' if vlen == 1 else 'none' }
 -   id: decimation
     label: Decimation
     dtype: int
+    hide: ${ 'part' if decimation == 1 else 'none' }
 
 inputs:
 -   domain: stream

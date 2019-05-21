@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Copyright 2011 Communications Engineering Lab, KIT
 #
@@ -32,7 +32,7 @@ def animate_bpsk_qpsk_detect(Np, P, L, fam_block, image, cbar):
     """ Alternative animate function: after reading an estimate,
     perform a simple check to see if the input was BPSK or QPSK.
     """
-    while(True):
+    while True:
         raw = fam_block.get_estimate()
         data = numpy.array(raw)
         """ The actual decision code:
@@ -41,7 +41,7 @@ def animate_bpsk_qpsk_detect(Np, P, L, fam_block, image, cbar):
         f_max     = numpy.max(data[P*L, :])  # Max value on f-Axis
         alpha_max = numpy.max(data[:, Np])   # Max value on alpha-Axis
         tolerance = 0.8                      # Depends on the reliability of estimate
-        if  alpha_max < tolerance*f_max:
+        if alpha_max < tolerance*f_max:
             plt.title('QPSK')
         else:
             plt.title('BPSK')
@@ -58,7 +58,8 @@ def main():
     P  = 128
     L  = Np/8
     filename = 'bpsk_qpsk.bin'
-    animate_func = lambda fam_block, image, cbar: animate_bpsk_qpsk_detect(Np, P, L, fam_block, image, cbar)
+    animate_func = \
+        lambda fam_block, image, cbar: animate_bpsk_qpsk_detect(Np, P, L, fam_block, image, cbar)
     fam_matplotlib.setup_fam_matplotlib(filename=filename, sample_type="float",
                                         Np=Np, P=P, L=L,
                                         verbose=False,
@@ -66,4 +67,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

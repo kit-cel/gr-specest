@@ -29,10 +29,13 @@ namespace specest {
 
 /*! Convenience class to generate the ESPRIT pseudospectrum
  *
+ * The output from this block can be directly be piped into a vector display
+ * sink, if visualization is the desired outcome.
+ *
  * The Estimator works on complex samples, if \p decimation is not set
- * it will attempt to work on the full samplerate. However if \p decimation is set
- * to anything else than one, it will throw away vectors of samples of length
- * \p nsamples to win some time for calculation.
+ * it will attempt to work on the full sample rate. However if \p decimation is
+ * set to anything else than one, it will throw away vectors of samples of
+ * length \p nsamples to win some time for calculation.
  *
  * \ingroup specest
  */

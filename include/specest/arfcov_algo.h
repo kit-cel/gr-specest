@@ -20,11 +20,6 @@
 #include <gnuradio/gr_complex.h>
 #include <specest/api.h>
 
-
-/*#include <complex>
-typedef std::complex<float>			gr_complex;
-typedef std::complex<double>			gr_complexd;*/
-
 namespace gr {
 namespace specest {
 

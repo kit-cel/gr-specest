@@ -18,7 +18,6 @@
  * Boston, MA 02110-1301, USA.
  */
 
-
 #ifndef INCLUDED_SPECEST_ARBURG_VCC_H
 #define INCLUDED_SPECEST_ARBURG_VCC_H
 
@@ -28,9 +27,7 @@
 namespace gr {
 namespace specest {
 
-/*!
- * \brief Takes an input vector and outputs the AR model coefficients using
- *        Burg's method.
+/*! Takes an input vector and outputs the AR model coefficients using Burg's method.
  *
  * Output is a complex vector of length \p order+1. An optional, second output
  * gives the power (variance) of an equivalent noise source (when modeling the
@@ -49,6 +46,11 @@ class SPECEST_API arburg_vcc : virtual public gr::sync_block
 public:
     typedef boost::shared_ptr<arburg_vcc> sptr;
 
+    /*
+     * \param blocklen Block Length (see arburg_algo::arburg_algo())
+     * \param order Order (see arburg_algo::arburg_algo())
+     * \param normalise Normalisation Factor (see arburg_algo::calculate())
+     */
     static sptr make(unsigned blocklen, unsigned order, int normalise = -1);
 };
 

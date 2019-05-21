@@ -29,13 +29,14 @@ public:
     /** \brief Calculate the AR model coefficients from the the given input data.
      *
      * \p normalise determines whether the coefficients are normalised to the power
-     *  of the equivalent noise source. If normalise is of an other value than 1,
+     *  of the equivalent noise source. If normalise is of any other value than 1,
      *  the coefficients are additionally normalised by the square root of \p normalise.
      *
      * \param[in] data Pointer to \p blocklen complex signal values. \p ar_coeff
      * \param[out] ar_coeff Points to preallocated space for \p order+1 (!) complex
-     * coefficients. \param[in] normalise Normalisation factor, normalise == 0 means no
-     * normalisation.
+     *                      coefficients.
+     * \param[in] normalise Normalisation factor, normalise == 0 means no
+     *                      normalisation.
      */
     float calculate(const gr_complex* data, gr_complex* ar_coeff, int normalise);
 

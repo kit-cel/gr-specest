@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # vim: set fileencoding=utf-8 :
 #
 # Copyright 2011,2013 Communications Engineering Lab, KIT
@@ -22,7 +22,6 @@
 Provides functionality to run the FAM on-line with Matplotlib output.
 """
 
-import specest
 import time
 import numpy
 import gobject
@@ -32,6 +31,7 @@ import matplotlib.pylab as plt
 from gnuradio import gr
 from gnuradio import analog
 from gnuradio import blocks
+import specest
 
 class FAMProcessor(gr.top_block):
     """ Simple flow graph: run file through FAM.

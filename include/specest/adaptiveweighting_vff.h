@@ -28,10 +28,10 @@
 namespace gr {
 namespace specest {
 
-/*!
- * @brief Output is the PSD computed by Thomson's Multitaper Method. Adaptive weighting is
- * used on the eigenspectra. [1] "Spectral Analysis for Physical Applications" D.B.
- * Percival and Andrew T. Walden 1993
+/*! Output is the PSD computed by Thomson's Multitaper Method. Adaptive weighting
+ * is used on the eigenspectra.
+ *
+ * [1] "Spectral Analysis for Physical Applications" D.B. Percival and Andrew T. Walden, 1993
  */
 class SPECEST_API adaptiveweighting_vff : virtual public gr::sync_block
 {

@@ -10,8 +10,7 @@ parameters:
     dtype: enum
     options: [complex, float, int, short, byte]
     option_attributes:
-        size: [gr.sizeof_gr_complex, gr.sizeof_float, gr.sizeof_int, gr.sizeof_short,
-            gr.sizeof_char]
+        size: [gr.sizeof_gr_complex, gr.sizeof_float, gr.sizeof_int, gr.sizeof_short, gr.sizeof_char]
     hide: part
 -   id: vlen_in
     label: Input Vector Length

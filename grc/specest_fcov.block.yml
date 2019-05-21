@@ -2,7 +2,7 @@
 
 id: specest_fcov
 label: Fcov
-category: SPECEST
+category: Spectrum Estimation
 
 parameters:
 -   id: fft_len

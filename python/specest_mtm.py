@@ -22,7 +22,7 @@ from gnuradio import gr
 from gnuradio import blocks
 from gnuradio import fft
 from . import specest_gendpss
-import specest_swig
+from . import adaptiveweighting_vff
 
 ## Estimates PSD using Thomson's multitaper method
 # @param[in] N: Length of the FFT
@@ -44,7 +44,7 @@ class mtm(gr.hier_block2):
         dpss = specest_gendpss.gendpss(N=N, NW=NW, K=K)
         self.mtm = [eigenspectrum(dpss.dpssarray[i], fftshift) for i in range(K)]
         if weighting == 'adaptive':
-            self.sum = specest_swig.adaptiveweighting_vff(N, dpss.lambdas)
+            self.sum = adaptiveweighting_vff(N, dpss.lambdas)
             self.connect_mtm(K)
             self.connect(self.sum, self)
         elif weighting == 'unity':
