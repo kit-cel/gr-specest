@@ -24,9 +24,11 @@ Provides functionality to run the FAM on-line with Matplotlib output.
 
 import time
 import numpy
-import gobject
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import GObject
 import matplotlib
-matplotlib.use('GTKAgg')
+matplotlib.use('GTK3Agg')
 import matplotlib.pylab as plt
 from gnuradio import gr
 from gnuradio import analog
@@ -102,5 +104,5 @@ def setup_fam_matplotlib(Np, P, L, filename, sample_type, verbose,
     # optional:
     # pylab.axhline(linewidth=1, color='w')
     # pylab.axvline(linewidth=1, color='w')
-    gobject.idle_add(lambda iter=animate_func(mytb.cyclo_fam, image, cbar): next(iter))
+    GObject.idle_add(lambda iter=animate_func(mytb.cyclo_fam, image, cbar): next(iter))
     plt.show()
