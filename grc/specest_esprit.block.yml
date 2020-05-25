@@ -12,7 +12,7 @@ parameters:
     dtype: int
     default: 32
 -   id: nsamples
-    label: Number of samples per correlation Matrix
+    label: Number of samples per Correlation Matrix
     dtype: int
 -   id: pspectrum_len
     label: Length of generated Pseudospectrum

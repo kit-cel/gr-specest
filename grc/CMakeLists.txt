@@ -19,6 +19,7 @@
 # Boston, MA 02110-1301, USA.
 
 install(FILES
+    specest.tree.yml
     specest_reciprocal_ff.block.yml
     specest_pad_vector.block.yml
     specest_stream_to_vector_overlap.block.yml
@@ -31,6 +32,7 @@ install(FILES
     specest_arburg_vcc.block.yml
     specest_burg.block.yml
     specest_welch.block.yml
+    specest_welchsp.block.yml
     specest_esprit_vcf.block.yml
     specest_esprit_spectrum_vcf.block.yml
     specest_esprit.block.yml

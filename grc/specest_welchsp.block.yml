@@ -1,5 +1,5 @@
-id: specest_welch
-label: Welch Spectrum Estimator
+id: specest_welchsp
+label: Welch Spectrum Estimator (Single-Pole)
 category: Spectrum Estimation
 
 parameters:
@@ -11,10 +11,10 @@ parameters:
     label: Overlap
     dtype: int
     default: '-1'
--   id: malen
-    label: Moving Average Length
-    dtype: int
-    default: '8'
+-   id: alpha
+    label: Moving Average Coefficient
+    dtype: real
+    default: 0.1
 -   id: fftshift
     label: FFT Shift
     dtype: enum
@@ -44,6 +44,6 @@ templates:
     imports: |-
         import specest
         from gnuradio.filter import firdes
-    make: specest.welch(${fftlen}, ${overlap}, ${malen}, ${fftshift}, ${wintype}, ${beta})
+    make: specest.welch(${fftlen}, ${overlap}, ${alpha}, ${fftshift}, ${wintype}, ${beta})
 
 file_format: 1
