@@ -2,7 +2,6 @@
 
 id: specest_reciprocal_ff
 label: Reciprocal
-category: Spectrum Estimation
 
 parameters:
 -   id: vlen

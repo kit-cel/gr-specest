@@ -5,7 +5,7 @@ label: Burg Spectrum Estimator
 category: Spectrum Estimation
 
 parameters:
--   id: block
+-   id: blocklen
     label: Input block length
     dtype: int
     default: '256'
@@ -13,15 +13,10 @@ parameters:
     label: FFT Length
     dtype: int
     default: '1024'
-    hide: ${ 'part' if vlen == 1 else 'none' }
 -   id: order
     label: AR model order
     dtype: int
     default: '5'
--   id: malen
-    label: Moving Average Length
-    dtype: int
-    default: '8'
 -   id: fftshift
     label: FFT Shift
     dtype: enum

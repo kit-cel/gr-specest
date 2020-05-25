@@ -1,0 +1,21 @@
+'[gr-specest]':
+- Spectral Estimators:
+    - specest_welch
+    - specest_welchsp
+    - specest_music
+    - specest_esprit
+    - specest_burg
+    - specest_cyclo_fam
+- Algorithms:
+    - specest_arburg_vcc
+    - specest_arfcov_vcc
+    - specest_arfmcov_vcc
+    - specest_esprit_vcf
+    - specest_esprit_spectrum_vcf
+    - specest_cyclo_fam_calcspectrum_vcf
+    - specest_music_vcf
+- Utilities:
+    - specest_reciprocal_ff
+    - specest_adaptiveweighting_vff
+    - specest_stream_to_vector_overlap
+    - specest_pad_vector
