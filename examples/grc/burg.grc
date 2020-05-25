@@ -1,0 +1,470 @@
+options:
+  parameters:
+    author: mbr0wn
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: '.:'
+    id: burg
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: Burg's Algorithm
+    window_size: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 12.0]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: ar_taps
+  id: variable
+  parameters:
+    comment: ''
+    value: '[1, -1.372, 1.843, -1.238, .849]'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [528, 12.0]
+    rotation: 0
+    state: enabled
+- name: fft_len
+  id: variable
+  parameters:
+    comment: ''
+    value: '1024'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [384, 12.0]
+    rotation: 0
+    state: enabled
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: 1e6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [248, 12.0]
+    rotation: 0
+    state: enabled
+- name: analog_fastnoise_source_x_0
+  id: analog_fastnoise_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    amp: '1'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    noise_type: analog.GR_GAUSSIAN
+    samples: '8192'
+    seed: '0'
+    type: complex
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [48, 332.0]
+    rotation: 0
+    state: true
+- name: blocks_nlog10_ff_0
+  id: blocks_nlog10_ff
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    k: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    n: '10'
+    vlen: fft_len
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1376, 144.0]
+    rotation: 0
+    state: true
+- name: blocks_nlog10_ff_0_0
+  id: blocks_nlog10_ff
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    k: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    n: '10'
+    vlen: fft_len
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1352, 512.0]
+    rotation: 0
+    state: true
+- name: blocks_nlog10_ff_0_0_0
+  id: blocks_nlog10_ff
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    k: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    n: '10'
+    vlen: fft_len
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1464, 336.0]
+    rotation: 0
+    state: true
+- name: blocks_nlog10_ff_0_0_0_0
+  id: blocks_nlog10_ff
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    k: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    n: '10'
+    vlen: fft_len
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1288, 720.0]
+    rotation: 0
+    state: true
+- name: blocks_throttle_0
+  id: blocks_throttle
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    ignoretag: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samples_per_second: samp_rate
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [352, 364.0]
+    rotation: 0
+    state: true
+- name: blocks_vector_source_x_0
+  id: blocks_vector_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    repeat: 'True'
+    tags: '[]'
+    type: float
+    vector: fftpack.fftshift(abs(ssignal.freqz(1, ar_taps, fft_len, True)[1])) / 100
+    vlen: fft_len
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1160, 324.0]
+    rotation: 0
+    state: true
+- name: blocks_vector_source_x_0_0
+  id: blocks_vector_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    repeat: 'True'
+    tags: '[]'
+    type: float
+    vector: fftpack.fftshift(abs(ssignal.freqz(1, ar_taps, fft_len, True)[1]))
+    vlen: fft_len
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [984, 708.0]
+    rotation: 0
+    state: true
+- name: iir_filter_xxx_0
+  id: iir_filter_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    fbtaps: ar_taps
+    fftaps: '[1]'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    oldstyle: 'False'
+    type: ccf
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [576, 356.0]
+    rotation: 0
+    state: true
+- name: import_0
+  id: import
+  parameters:
+    alias: ''
+    comment: ''
+    imports: from scipy import signal as ssignal
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [800, 20.0]
+    rotation: 0
+    state: true
+- name: import_0_0
+  id: import
+  parameters:
+    alias: ''
+    comment: ''
+    imports: from scipy import fftpack
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [944, 20.0]
+    rotation: 0
+    state: true
+- name: qtgui_vector_sink_f_0
+  id: qtgui_vector_sink_f
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    average: '1.0'
+    color1: '"blue"'
+    color10: '"dark blue"'
+    color2: '"red"'
+    color3: '"green"'
+    color4: '"black"'
+    color5: '"cyan"'
+    color6: '"magenta"'
+    color7: '"yellow"'
+    color8: '"dark red"'
+    color9: '"dark green"'
+    comment: ''
+    grid: 'True'
+    gui_hint: ''
+    label1: Burg's Method
+    label10: ''
+    label2: Filter Spectrum
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '""'
+    nconnections: '2'
+    ref_level: '0'
+    showports: 'False'
+    update_time: '0.10'
+    vlen: fft_len
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    x_axis_label: Frequency
+    x_start: -samp_rate/2/1e6
+    x_step: samp_rate/fft_len/1e6
+    x_units: MHz
+    y_axis_label: Power Spectrum Density
+    y_units: dB
+    ymax: '40'
+    ymin: '-40'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1664, 60.0]
+    rotation: 0
+    state: true
+- name: qtgui_vector_sink_f_0_0
+  id: qtgui_vector_sink_f
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    average: '1.0'
+    color1: '"blue"'
+    color10: '"dark blue"'
+    color2: '"red"'
+    color3: '"green"'
+    color4: '"black"'
+    color5: '"cyan"'
+    color6: '"magenta"'
+    color7: '"yellow"'
+    color8: '"dark red"'
+    color9: '"dark green"'
+    comment: ''
+    grid: 'True'
+    gui_hint: ''
+    label1: Welch's Method
+    label10: ''
+    label2: Filter Spectrum
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '""'
+    nconnections: '2'
+    ref_level: '0'
+    showports: 'False'
+    update_time: '0.10'
+    vlen: fft_len
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    x_axis_label: Frequency
+    x_start: -samp_rate/2/1e6
+    x_step: samp_rate/fft_len/1e6
+    x_units: MHz
+    y_axis_label: Power Spectrum Density
+    y_units: dB
+    ymax: '40'
+    ymin: '-40'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1672, 588.0]
+    rotation: 0
+    state: true
+- name: specest_burg_0
+  id: specest_burg
+  parameters:
+    affinity: ''
+    alias: ''
+    blocklen: '256'
+    comment: ''
+    decimation: '1'
+    fftlen: fft_len
+    fftshift: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    order: '6'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [976, 160.0]
+    rotation: 0
+    state: true
+- name: specest_welch_0
+  id: specest_welch
+  parameters:
+    affinity: ''
+    alias: ''
+    beta: '6.76'
+    comment: ''
+    fftlen: fft_len
+    fftshift: 'True'
+    malen: '8'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    overlap: '-1'
+    wintype: firdes.WIN_BLACKMAN
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [984, 496.0]
+    rotation: 0
+    state: true
+
+connections:
+- [analog_fastnoise_source_x_0, '0', blocks_throttle_0, '0']
+- [blocks_nlog10_ff_0, '0', qtgui_vector_sink_f_0, '0']
+- [blocks_nlog10_ff_0_0, '0', qtgui_vector_sink_f_0_0, '0']
+- [blocks_nlog10_ff_0_0_0, '0', qtgui_vector_sink_f_0, '1']
+- [blocks_nlog10_ff_0_0_0_0, '0', qtgui_vector_sink_f_0_0, '1']
+- [blocks_throttle_0, '0', iir_filter_xxx_0, '0']
+- [blocks_vector_source_x_0, '0', blocks_nlog10_ff_0_0_0, '0']
+- [blocks_vector_source_x_0_0, '0', blocks_nlog10_ff_0_0_0_0, '0']
+- [iir_filter_xxx_0, '0', specest_burg_0, '0']
+- [iir_filter_xxx_0, '0', specest_welch_0, '0']
+- [specest_burg_0, '0', blocks_nlog10_ff_0, '0']
+- [specest_welch_0, '0', blocks_nlog10_ff_0_0, '0']
+
+metadata:
+  file_format: 1

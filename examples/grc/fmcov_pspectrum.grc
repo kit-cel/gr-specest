@@ -24,6 +24,9 @@ options:
     title: Fast-Modifid Covariance PSD Estimator
     window_size: ''
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [8, 8]
     rotation: 0
     state: enabled
@@ -44,6 +47,9 @@ blocks:
     value: '.4'
     widget: counter_slider
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [832, 32.0]
     rotation: 0
     state: true
@@ -53,6 +59,9 @@ blocks:
     comment: ''
     value: '256'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [448, 48.0]
     rotation: 0
     state: enabled
@@ -71,6 +80,9 @@ blocks:
     value: '.2'
     widget: counter_slider
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [600, 32.0]
     rotation: 0
     state: true
@@ -88,6 +100,9 @@ blocks:
     seed: '0'
     type: complex
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [56, 432.0]
     rotation: 0
     state: true
@@ -102,10 +117,14 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
     offset: '0'
+    phase: '0'
     samp_rate: '1'
     type: complex
     waveform: analog.GR_COS_WAVE
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [72, 240.0]
     rotation: 0
     state: true
@@ -121,6 +140,9 @@ blocks:
     type: complex
     vlen: '1'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [440, 272.0]
     rotation: 0
     state: true
@@ -136,7 +158,10 @@ blocks:
     n: '10'
     vlen: fft_len
   states:
-    coordinate: [1400, 256.0]
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1360, 256.0]
     rotation: 0
     state: true
 - name: blocks_throttle_1
@@ -152,6 +177,9 @@ blocks:
     type: complex
     vlen: '1'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [616, 272.0]
     rotation: 0
     state: true
@@ -222,7 +250,10 @@ blocks:
     ymax: '50'
     ymin: '-20'
   states:
-    coordinate: [1640, 192.0]
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1600, 192.0]
     rotation: 0
     state: true
 - name: specest_fmcov_0
@@ -239,6 +270,9 @@ blocks:
     minoutbuf: '0'
     order: '12'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [888, 244.0]
     rotation: 0
     state: true
