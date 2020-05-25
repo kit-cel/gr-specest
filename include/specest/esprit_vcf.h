@@ -29,7 +29,7 @@ namespace specest {
 
 /*! ESPRIT Parametric Spectrum Estimator
  *
- * This block will consume \p nsamples as a vector, and will then output \p
+ * This block will consume \p nsamples as a vector, and will then output \p n
  * omega values as estimates.
  *
  * Note: This is a wrapper around the ZESPRIT() function.

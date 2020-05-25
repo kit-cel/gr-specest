@@ -38,9 +38,6 @@ esprit::sptr esprit::make(unsigned int n,
         new esprit_impl(n, m, nsamples, pspectrum_len, decimation));
 }
 
-/*
- * The private constructor
- */
 esprit_impl::esprit_impl(unsigned int n,
                          unsigned int m,
                          unsigned int nsamples,
@@ -60,9 +57,6 @@ esprit_impl::esprit_impl(unsigned int n,
     connect(d_esprit, 0, self(), 0);
 }
 
-/*
- * Our virtual destructor.
- */
 esprit_impl::~esprit_impl() {}
 
 unsigned int esprit_impl::decimation() { return d_decimation; }

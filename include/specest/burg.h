@@ -41,36 +41,29 @@ namespace specest {
  *
  * \ingroup specest
  */
-
-/**
- * \param block_len Number of input samples to be analysed for one output vector
- * \param fft_len Number of points in FFT (equal to the output vector length)
- * \param order The order of the AR model
- * \param fftshift True means DC is shifted to the middle
- * \param decimation Only process every n-th block. Results in less
- *                   operations per input sample, but results in a lower
- *                   update rate of the spectrum estimate.
- */
-
 class SPECEST_API burg : virtual public gr::hier_block2
 {
 public:
     typedef boost::shared_ptr<burg> sptr;
 
-    /*!
-     * \brief Return a shared_ptr to a new instance of specest::burg.
-     *
-     * To avoid accidental use of raw pointers, specest::burg's
-     * constructor is in a private implementation
-     * class. specest::burg::make is the public interface for
-     * creating new instances.
+    /**
+     * \param block_len Number of input samples to be analysed for one output vector
+     *                  (chunk size)
+     * \param fft_len Number of points in FFT (equal to the output vector length)
+     * \param order The order of the AR model
+     * \param fftshift True means DC is shifted to the middle
+     * \param decimation Only process every n-th block. Results in fewer
+     *                   operations per input sample, but also in a lower
+     *                   update rate of the spectrum estimate.
      */
     static sptr make(unsigned block_len,
                      unsigned fft_len,
                      unsigned order,
                      bool fftshift = false,
                      int decimation = 1);
-    virtual void set_decimation(int n) = 0; //!< Update the decimation rate at the input
+
+    //! Update the decimation rate at the input
+    virtual void set_decimation(int n) = 0;
 };
 
 } // namespace specest

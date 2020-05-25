@@ -29,7 +29,13 @@ inline double mag_square(gr_complexd c)
 
 
 arburg_algo::arburg_algo(unsigned blocklen, unsigned order)
-    : d_blocklen(blocklen), d_order(order)
+    : d_blocklen(blocklen),
+      d_order(order),
+      d_ef(d_blocklen),
+      d_eb(d_blocklen),
+      d_efp(d_blocklen),
+      d_arcoeff(d_order + 1),
+      d_arcoeff2(d_order + 1)
 {
     if (order > blocklen) {
         throw std::invalid_argument("arburg_algo: order cannot exceed block length.");
@@ -38,44 +44,25 @@ arburg_algo::arburg_algo(unsigned blocklen, unsigned order)
         throw std::invalid_argument(
             "arburg_algo: block length and order must be at least 1.");
     }
-
-    d_ef = new gr_complexd[d_blocklen];
-    d_eb = new gr_complexd[d_blocklen];
-    d_efp = new gr_complexd[d_blocklen];
-    d_arcoeff = new gr_complexd[d_order + 1];
-    d_arcoeff2 = new gr_complexd[d_order + 1];
 }
 
 
-arburg_algo::~arburg_algo()
-{
-    delete[] d_ef;
-    delete[] d_eb;
-    delete[] d_efp;
-    delete[] d_arcoeff;
-    delete[] d_arcoeff2;
-}
-
+arburg_algo::~arburg_algo() {}
 
 void arburg_algo::set_order(unsigned order)
 {
     d_order = order;
-    delete[] d_arcoeff;
-    delete[] d_arcoeff2;
-    d_arcoeff = new gr_complexd[d_order + 1];
-    d_arcoeff2 = new gr_complexd[d_order + 1];
+    d_arcoeff.resize(order+1);
+    d_arcoeff2.resize(order+1);
 }
 
 
 void arburg_algo::set_blocklen(unsigned blocklen)
 {
     d_blocklen = blocklen;
-    delete[] d_ef;
-    delete[] d_eb;
-    delete[] d_efp;
-    d_ef = new gr_complexd[d_blocklen];
-    d_eb = new gr_complexd[d_blocklen];
-    d_efp = new gr_complexd[d_blocklen];
+    d_ef.resize(d_blocklen);
+    d_eb.resize(d_blocklen);
+    d_efp.resize(d_blocklen);
 }
 
 
@@ -109,7 +96,7 @@ float arburg_algo::calculate(const gr_complex* data, gr_complex* ar_coeff, int n
         }
         var *= (1 - mag_square(k));
 
-        memcpy(d_arcoeff2 + 1, d_arcoeff + 1, sizeof(gr_complexd) * p);
+        memcpy(&d_arcoeff2[1], &d_arcoeff[1], sizeof(gr_complexd) * p);
         for (unsigned r = 1; r <= p; r++)
             d_arcoeff[r] += conj(d_arcoeff2[p + 1 - r]) * k;
         d_arcoeff[p + 1] = k;
