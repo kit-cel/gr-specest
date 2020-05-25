@@ -19,6 +19,7 @@
 
 #include <gnuradio/gr_complex.h>
 #include <specest/api.h>
+#include <vector>
 
 class SPECEST_API arburg_algo
 {
@@ -49,11 +50,11 @@ private:
     unsigned d_blocklen; //!< Block length of input sample vectors
     unsigned d_order;    //!< The order of the AR model which is estimated
 
-    gr_complexd* d_ef;       //!< Buffer for forward prediction error
-    gr_complexd* d_eb;       //!< Buffer for backward prediction error
-    gr_complexd* d_efp;      //!< Buffer for current (p-th) forward prediction error
-    gr_complexd* d_arcoeff;  //!< Temporary buffer for AR coefficients
-    gr_complexd* d_arcoeff2; //!< 2nd temporary buffer for AR coefficients
+    std::vector<gr_complexd> d_ef;       //!< Buffer for forward prediction error
+    std::vector<gr_complexd> d_eb;       //!< Buffer for backward prediction error
+    std::vector<gr_complexd> d_efp;      //!< Buffer for current (p-th) forward prediction error
+    std::vector<gr_complexd> d_arcoeff;  //!< Temporary buffer for AR coefficients
+    std::vector<gr_complexd> d_arcoeff2; //!< 2nd temporary buffer for AR coefficients
 
     void init_buffers(const gr_complex* data, double& var);
     gr_complexd calc_k(int p);

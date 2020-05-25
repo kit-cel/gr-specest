@@ -31,7 +31,8 @@ namespace specest {
 /**
  * \brief Estimate PSD using the (fast) modified covariance method.
  *
- * Split the input stream into chunks, and performs the following operation on each chunk:
+ * Split the input stream into chunks, and performs the following operation on
+ * each chunk:
  * - Calculate the AR coefficients of the given order by Marple's fast modified
  *   covariance algorithm
  * - Use an FFT on the coefficients to calculate the spectral estimate
@@ -51,15 +52,18 @@ public:
      * \param fft_len Number of points in FFT (equal to the output vector length)
      * \param order The order of the AR model
      * \param fftshift True means DC is shifted to the middle
-     * \param decimation Only process every n-th block. Results in less operations per input
-     * sample, but results in a lower update rate of the spectrum estimate.
+     * \param decimation Only process every n-th block. Results in fewer
+     *                   operations per input sample, but results in a lower
+     *                   update rate of the spectral estimate.
      */
     static sptr make(unsigned block_len,
                      unsigned fft_len,
                      unsigned order,
                      bool fftshift = false,
                      int decimation = 1);
-    virtual void set_decimation(int n) = 0; //!< Update the decimation rate at the input
+
+    //! Update the decimation rate at the input
+    virtual void set_decimation(int n) = 0;
 };
 
 } // namespace specest

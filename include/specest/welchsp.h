@@ -35,7 +35,7 @@ namespace specest {
  *
  * This estimator almost works exactly like specest_welch, but the moving average
  * is replaced by a single-pole IIR filter. This copies what's happening in
- * uhd_fft.py
+ * the QT Frequency Sink
  *
  */
 class SPECEST_API welchsp : virtual public gr::hier_block2

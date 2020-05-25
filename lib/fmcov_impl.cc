@@ -56,9 +56,6 @@ fmcov::sptr fmcov::make(
         new fmcov_impl(block_len, fft_len, order, fftshift, decimation));
 }
 
-/*
- * The private constructor
- */
 fmcov_impl::fmcov_impl(
     unsigned block_len, unsigned fft_len, unsigned order, bool fftshift, int decimation)
     : gr::hier_block2("fmcov",
@@ -88,9 +85,6 @@ fmcov_impl::fmcov_impl(
     connect(d_divide, 0, self(), 0);
 }
 
-/*
- * Our virtual destructor.
- */
 fmcov_impl::~fmcov_impl() {}
 
 void fmcov_impl::set_decimation(int n) { d_keep_one_in_n->set_n(n); }

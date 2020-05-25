@@ -88,9 +88,6 @@ burg_impl::burg_impl(
     connect(d_divide, 0, self(), 0);
 }
 
-/*
- * Our virtual destructor.
- */
 burg_impl::~burg_impl() {}
 
 void burg_impl::set_decimation(int n) { d_keep_one_in_n->set_n(n); }
