@@ -36,7 +36,6 @@ namespace specest {
  * This estimator almost works exactly like specest_welch, but the moving average
  * is replaced by a single-pole IIR filter. This copies what's happening in
  * the QT Frequency Sink
- *
  */
 class SPECEST_API welchsp : virtual public gr::hier_block2
 {
@@ -44,18 +43,29 @@ public:
     typedef boost::shared_ptr<welchsp> sptr;
 
     /*!
-     * \brief Return a shared_ptr to a new instance of specest::welchsp.
-     *
-     * To avoid accidental use of raw pointers, specest::welchsp's
-     * constructor is in a private implementation
-     * class. specest::welchsp::make is the public interface for
-     * creating new instances.
+     * \param fft_len FFT length
+     * \param overlap Number of samples overlap per periodogram. A value of -1
+     *                sets it to fft_len/2.
+     * \param alpha Averaging coefficient
+     * \param fft_shift If true, DC is shifted to the middle
+     * \param window Window taps. Must have the same length as fft_len
      */
     static sptr make(unsigned fft_len,
                      int overlap,
                      double alpha,
                      bool fft_shift,
                      const std::vector<float>& window);
+
+    /*!
+     * \param fft_len FFT length
+     * \param overlap Number of samples overlap per periodogram. A value of -1
+     *                sets it to fft_len/2.
+     * \param alpha Averaging coefficient
+     * \param fft_shift If true, DC is shifted to the middle
+     * \param window Window type. The window taps are auto-calculated from
+     *               \p fft_len and \p beta
+     *\param beta Additional window parameter (see gr::filter::firdes::window)
+     */
     static sptr make(unsigned fft_len,
                      int overlap = -1,
                      double alpha = .1,
