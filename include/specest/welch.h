@@ -30,18 +30,14 @@
 namespace gr {
 namespace specest {
 
-/*
- * \brief Create a Welch spectrum estimator with user defined window
- */
-
 /**
  * \brief Estimate spectral density Sxx(w) using Welch's method.
  *
  * The estimator works on complex input signals. If \p overlap is left unspecified or -1,
  * a 50% overlap is calculated. The standard window is a Hamming window, but can be
- * changed to be anything else. The output is vector containing the moving average of the
+ * changed to be anything else. The output is a vector containing the moving average of the
  * last \p ma_len overlapping, windowed periodograms signal segments. The first element is
- * Sxx(0), then goes up to Sxx(pi) and wraps around to Sxx(-pi) - unless \p fft_shift is
+ * Sxx(0), then goes up to Sxx(pi) and wraps around to Sxx(-pi), unless \p fft_shift is
  * set to True, in which case the DC carrier is shifted to the middle. The sum over one
  * output vector multiplied by 2 * pi / \p fft_len is the estimated power in the last \p
  * ma_len blocks.
@@ -55,18 +51,29 @@ public:
     typedef boost::shared_ptr<welch> sptr;
 
     /*!
-     * \brief Return a shared_ptr to a new instance of specest::welch.
-     *
-     * To avoid accidental use of raw pointers, specest::welch's
-     * constructor is in a private implementation
-     * class. specest::welch::make is the public interface for
-     * creating new instances.
+     * \param fft_len FFT length
+     * \param overlap Number of samples overlap per periodogram. A value of -1
+     *                sets it to fft_len/2.
+     * \param ma_len Moving-Average Length (number of periodograms to average)
+     * \param fft_shift If true, DC is shifted to the middle
+     * \param window Window taps. Must have the same length as fft_len
      */
     static sptr make(unsigned fft_len,
                      int overlap,
                      int ma_len,
                      bool fft_shift,
                      const std::vector<float>& window);
+
+    /*!
+     * \param fft_len FFT length
+     * \param overlap Number of samples overlap per periodogram. A value of -1
+     *                sets it to fft_len/2.
+     * \param ma_len Moving-Average Length (number of periodograms to average)
+     * \param fft_shift If true, DC is shifted to the middle
+     * \param window Window type. The window taps are auto-calculated from
+     *               \p fft_len and \p beta
+     *\param beta Additional window parameter (see gr::filter::firdes::window)
+     */
     static sptr make(unsigned fft_len,
                      int overlap = -1,
                      int ma_len = 8,
